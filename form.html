@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Discovery | MEERA WEB DESIGNS</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* ==========================================================================
+           1. CYBER-EDITORIAL NEON DESIGN SYSTEM
+           ========================================================================== */
+        :root {
+            --bg-oatmilk: #f7f5f0;
+            --surface-paper: #ffffff;
+            --surface-warm: #eae6db;
+            --ink-rich: #1c1c1a;
+            --ink-muted: #706b60;
+            --accent-terracotta: #cc7b65;
+            --border-delicate: rgba(28, 28, 28, 0.08);
+            
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-glow-cyan: 0 0 12px rgba(0, 243, 255, 0.85), 0 0 24px rgba(0, 243, 255, 0.4);
+            --neon-glow-pink: 0 0 12px rgba(255, 0, 127, 0.85), 0 0 24px rgba(255, 0, 127, 0.4);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --radius-pinterest: 24px;
+            
+            --cursor-size: 12px;
+            --cursor-halo-size: 30px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none;
+        }
+
+        body {
+            background-color: var(--bg-oatmilk);
+            color: var(--ink-rich);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Ambient Cyber Scanline */
+        .cyber-scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), transparent);
+            z-index: 2000; opacity: 0.8;
+        }
+
+        /* Custom Cursor */
+        .cursor-dot {
+            position: fixed; top: 0; left: 0;
+            width: var(--cursor-size); height: var(--cursor-size);
+            background-color: var(--ink-rich); border-radius: 50%;
+            pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+        .cursor-halo {
+            position: fixed; top: 0; left: 0;
+            width: var(--cursor-halo-size); height: var(--cursor-halo-size);
+            background-color: rgba(28, 28, 26, 0.05); border: 1px solid rgba(28, 28, 26, 0.1);
+            border-radius: 50%; pointer-events: none; z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s cubic-bezier(0.1, 0.8, 0.3, 1), height 0.4s cubic-bezier(0.1, 0.8, 0.3, 1);
+        }
+        body.hovering .cursor-halo {
+            width: 55px; height: 55px;
+            background-color: rgba(0, 243, 255, 0.05); border: 2px solid var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+        }
+        body.hovering .cursor-dot {
+            background-color: var(--neon-pink); box-shadow: var(--neon-glow-pink);
+            width: 6px; height: 6px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: rgba(247, 245, 240, 0.80);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-delicate);
+            padding: 1.25rem 2.5rem; display: flex; justify-content: center;
+            align-items: center; width: 100%; position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 1400px;
+        }
+        .nav-logo-embed {
+            font-family: var(--font-serif); font-size: 1.6rem; font-weight: 700;
+            letter-spacing: 5px; text-transform: uppercase; color: var(--ink-rich);
+            text-decoration: none; transition: all 0.3s ease;
+        }
+        .nav-logo-embed:hover { color: var(--neon-cyan); text-shadow: var(--neon-glow-cyan); }
+        .nav-status {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--accent-terracotta);
+        }
+
+        /* ==========================================================================
+           2. DISCOVERY PIPELINE CONTAINER
+           ========================================================================== */
+        .discovery-container {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            padding: 80px 20px;
+        }
+
+        #qa-box {
+            width: 100%; max-width: 650px; background: var(--surface-paper);
+            padding: 50px 40px; border: 1px solid var(--border-delicate);
+            border-radius: var(--radius-pinterest); box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+            position: relative; overflow: hidden;
+        }
+
+        /* Cyber Brackets */
+        #qa-box::before, #qa-box::after {
+            content: ''; position: absolute; width: 16px; height: 16px;
+            border-color: var(--border-delicate); border-style: solid;
+        }
+        #qa-box::before { top: 20px; left: 20px; border-top-width: 2px; border-left-width: 2px; }
+        #qa-box::after { bottom: 20px; right: 20px; border-bottom-width: 2px; border-right-width: 2px; }
+
+        /* Steps Engine */
+        .step { display: none; }
+        .step.active { display: block; animation: stepEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes stepEnter { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .step-header { margin-bottom: 30px; text-align: left; }
+        .step-number {
+            font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px; color: var(--accent-terracotta);
+            display: block; margin-bottom: 8px;
+        }
+        .step-header h3 { font-family: var(--font-serif); font-size: 2rem; color: var(--ink-rich); line-height: 1.25; }
+
+        /* Form Inputs */
+        input[type="text"], input[type="url"], select, textarea {
+            width: 100%; padding: 16px 20px; margin-bottom: 10px; background: var(--bg-oatmilk);
+            border: 1px solid var(--border-delicate); border-radius: 12px;
+            font-family: var(--font-sans); font-size: 1rem; color: var(--ink-rich);
+            box-sizing: border-box; transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--neon-cyan); background: var(--surface-paper);
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.15);
+        }
+
+        .error-message {
+            color: var(--neon-pink); font-size: 0.85rem; font-weight: 600; text-align: left;
+            margin-top: 5px; height: 20px; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .error-message.visible { opacity: 1; }
+
+        /* MCQ Engine */
+        .mcq-container { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 10px; }
+        .mcq-card {
+            background: var(--bg-oatmilk); border: 1px solid var(--border-delicate);
+            padding: 18px 22px; border-radius: 14px; text-align: left;
+            transition: all 0.3s ease; position: relative;
+        }
+        .mcq-card:hover { border-color: var(--neon-pink); background: var(--surface-paper); }
+        .mcq-card.selected {
+            border-color: var(--neon-cyan); background: var(--surface-paper); box-shadow: var(--neon-glow-cyan);
+        }
+        .mcq-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+        .mcq-label { font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; }
+
+        /* Final Confirmation Step Customizations */
+        .confirmation-box {
+            text-align: center; padding: 20px; background: rgba(0, 243, 255, 0.05);
+            border: 1px solid var(--neon-cyan); border-radius: 16px; margin-bottom: 20px;
+        }
+        .confirmation-box i { font-size: 3rem; color: var(--neon-cyan); margin-bottom: 15px; }
+
+        /* Controls */
+        .form-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 40px; gap: 15px; }
+        button {
+            padding: 14px 34px; font-family: var(--font-sans); font-weight: 700;
+            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px;
+            border-radius: 50px; border: 1px solid transparent; transition: all 0.3s ease;
+        }
+        .btn-next { background: var(--ink-rich); color: white; flex: 2; }
+        .btn-next:hover { background: var(--ink-rich); color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: var(--neon-glow-cyan); }
+        .btn-back { background: transparent; border: 1px solid var(--border-delicate); color: var(--ink-muted); flex: 1; }
+        .btn-back:hover { border-color: var(--ink-rich); color: var(--ink-rich); }
+
+        .progress-bar-container {
+            width: 100%; height: 4px; background: var(--surface-warm); position: absolute; bottom: 0; left: 0;
+        }
+        .progress-bar-fill {
+            height: 100%; width: 3%; background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* ==========================================================================
+           3. FLOATING WHATSAPP BAR & FOOTER
+           ========================================================================== */
+        .whatsapp-cyber-bar {
+            position: fixed; bottom: 30px; right: 30px; z-index: 999;
+            display: flex; align-items: center; gap: 0.75rem;
+            background: rgba(28, 28, 26, 0.95); border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 0.75rem 1.25rem; border-radius: 50px; color: var(--bg-oatmilk);
+            text-transform: uppercase; font-family: var(--font-sans); font-weight: 700;
+            font-size: 0.75rem; letter-spacing: 1.5px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); text-decoration: none;
+        }
+        .whatsapp-cyber-bar i { font-size: 1.25rem; color: var(--neon-cyan); transition: transform 0.4s ease; }
+        .whatsapp-cyber-bar .bar-text {
+            max-width: 0; overflow: hidden; white-space: nowrap; opacity: 0;
+            transition: max-width 0.4s ease, opacity 0.3s ease;
+        }
+        .whatsapp-cyber-bar::after {
+            content: ''; position: absolute; inset: -2px; border-radius: 50px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            z-index: -1; opacity: 0.15; transition: opacity 0.4s;
+        }
+        .whatsapp-cyber-bar:hover {
+            border-color: var(--neon-cyan); box-shadow: var(--neon-glow-cyan);
+            transform: translateY(-4px); color: #ffffff;
+        }
+        .whatsapp-cyber-bar:hover .bar-text { max-width: 120px; opacity: 1; }
+        .whatsapp-cyber-bar:hover i { transform: scale(1.15) rotate(8deg); filter: drop-shadow(0 0 5px var(--neon-cyan)); }
+
+        .footer {
+            background-color: var(--surface-warm); padding: 10vh 0 5vh 0;
+            margin-top: auto; text-align: center; border-top: 1px solid var(--border-delicate);
+        }
+        .footer-links { display: flex; justify-content: center; gap: 3rem; margin-bottom: 4rem; flex-wrap: wrap; }
+        .footer-link {
+            font-family: var(--font-serif); font-size: 1.5rem; font-style: italic;
+            position: relative; padding: 0.5rem 1.25rem; border-radius: 12px; transition: all 0.3s;
+        }
+        .footer-link:hover { color: var(--neon-pink); background: var(--ink-rich); box-shadow: var(--neon-glow-pink); }
+        .copyright { font-family: monospace; font-size: 0.75rem; color: var(--ink-muted); opacity: 0.7; letter-spacing: 1px; }
+
+        @media(max-width: 768px) {
+            #qa-box { padding: 35px 20px; }
+            .step-header h3 { font-size: 1.6rem; }
+            .whatsapp-cyber-bar { bottom: 20px; right: 20px; padding: 0.75rem; }
+            .whatsapp-cyber-bar .bar-text { display: none; }
+            .footer-links { gap: 1.5rem; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-scanline"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-halo" id="cursor-halo"></div>
+
+    <nav class="navbar">
+ 
+            <div class="nav-links-left">
+             </div>
+            <div class="nav-logo-zone">
+                <a href="index.html" class="nav-logo-embed hover-target">MEERA WEB DESIGN.</a>
+        </div>
+    </nav>
+
+
+    <main class="discovery-container">
+        <div id="qa-box">
+            <form id="discoveryForm" onsubmit="event.preventDefault();">
+                <div id="steps-container">
+                    
+                    <div class="step active" data-required="true">
+                        <div class="step-header">
+                            <span class="step-number">01 / 16</span>
+                            <h3>What is your business, brand, or project name?</h3>
+                        </div>
+                        <input type="text" name="brand_name" class="hover-target" placeholder="e.g., Mashroob Luxury Retail">
+                        <div class="error-message">This field is vital to initialize the layout matrix.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header">
+                            <span class="step-number">02 / 16</span>
+                            <h3>What industry domain do you operate within?</h3>
+                        </div>
+                        <input type="text" name="industry" class="hover-target" placeholder="e.g., Hospitality, E-Commerce, Artisanal Culinary">
+                        <div class="error-message">Please state your sector domain.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header">
+                            <span class="step-number">03 / 16</span>
+                            <h3>Select your preferred aesthetic direction:</h3>
+                        </div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label">
+                                    <input type="radio" name="aesthetic_archetype" value="Cyber-Editorial (Neon Highlights + Minimal Grids)">
+                                    Cyber-Editorial (Neon Highlights + Minimal Grids)
+                                </label>
+                            </div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label">
+                                    <input type="radio" name="aesthetic_archetype" value="Warm Minimalist (Calm Typography + Warm Earth Tones)">
+                                    Warm Minimalist (Calm Typography + Warm Earth Tones)
+                                </label>
+                            </div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label">
+                                    <input type="radio" name="aesthetic_archetype" value="High-Octane Sensory (Bold, Full-Asset Displays)">
+                                    High-Octane Sensory (Bold, Full-Asset Displays)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="error-message">Please isolate a structural aesthetic configuration.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header">
+                            <span class="step-number">04 / 16</span>
+                            <h3>What is the primary operational task of this web interface?</h3>
+                        </div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label"><input type="radio" name="primary_objective" value="E-Commerce Storefront (Native Orders)">E-Commerce Storefront (Native Orders & Scaling)</label>
+                            </div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label"><input type="radio" name="primary_objective" value="Lead Routing (Instant WhatsApp Stream)">Frictionless Lead Routing (Instant WhatsApp Stream)</label>
+                            </div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)">
+                                <label class="mcq-label"><input type="radio" name="primary_objective" value="High-Fidelity Portfolio Showcase">High-Fidelity Portfolio Showcase & Branding</label>
+                            </div>
+                        </div>
+                        <div class="error-message">An execution strategy roadmap target is required.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header"><span class="step-number">05 / 16</span><h3>Domain and host setup status:</h3></div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="infrastructure" value="Ready">Yes, completely configured</label></div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="infrastructure" value="Need Setup">No, I require structural hosting assistance</label></div>
+                        </div>
+                        <div class="error-message">Please select your infrastructure state.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">06 / 16</span><h3>Approximate visual pages needed:</h3></div>
+                        <select name="page_volume" class="hover-target">
+                            <option value="">-- Choose Profile Map --</option>
+                            <option value="Single-Page Pipeline Architecture">Single-Page Pipeline Architecture</option>
+                            <option value="Multi-Page Ecosystem (2-5 Focus Modules)">Multi-Page Ecosystem (2-5 Focus Modules)</option>
+                            <option value="Complex Footprint Layouts (6+ Modules)">Complex Footprint Layouts (6+ Dedicated Channels)</option>
+                        </select>
+                        <div class="error-message">Determine an approximate content page footprint.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header"><span class="step-number">07 / 16</span><h3>Required system integrations:</h3></div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="integrations" value="WhatsApp API Routing">Automated WhatsApp API Routing Engine</label></div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="integrations" value="Standard Contact Modules">Standard High-Velocity Contact Modules</label></div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="integrations" value="E-Commerce Native Engine">E-Commerce Core Native Transaction Engine</label></div>
+                        </div>
+                        <div class="error-message">An integration mapping standard must be declared.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">08 / 16</span><h3>Brand personality in 3 keywords:</h3></div>
+                        <input type="text" name="brand_keywords" class="hover-target" placeholder="e.g., Premium, Disruptive, Kinetic">
+                        <div class="error-message">Three core semantic hooks are necessary.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">09 / 16</span><h3>Preferred layout palette configuration?</h3></div>
+                        <input type="text" name="palette" class="hover-target" placeholder="e.g., Deep Ink Darkmode, Oatmilk & Terracotta light">
+                        <div class="error-message">Specify tone maps.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">10 / 16</span><h3>Link to a website you love:</h3></div>
+                        <input type="url" name="benchmark_love" class="hover-target" placeholder="https://example.com">
+                        <div class="error-message">A valid reference URL is required.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">11 / 16</span><h3>Top competitors you intend to beat:</h3></div>
+                        <input type="text" name="competitors" class="hover-target" placeholder="e.g., Competitor Brand A, Competitor B">
+                        <div class="error-message">Inputting targets informs our layout logic.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header"><span class="step-number">12 / 16</span><h3>Status of project copy and visual assets?</h3></div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="assets" value="Fully Ready">Assets & copywriting are ready for staging</label></div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="assets" value="Needs Setup">Partially deployed - I need support organizing assets</label></div>
+                        </div>
+                        <div class="error-message">Update asset inventory metrics.</div>
+                    </div>
+
+                    <div class="step" data-required="true" data-type="mcq">
+                        <div class="step-header"><span class="step-number">13 / 16</span><h3>Budget scale bracket classification:</h3></div>
+                        <div class="mcq-container">
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="budget" value="Standard High-Velocity Deployment">Standard High-Velocity Layout Deployment</label></div>
+                            <div class="mcq-card hover-target" onclick="selectMcqCard(this)"><label class="mcq-label"><input type="radio" name="budget" value="Premium Custom Framework">Premium Custom Structural Framework Mapping</label></div>
+                        </div>
+                        <div class="error-message">Budget classification locks scope velocity bounds.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">14 / 16</span><h3>Principal human point of contact:</h3></div>
+                        <input type="text" name="contact_person" class="hover-target" placeholder="Your Name & Position">
+                        <div class="error-message">We require your identity string.</div>
+                    </div>
+
+                    <div class="step" data-required="true">
+                        <div class="step-header"><span class="step-number">15 / 16</span><h3>Describe your ultimate project vision:</h3></div>
+                        <textarea name="ultimate_vision" class="hover-target" rows="4" placeholder="Detail any critical workflows, sensory goals, or logic maps..."></textarea>
+                        <div class="error-message">Please unpack your architectural intent.</div>
+                    </div>
+
+                    <div class="step" data-required="false">
+                        <div class="step-header" style="text-align: center;">
+                            <span class="step-number">16 / 16</span>
+                            <h3>Pipeline Data Ready For Compilation</h3>
+                        </div>
+                        <div class="confirmation-box">
+                            <i class="ph ph-fingerprint"></i>
+                            <p><strong>System check complete.</strong> Clicking below will encrypt your responses into a secure stream and route them directly to our Studio's WhatsApp terminal for immediate review.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-back hover-target" id="backBtn" onclick="prevStep()" style="display: none;">Back</button>
+                    <button type="button" class="btn-next hover-target" id="nextBtn" onclick="processStep()">Next Module →</button>
+                </div>
+
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progressFill"></div></div>
+            </form>
+        </div>
+    </main>
+
+    <a href="https://wa.me/923286509300" target="_blank" class="whatsapp-cyber-bar hover-target">
+        <i class="ph ph-whatsapp-logo"></i>
+        <span class="bar-text">Secure Stream</span>
+    </a>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://wa.me/923286509300" target="_blank" class="footer-link hover-target">+92 328 6509300</a>
+                <a href="https://github.com/MEERA-WEB-DESIGNS/" target="_blank" class="footer-link hover-target">MEERA-WEB-DESIGNS</a>
+                <a href="https://www.instagram.com/shaaeyan/" target="_blank" class="footer-link hover-target">@shaaeyan</a>
+            </div>
+            <div class="copyright">
+                © 2026 MEERA WEB DESIGN. ECOSYSTEM DRIVEN BY HIGH-FIDELITY CYBER ETHICS. MULTAN, PAKISTAN.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStepIndex = 0;
+        const steps = document.querySelectorAll('.step');
+        const nextBtn = document.getElementById('nextBtn');
+        const backBtn = document.getElementById('backBtn');
+        const progressFill = document.getElementById('progressFill');
+
+        // MCQ Engine
+        function selectMcqCard(cardElement) {
+            const container = cardElement.closest('.mcq-container');
+            container.querySelectorAll('.mcq-card').forEach(card => card.classList.remove('selected'));
+            
+            cardElement.classList.add('selected');
+            const radioInput = cardElement.querySelector('input[type="radio"]');
+            radioInput.checked = true;
+
+            const currentStep = cardElement.closest('.step');
+            currentStep.querySelector('.error-message')?.classList.remove('visible');
+        }
+
+        // Forward Validation
+        function validateStep(stepIndex) {
+            const currentStep = steps[stepIndex];
+            const isRequired = currentStep.getAttribute('data-required') === 'true';
+            
+            if (!isRequired) return true;
+
+            const isMcq = currentStep.getAttribute('data-type') === 'mcq';
+            const textInput = currentStep.querySelector('input, select, textarea');
+            const checkedMcq = currentStep.querySelector('input[type="radio"]:checked');
+            const errorMessage = currentStep.querySelector('.error-message');
+
+            if (isMcq) {
+                if (!checkedMcq) { errorMessage.classList.add('visible'); return false; }
+            } else if (textInput) {
+                if (textInput.value.trim() === "") { errorMessage.classList.add('visible'); return false; }
+            }
+            
+            errorMessage?.classList.remove('visible');
+            return true;
+        }
+
+        // Progress Logic
+        function processStep() {
+            if (!validateStep(currentStepIndex)) return;
+
+            if (currentStepIndex < steps.length - 1) {
+                steps[currentStepIndex].classList.remove('active');
+                currentStepIndex++;
+                steps[currentStepIndex].classList.add('active');
+                updateLayoutUI();
+            } else {
+                dispatchToWhatsApp();
+            }
+        }
+
+        function prevStep() {
+            if (currentStepIndex > 0) {
+                steps[currentStepIndex].classList.remove('active');
+                currentStepIndex--;
+                steps[currentStepIndex].classList.add('active');
+                updateLayoutUI();
+            }
+        }
+
+        function updateLayoutUI() {
+            backBtn.style.display = currentStepIndex === 0 ? 'none' : 'inline-block';
+
+            if (currentStepIndex === steps.length - 1) {
+                nextBtn.innerHTML = 'Initialize Transfer <i class="ph ph-paper-plane-tilt" style="margin-left: 8px; font-size: 1.1rem; vertical-align: middle;"></i>';
+                nextBtn.style.color = "var(--ink-rich)";
+                nextBtn.style.backgroundColor = "var(--neon-cyan)";
+                nextBtn.style.borderColor = "var(--neon-cyan)";
+                nextBtn.style.boxShadow = "var(--neon-glow-cyan)";
+            } else {
+                nextBtn.innerText = "Next Module →";
+                nextBtn.style.color = "";
+                nextBtn.style.backgroundColor = "";
+                nextBtn.style.borderColor = "";
+                nextBtn.style.boxShadow = "";
+            }
+
+            const percentage = ((currentStepIndex + 1) / steps.length) * 100;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        // Complete WhatsApp Construction & Routing Payload
+        function dispatchToWhatsApp() {
+            const formData = new FormData(document.getElementById('discoveryForm'));
+            let plainTextMsg = "⬛⬛ *MEERA WEB DESIGNS* ⬛⬛\n_New Discovery Pipeline Transmission_\n\n";
+            
+            const labelMap = {
+                "brand_name": "Project Brand Name",
+                "industry": "Industry Sector",
+                "aesthetic_archetype": "Aesthetic Target",
+                "primary_objective": "System Objective",
+                "infrastructure": "Infrastructure Status",
+                "page_volume": "Target Scope Footprint",
+                "integrations": "Integrations Required",
+                "brand_keywords": "Core Identity Hooks",
+                "palette": "Environment Palette",
+                "benchmark_love": "Inspirational Benchmark",
+                "competitors": "Competitor Matrix",
+                "assets": "Asset Readiness Status",
+                "budget": "Allocated Budget Profile",
+                "contact_person": "Human Point-of-Contact",
+                "ultimate_vision": "Architectural Vision"
+            };
+
+            for(let key of formData.keys()) {
+                let friendlyLabel = labelMap[key] ? labelMap[key] : key;
+                let value = formData.get(key);
+                // Building the string using \n for breaks
+                plainTextMsg += `*${friendlyLabel}:*\n${value}\n\n`;
+            }
+            
+            // Encode the fully built message perfectly to bypass URL breaking
+            const finalURI = encodeURIComponent(plainTextMsg);
+            
+            // Execute Stream
+            window.location.href = `https://wa.me/923286509300?text=${finalURI}`;
+        }
+
+        // ==========================================================================
+        // 4. EMBEDDED CURSOR ENGINE
+        // ==========================================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorHalo = document.getElementById('cursor-halo');
+            let mouseX = 0, mouseY = 0; let haloX = 0, haloY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`; cursorDot.style.top = `${mouseY}px`;
+            });
+
+            function animateCursor() {
+                const speed = 0.16;
+                haloX += (mouseX - haloX) * speed; haloY += (mouseY - haloY) * speed;
+                cursorHalo.style.left = `${haloX}px`; cursorHalo.style.top = `${haloY}px`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Hover Listeners
+            function bindHoverStates() {
+                document.querySelectorAll('.hover-target, button, input, textarea, select').forEach(el => {
+                    el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                    el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                });
+            }
+            bindHoverStates();
+
+            // Enter key interceptor inside inputs
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        processStep();
+                    }
+                });
+            });
+            
+            updateLayoutUI(); // Init first state
+        });
+    </script>
+</body>
+</html>

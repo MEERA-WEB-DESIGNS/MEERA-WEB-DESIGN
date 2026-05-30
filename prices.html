@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEERA WEB DESIGNS | Studio Pricing</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* * 1. THE CYBER-EDITORIAL NEON DESIGN SYSTEM */
+        :root {
+            --bg-oatmilk: #f7f5f0;
+            --surface-paper: #ffffff;
+            --surface-warm: #eae6db;
+            --ink-rich: #1c1c1a;
+            --ink-muted: #706b60;
+            --accent-terracotta: #cc7b65;
+            --accent-sage: #91a69b;
+            --border-delicate: rgba(28, 28, 28, 0.06);
+            
+            /* High-Intensity Neon Injections */
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-glow-cyan: 0 0 12px rgba(0, 243, 255, 0.85), 0 0 24px rgba(0, 243, 255, 0.4);
+            --neon-glow-pink: 0 0 12px rgba(255, 0, 127, 0.85), 0 0 24px rgba(255, 0, 127, 0.4);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --radius-pinterest: 32px;
+            
+            /* Reduced Cursor Size */
+            --cursor-size: 12px;
+            --cursor-halo-size: 30px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; 
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-oatmilk);
+            color: var(--ink-rich);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* * 2. MASHROOB STYLE NAVIGATION (2 BUTTONS + LOGO) */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(247, 245, 240, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-delicate);
+            padding: 1.5rem 0;
+            transition: all 0.4s ease;
+        }
+
+        .nav-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-links-left { display: flex; justify-content: flex-start; }
+        .nav-links-right { display: flex; justify-content: flex-end; }
+
+        .nav-link {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--ink-rich);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-pink);
+            text-shadow: var(--neon-glow-pink);
+        }
+
+        .nav-logo-embed {
+            display: inline-flex;
+            align-items: center;
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--ink-rich);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo-embed:hover {
+            color: var(--neon-cyan);
+            text-shadow: var(--neon-glow-cyan);
+            transform: scale(1.02);
+        }
+
+        /* * 3. ELECTRIC CUSTOM CURSOR STYLES */
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            background-color: var(--ink-rich);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .cursor-halo {
+            position: fixed;
+            top: 0; left: 0;
+            width: var(--cursor-halo-size);
+            height: var(--cursor-halo-size);
+            background-color: rgba(28, 28, 26, 0.05);
+            border: 1px solid rgba(28, 28, 26, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease, background-color 0.4s, border 0.4s;
+        }
+
+        body.hovering .cursor-halo {
+            width: 60px; height: 60px;
+            background-color: rgba(0, 243, 255, 0.05);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+        }
+
+        body.hovering .cursor-dot {
+            background-color: var(--neon-pink);
+            box-shadow: var(--neon-glow-pink);
+            width: 6px; height: 6px;
+        }
+
+        /* * TYPOGRAPHY & UTILITIES */
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 1.15; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; }
+        .section-padding { padding: 14vh 0; }
+        .text-muted { color: var(--ink-muted); }
+
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* * SECTION 1: HERO */
+        .hero {
+            padding: 180px 0 100px 0;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            color: var(--ink-rich);
+        }
+        .hero h1 i {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--ink-muted);
+            transition: all 0.4s ease;
+        }
+        .hero:hover h1 i { color: var(--neon-cyan); text-shadow: var(--neon-glow-cyan); }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--ink-muted);
+        }
+
+        /* * SECTION 2: PRICING GRID */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            align-items: stretch;
+        }
+
+        .pricing-card {
+            background: var(--surface-paper);
+            border-radius: var(--radius-pinterest);
+            padding: 3rem 2.5rem;
+            border: 1px solid var(--border-delicate);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s;
+            position: relative;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-pink);
+            box-shadow: var(--neon-glow-pink);
+        }
+
+        .pricing-card.featured:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+        }
+
+        .plan-name {
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-terracotta);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-card:hover .plan-name { color: var(--neon-pink); }
+        .pricing-card.featured:hover .plan-name { color: var(--neon-cyan); }
+
+        .price {
+            font-size: 3.5rem;
+            font-family: var(--font-serif);
+            color: var(--ink-rich);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        .price .currency {
+            font-size: 1.25rem;
+            font-family: var(--font-sans);
+            font-weight: 600;
+            color: var(--ink-muted);
+        }
+
+        .features-list {
+            margin-bottom: 3rem;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            color: var(--ink-rich);
+        }
+
+        .features-list li i {
+            color: var(--accent-sage);
+            font-size: 1.25rem;
+        }
+
+        .disclaimer {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            padding: 1rem;
+            background-color: var(--surface-warm);
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .btn-order {
+            display: block;
+            width: 100%;
+            padding: 1.1rem;
+            background-color: var(--surface-warm);
+            color: var(--ink-rich);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            text-align: center;
+            border-radius: 50px;
+            border: 1px solid var(--border-delicate);
+            transition: all 0.3s ease;
+        }
+
+        .pricing-card:hover .btn-order {
+            background-color: var(--ink-rich);
+            color: var(--neon-pink);
+            border-color: var(--neon-pink);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.3);
+        }
+
+        .pricing-card.featured:hover .btn-order {
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        /* * SECTION 3: NEW FAQ SECTION */
+        .faq-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .faq-item h4 {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .faq-item p { color: var(--ink-muted); font-size: 0.95rem; }
+
+        /* * SECTION 4: FOOTER */
+        .footer {
+            background-color: var(--surface-warm);
+            padding: 8vh 0 4vh 0;
+            margin-top: 5vh;
+            text-align: center;
+            border-top: 1px solid var(--border-delicate);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            padding: 0.5rem 1.25rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--neon-pink);
+            background: var(--ink-rich);
+            box-shadow: var(--neon-glow-pink);
+        }
+
+        .copyright {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            letter-spacing: 1px;
+        }
+
+        /* * RESPONSIVE QUERIES */
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .faq-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 3rem; }
+            .nav-container { grid-template-columns: 1fr; gap: 1rem; justify-content: center; }
+            .nav-links-left, .nav-links-right { justify-content: center; }
+            .nav-logo-embed { grid-row: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-halo" id="cursor-halo"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links-left">
+                <a href="index.html" class="nav-link hover-target">HOMEPAGE</a>
+            </div>
+            <a href="index.html" class="nav-logo-embed hover-target">MEERA WEB DESIGN</a>
+            <div class="nav-links-right">
+                <a href="index.html" class="nav-link hover-target">HOMEPAGE</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero reveal-on-scroll">
+            <div class="container">
+                <h1>Studio <i>Investment.</i></h1>
+                <p class="hero-subtitle">Transparent pricing structures designed to scale your digital presence efficiently. From landing pages to full premium ecosystems.</p>
+            </div>
+        </section>
+
+        <section id="pricing" class="section-padding" style="background-color: var(--surface-warm);">
+            <div class="container">
+                <div class="pricing-grid">
+                    
+                    <div class="pricing-card reveal-on-scroll hover-target">
+                        <div class="plan-name">Starter</div>
+                        <div class="price"><span class="currency">PKR</span> 5,000</div>
+                        <ul class="features-list">
+                            <li><i class="ph ph-check-circle"></i> 1-Page Simple Website</li>
+                            <li><i class="ph ph-check-circle"></i> Basic Layout Architecture</li>
+                            <li><i class="ph ph-check-circle"></i> 2-3 Day Rapid Delivery</li>
+                        </ul>
+                        <div class="disclaimer">
+                            Note: None of these packages include Search Engine Optimization (SEO). SEO services must be handled by a specialist.
+                        </div>
+                        <button class="btn-order hover-target" onclick="orderViaWhatsApp('Starter', '5,000 PKR')">Deploy Starter</button>
+                    </div>
+
+                    <div class="pricing-card featured reveal-on-scroll hover-target" style="transform: translateY(-20px);">
+                        <div class="plan-name">Standard</div>
+                        <div class="price"><span class="currency">PKR</span> 8,000</div>
+                        <ul class="features-list">
+                            <li><i class="ph ph-check-circle"></i> 3-Page Website Ecosystem</li>
+                            <li><i class="ph ph-check-circle"></i> Enhanced Animations</li>
+                            <li><i class="ph ph-check-circle"></i> Professional UI/UX Design</li>
+                        </ul>
+                        <div class="disclaimer">
+                            Note: None of these packages include Search Engine Optimization (SEO). SEO services must be handled by a specialist.
+                        </div>
+                        <button class="btn-order hover-target" onclick="orderViaWhatsApp('Standard', '8,000 PKR')">Deploy Standard</button>
+                    </div>
+
+                    <div class="pricing-card reveal-on-scroll hover-target">
+                        <div class="plan-name">Professional</div>
+                        <div class="price"><span class="currency">PKR</span> 15,000</div>
+                        <ul class="features-list">
+                            <li><i class="ph ph-check-circle"></i> 5+ Scalable Pages</li>
+                            <li><i class="ph ph-check-circle"></i> About Us & Identity Section</li>
+                            <li><i class="ph ph-check-circle"></i> Integrated Contact Form</li>
+                            <li><i class="ph ph-check-circle"></i> Floating WhatsApp API Logo</li>
+                        </ul>
+                        <div class="disclaimer">
+                            Note: None of these packages include Search Engine Optimization (SEO). SEO services must be handled by a specialist.
+                        </div>
+                        <button class="btn-order hover-target" onclick="orderViaWhatsApp('Professional', '15,000 PKR')">Deploy Pro</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding reveal-on-scroll">
+            <div class="container">
+                <div class="faq-header">
+                    <h2>Deployment Process</h2>
+                </div>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <h4>How does the WhatsApp Routing work?</h4>
+                        <p>When you hit deploy on a tier, our script automatically formats your requirements and routes them directly to my official Meera Web Design WhatsApp line. No complex checkout friction.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>What about hosting and domains?</h4>
+                        <p>We deploy via ultra-fast, modern architectures like Netlify. I will guide you through acquiring your perfect domain name during our consultation phase.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Can I request custom interactive elements?</h4>
+                        <p>Absolutely. The Standard and Professional tiers allow for deep integration of high-velocity hover states, scroll engines, and custom cursors tailored to your brand.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h4>Why isn't SEO included?</h4>
+                        <p>I focus entirely on immaculate visual artistry and high-conversion interaction design. Proper organic search ranking requires dedicated content and backlink specialists.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links reveal-on-scroll">
+                <a href="https://wa.me/923286509300" target="_blank" class="footer-link hover-target">+92 328 6509300</a>
+                <a href="https://github.com/MEERA-WEB-DESIGNS/" target="_blank" class="footer-link hover-target">MEERA-WEB-DESIGNS</a>
+                <a href="https://www.instagram.com/shaaeyan/" target="_blank" class="footer-link hover-target">@shaaeyan</a>
+            </div>
+            <div class="copyright">
+                © 2026 MEERA WEB DESIGN. ECOSYSTEM DRIVEN BY HIGH-FIDELITY CYBER ETHICS. MULTAN, PAKISTAN.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Custom Cursor Engine
+            document.documentElement.style.cursor = 'none';
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorHalo = document.getElementById('cursor-halo');
+            const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+
+            let mouseX = 0, mouseY = 0;
+            let haloX = 0, haloY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
+
+            function animateCursor() {
+                const speed = 0.16;
+                haloX += (mouseX - haloX) * speed;
+                haloY += (mouseY - haloY) * speed;
+                cursorHalo.style.left = `${haloX}px`;
+                cursorHalo.style.top = `${haloY}px`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Hover Interactions
+            hoverTargets.forEach(target => {
+                target.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                target.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            });
+
+            // Scroll Reveal Engine
+            const observerOptions = { threshold: 0.12, rootMargin: "0px 0px -40px 0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        });
+
+        // WhatsApp Routing Script Update
+        function orderViaWhatsApp(packageName, price) {
+            const phoneNumber = "923286509300"; 
+            const message = `Hello! I am ready to deploy the ${packageName} tier (${price}). I understand this layout does not include dedicated SEO services. Let's build something beautiful.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

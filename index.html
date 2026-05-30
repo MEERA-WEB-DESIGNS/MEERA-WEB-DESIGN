@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEERA WEB DESIGNS | Cyber-Editorial Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* * 1. THE CYBER-EDITORIAL NEON DESIGN SYSTEM 
+         */
+        :root {
+            --bg-oatmilk: #f7f5f0;
+            --surface-paper: #ffffff;
+            --surface-warm: #eae6db;
+            --ink-rich: #1c1c1a;
+            --ink-muted: #706b60;
+            --accent-terracotta: #cc7b65;
+            --accent-sage: #91a69b;
+            --border-delicate: rgba(28, 28, 28, 0.06);
+            
+            /* High-Intensity Neon Injections */
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-glow-cyan: 0 0 12px rgba(0, 243, 255, 0.85), 0 0 24px rgba(0, 243, 255, 0.4);
+            --neon-glow-pink: 0 0 12px rgba(255, 0, 127, 0.85), 0 0 24px rgba(255, 0, 127, 0.4);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --radius-pinterest: 32px;
+            
+            /* Reduced Cursor Size */
+            --cursor-size: 12px;
+            --cursor-halo-size: 30px;
+        }
+
+        /* * 2. CORE LAYOUT ENVIRONMENT & RESET 
+         */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: none; /* Hide default cursor */
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-oatmilk);
+            color: var(--ink-rich);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Ambient Cyber Element: Top Scanline Tracker */
+        .cyber-scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), transparent);
+            z-index: 2000;
+            opacity: 0.8;
+        }
+
+        /* * 3. MASHROOB STYLE NAVIGATION (100% EDGE-TO-EDGE FLUID ARCHITECTURE)
+         */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(247, 245, 240, 0.80);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-delicate);
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-links-left {
+            display: flex;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .nav-links-right {
+            display: flex;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .nav-logo-zone {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .nav-link {
+            font-family: var(--font-sans);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ink-rich);
+            position: relative;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-pink);
+            border-color: rgba(255, 0, 127, 0.2);
+            background: rgba(255, 0, 127, 0.02);
+            text-shadow: var(--neon-glow-pink);
+        }
+
+        /* --- LOGO WEB-EMBED BLOCK COMPARTMENT --- */
+        .nav-logo-embed {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--ink-rich);
+            transition: all 0.3s ease;
+            min-width: 120px; 
+        }
+
+        .nav-logo-embed:hover {
+            color: var(--neon-cyan);
+            text-shadow: var(--neon-glow-cyan);
+            transform: scale(1.03);
+        }
+
+        /* * 4. ELECTRIC CUSTOM CURSOR STYLES 
+         */
+        .cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-size);
+            height: var(--cursor-size);
+            background-color: var(--ink-rich);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .cursor-halo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: var(--cursor-halo-size);
+            height: var(--cursor-halo-size);
+            background-color: rgba(28, 28, 26, 0.05);
+            border: 1px solid rgba(28, 28, 26, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s cubic-bezier(0.1, 0.8, 0.3, 1), height 0.4s cubic-bezier(0.1, 0.8, 0.3, 1), background-color 0.4s, border 0.4s;
+        }
+
+        /* Neon Cursor Hover States */
+        body.hovering .cursor-halo {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(0, 243, 255, 0.05);
+            border: 2px solid var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+        }
+
+        body.hovering .cursor-dot {
+            background-color: var(--neon-pink);
+            box-shadow: var(--neon-glow-pink);
+            width: 6px;
+            height: 6px;
+        }
+
+        /* * TYPOGRAPHY & UTILITIES 
+         */
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            line-height: 1.15;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-padding {
+            padding: 14vh 0;
+        }
+
+        .text-serif { font-family: var(--font-serif); }
+        .text-sans { font-family: var(--font-sans); }
+        .text-terracotta { color: var(--accent-terracotta); }
+        .text-muted { color: var(--ink-muted); }
+
+        /* Scroll Reveal Animation Engine */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* * SECTION 1: HERO 
+         */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 120px;
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            margin-bottom: 2rem;
+            color: var(--ink-rich);
+        }
+
+        .hero-content h1 i {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--ink-muted);
+            transition: all 0.4s ease;
+        }
+
+        .hero:hover h1 i {
+            color: var(--neon-pink);
+            text-shadow: var(--neon-glow-pink);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            max-width: 650px;
+            margin: 0 auto 3.5rem auto;
+            color: var(--ink-muted);
+            font-weight: 400;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            padding: 1.1rem 2.8rem;
+            background-color: var(--surface-paper);
+            border: 1px solid var(--border-delicate);
+            border-radius: 50px;
+            color: var(--ink-rich);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .btn-explore:hover {
+            background-color: var(--ink-rich);
+            color: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* * SECTION 2: PHILOSOPHY 
+         */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .philosophy-card {
+            background: var(--surface-paper);
+            padding: 3rem 2rem;
+            border-radius: var(--radius-pinterest);
+            border: 1px solid var(--border-delicate);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .philosophy-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: var(--neon-glow-pink);
+        }
+
+        .section-number {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            color: var(--accent-terracotta);
+            transition: color 0.3s;
+        }
+
+        .philosophy-card:hover .section-number {
+            color: var(--neon-pink);
+        }
+
+        .philosophy-text {
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: var(--ink-rich);
+        }
+
+        .signature {
+            margin-top: 2rem;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--ink-muted);
+            text-align: right;
+        }
+
+        /* * SECTION 3: ARCHIVES WITH CYBER EDGE BRACKETS 
+         */
+        .case-files-header {
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+
+        .project-card {
+            background: var(--surface-paper);
+            border-radius: var(--radius-pinterest);
+            padding: 3.5rem;
+            margin-bottom: 3.5rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.01);
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s ease, border-color 0.5s;
+            border: 1px solid var(--border-delicate);
+            position: relative;
+            display: block;
+            overflow: hidden;
+        }
+
+        /* Aesthetic Enhancement: Tactical Cyber Brackets on Cards */
+        .project-card::before, .project-card::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-color: transparent;
+            border-style: solid;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .project-card::before {
+            top: 20px; left: 20px;
+            border-top-width: 2px; border-left-width: 2px;
+        }
+        .project-card::after {
+            bottom: 20px; right: 20px;
+            border-bottom-width: 2px; border-right-width: 2px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+        }
+        
+        .project-card:hover::before, .project-card:hover::after {
+            opacity: 1;
+            border-color: var(--neon-cyan);
+        }
+
+        .project-title {
+            font-size: 2.2rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.5px;
+            transition: color 0.3s;
+        }
+
+        .project-desc {
+            color: var(--ink-muted);
+            margin-bottom: 2rem;
+            max-width: 95%;
+            font-size: 1.05rem;
+        }
+
+        .badges {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .badge-sage { background: rgba(145, 166, 155, 0.12); color: #5f7a6d; }
+        .badge-terracotta { background: rgba(204, 123, 101, 0.12); color: #a05d4a; }
+        .badge-neon-accent { background: rgba(0, 243, 255, 0.08); color: #009cb3; border: 1px solid rgba(0, 243, 255, 0.2); }
+
+        .project-card:hover .badge-neon-accent {
+            background: var(--neon-cyan);
+            color: var(--ink-rich);
+            box-shadow: var(--neon-glow-cyan);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--ink-rich);
+            transition: color 0.3s;
+        }
+
+        .project-card:hover .project-link {
+            color: var(--neon-pink);
+            text-shadow: var(--neon-glow-pink);
+        }
+
+        /* * SECTION 4: THE VISUAL DIARY (CALIBRATED INSTAGRAM MASONRY)
+         */
+        .diary-header {
+            margin-bottom: 4rem;
+        }
+        
+        .diary-subtitle {
+            font-family: var(--font-sans);
+            color: var(--accent-terracotta);
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .diary-card {
+            background: var(--surface-paper);
+            border-radius: var(--radius-pinterest);
+            overflow: hidden;
+            border: 1px solid var(--border-delicate);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s;
+            position: relative;
+            height: 580px; 
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .diary-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--neon-pink);
+            box-shadow: var(--neon-glow-pink);
+        }
+
+        .diary-card iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        /* * SECTION 5: STUDIO CAPABILITIES 
+         */
+        .capabilities-list {
+            border-top: 1px solid var(--border-delicate);
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: center;
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border-delicate);
+            transition: transform 0.3s ease, border-color 0.3s;
+            gap: 2rem;
+        }
+
+        .capability-item:hover {
+            border-color: var(--neon-cyan);
+            transform: translateX(10px);
+        }
+
+        .capability-icon {
+            font-size: 2.2rem;
+            color: var(--accent-terracotta);
+            transition: color 0.3s, filter 0.3s;
+        }
+
+        .capability-item:hover .capability-icon {
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 8px var(--neon-cyan));
+        }
+
+        .capability-text h3 {
+            font-family: var(--font-sans);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .capability-text p {
+            font-size: 1rem;
+            color: var(--ink-muted);
+        }
+
+        /* * SECTION 6: FLOATING CYBER-EDITORIAL WHATSAPP BAR
+         */
+        .whatsapp-cyber-bar {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: rgba(28, 28, 26, 0.95);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 0.75rem 1.25rem;
+            border-radius: 50px;
+            color: var(--bg-oatmilk);
+            text-transform: uppercase;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .whatsapp-cyber-bar i {
+            font-size: 1.25rem;
+            color: var(--neon-cyan);
+            transition: transform 0.4s ease;
+        }
+
+        .whatsapp-cyber-bar .bar-text {
+            max-width: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0;
+            transition: max-width 0.4s ease, opacity 0.3s ease;
+        }
+
+        /* Ambient glowing pulse system */
+        .whatsapp-cyber-bar::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            z-index: -1;
+            opacity: 0.15;
+            transition: opacity 0.4s;
+        }
+
+        .whatsapp-cyber-bar:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--neon-glow-cyan);
+            transform: translateY(-4px);
+            color: #ffffff;
+        }
+
+        .whatsapp-cyber-bar:hover .bar-text {
+            max-width: 120px;
+            opacity: 1;
+        }
+
+        .whatsapp-cyber-bar:hover i {
+            transform: scale(1.15) rotate(8deg);
+            color: var(--neon-cyan);
+            filter: drop-shadow(0 0 5px var(--neon-cyan));
+        }
+
+        /* * SECTION 7: FOOTER 
+         */
+        .footer {
+            background-color: var(--surface-warm);
+            padding: 10vh 0 5vh 0;
+            margin-top: 5vh;
+            text-align: center;
+            border-top: 1px solid var(--border-delicate);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-style: italic;
+            position: relative;
+            padding: 0.5rem 1.25rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: var(--neon-pink);
+            background: var(--ink-rich);
+            box-shadow: var(--neon-glow-pink);
+        }
+
+        .copyright {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: var(--ink-muted);
+            opacity: 0.7;
+            letter-spacing: 1px;
+        }
+
+        /* * RESPONSIVE MEDIA QUERIES 
+         */
+        @media (max-width: 1024px) {
+            .masonry-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links-left { display: none; } /* Hide left copy on mobile to clean space */
+            .nav-container { display: flex; justify-content: space-between; align-items: center; }
+            .nav-links-right { flex: initial; }
+            .hero { padding-top: 140px; }
+            .philosophy-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .masonry-grid { grid-template-columns: 1fr; }
+            .diary-card { height: 520px; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .whatsapp-cyber-bar { bottom: 20px; right: 20px; padding: 0.75rem; }
+            .whatsapp-cyber-bar .bar-text { display: none; } /* Kept minimal on mobile devices */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-scanline"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-halo" id="cursor-halo"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links-left">
+                <a href="prices.html" class="nav-link hover-target">GET A WEBSITE</a>
+            </div>
+            
+            <div class="nav-logo-zone">
+                <a href="index.html" class="nav-logo-embed hover-target">
+                    MEERA WEB DESIGN
+                </a>
+            </div>
+            
+            <div class="nav-links-right">
+                <a href="form.html" class="nav-link hover-target">FILL YOUR FORM</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero reveal-on-scroll">
+            <div class="container hero-content">
+                <h1>Crafting beautiful <br><i>digital spaces.</i></h1>
+                <p class="hero-subtitle">Professional Web Designer and Strategic Developer based in Multan. Bridging high-conversion interaction frameworks, neon editorial aesthetics, and custom UI workflows.</p>
+                <a href="the-head-collective.html" class="btn-explore hover-target">THE HEAD COLLECTIVE↓</a>
+            </div>
+        </section>
+
+        <section id="philosophy" class="section-padding reveal-on-scroll">
+            <div class="container">
+                <div class="philosophy-grid">
+                    <div class="philosophy-card hover-target">
+                        <span class="section-number">01</span>
+                        <h3>THE CORE PHILOSOPHY</h3>
+                    </div>
+                    <div>
+                        <p class="philosophy-text">
+                            My design discipline balances visual composition with high-velocity interaction structures. I construct calm, typography-first grid ecosystems layered with radiant neon highlights to isolate focus, maximize attention metrics, and secure standard execution speeds.
+                        </p>
+                        <div class="signature">— Muhammad Shayan</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section-padding" style="background-color: var(--surface-warm);">
+            <div class="container">
+                <div class="case-files-header reveal-on-scroll">
+                    <span class="section-number">ARCHIVE</span>
+                    <h2>Selected Case Files</h2>
+                </div>
+
+                <article class="project-card reveal-on-scroll">
+                    <div class="badges">
+                        <span class="badge badge-sage">Premium UI/UX</span>
+                        <span class="badge badge-sage">Artisanal Retail</span>
+                        <span class="badge badge-neon-accent">PKR Engine</span>
+                    </div>
+                    <h3 class="project-title">MASHROOB DIGITAL JUICE STOREFRONT</h3>
+                    <p class="project-desc">A premium e-commerce showcase crafted for an luxury artisanal retail brand. Emphasizes high-fidelity minimal aesthetics, a flawless 99% mobile performance index, beautiful asset layouts, and a native PKR transaction framework optimized for localized scaling.</p>
+                    <a href="https://mashroob-juices.netlify.app/" target="_blank" class="project-link hover-target">
+                        Visit Website <i class="ph ph-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="project-card reveal-on-scroll">
+                    <div class="badges">
+                        <span class="badge badge-terracotta">Frictionless Flow</span>
+                        <span class="badge badge-terracotta">WhatsApp Routing</span>
+                        <span class="badge badge-neon-accent">Vanilla JS Engine</span>
+                    </div>
+                    <h3 class="project-title">3C PIZZA TIME PIPELINE</h3>
+                    <p class="project-desc">An intuitive, rapid transaction ordering matrix built to completely dissolve traditional digital checkout friction. We merged an organic, warm frontend user interface seamlessly with automated WhatsApp API messaging routing pipelines for instant, text-based customer deployment.</p>
+                    <a href="https://demo-3c-pizza.netlify.app/" target="_blank" class="project-link hover-target">
+                        Visit Website <i class="ph ph-arrow-right"></i>
+                    </a>
+                </article>
+
+                <article class="project-card reveal-on-scroll">
+                    <div class="badges">
+                        <span class="badge badge-neon-accent">High-Velocity UX</span>
+                        <span class="badge badge-neon-accent">Culinary Branding</span>
+                        <span class="badge badge-neon-accent">Netlify Architecture</span>
+                    </div>
+                    <h3 class="project-title">DRENCH RESTAURANT ACCELERATOR</h3>
+                    <p class="project-desc">A premium, high-octane sensory environment deployed for a fast-food brand. Built with a high-conversion visual layout, fluid culinary item interaction vectors, and custom digital staging designed to provoke rapid engagement and frictionless menu navigation.</p>
+                    <a href="https://drench-fastfood.netlify.app/" target="_blank" class="project-link hover-target">
+                        Visit Website <i class="ph ph-arrow-right"></i>
+                    </a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section-padding reveal-on-scroll">
+            <div class="container">
+                <div class="diary-header">
+                    <span class="section-number">02</span>
+                    <h2>THE VISUAL DIARY</h2>
+                    <span class="diary-subtitle">@shaaeyan on instagram</span>
+                </div>
+
+                <div class="masonry-grid">
+                    <div class="diary-card hover-target">
+                        <iframe src="https://www.instagram.com/p/DYrYlezI4wq/embed" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+
+                    <div class="diary-card hover-target">
+                        <iframe src="https://www.instagram.com/p/DYrUhgMozB7/embed" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+
+                    <div class="diary-card hover-target">
+                        <iframe src="https://www.instagram.com/shaaeyan/p/DU0_UfhDRRO/embed" scrolling="no" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="utilities" class="section-padding" style="background-color: var(--surface-paper);">
+            <div class="container">
+                <div class="diary-header reveal-on-scroll">
+                    <span class="section-number">03</span>
+                    <h2>STUDIO UTILITIES</h2>
+                </div>
+                
+                <div class="capabilities-list reveal-on-scroll">
+                    <div class="capability-item hover-target">
+                        <i class="ph ph-paint-brush-broad capability-icon"></i>
+                        <div class="capability-text">
+                            <h3>Web Artistry</h3>
+                            <p>Handcrafting functional applications utilizing semantic scripting systems for accelerated delivery speeds and impactful glowing accent frameworks.</p>
+                        </div>
+                    </div>
+
+                    <div class="capability-item hover-target">
+                        <i class="ph ph-chats capability-icon"></i>
+                        <div class="capability-text">
+                            <h3>Interaction Engineering</h3>
+                            <p>Sculpting clean checkout routing engines that pipe user conversions securely straight to backend endpoints and automated channels.</p>
+                        </div>
+                    </div>
+
+                    <div class="capability-item hover-target">
+                        <i class="ph ph-cube capability-icon"></i>
+                        <div class="capability-text">
+                            <h3>Hospitality E-Commerce</h3>
+                            <p>Designing dynamic, sensory menu flows and item navigation architecture built for customized premium presentation footprints.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <a href="https://wa.me/923286509300" target="_blank" class="whatsapp-cyber-bar hover-target">
+        <i class="ph ph-whatsapp-logo"></i>
+        <span class="bar-text">Secure Stream</span>
+    </a>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links reveal-on-scroll">
+                <a href="https://wa.me/923286509300" target="_blank" class="footer-link hover-target">+92 328 6509300</a>
+                <a href="https://github.com/MEERA-WEB-DESIGNS/" target="_blank" class="footer-link hover-target">MEERA-WEB-DESIGNS</a>
+                <a href="https://www.instagram.com/shaaeyan/" target="_blank" class="footer-link hover-target">@shaaeyan</a>
+            </div>
+            <div class="copyright">
+                © 2026 MEERA WEB DESIGN. ECOSYSTEM DRIVEN BY HIGH-FIDELITY CYBER ETHICS. MULTAN, PAKISTAN.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 1. Custom Cursor Engine (Linear Interpolation) ---
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorHalo = document.getElementById('cursor-halo');
+
+            let mouseX = 0, mouseY = 0;
+            let haloX = 0, haloY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                cursorDot.style.left = `${mouseX}px`;
+                cursorDot.style.top = `${mouseY}px`;
+            });
+
+            function animateCursor() {
+                const speed = 0.16;
+                haloX += (mouseX - haloX) * speed;
+                haloY += (mouseY - haloY) * speed;
+
+                cursorHalo.style.left = `${haloX}px`;
+                cursorHalo.style.top = `${haloY}px`;
+
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            // Dynamic Refresh for Cursor Listeners (Ensures new elements are caught)
+            function syncCursorTargets() {
+                const hoverTargets = document.querySelectorAll('.hover-target, a, button, .project-card, .diary-card, .capability-item, .whatsapp-cyber-bar');
+                hoverTargets.forEach(target => {
+                    target.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                    target.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                });
+            }
+            syncCursorTargets();
+
+            // --- 2. Scroll Reveal Engine ---
+            const observerOptions = {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

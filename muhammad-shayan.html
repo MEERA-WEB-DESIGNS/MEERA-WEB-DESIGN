@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEERA WEB DESIGNS | Cyber-Editorial Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* * 1. THE CYBER-EDITORIAL NEON DESIGN SYSTEM */
+        :root {
+            --bg-oatmilk: #f7f5f0;
+            --surface-paper: #ffffff;
+            --surface-warm: #eae6db;
+            --ink-rich: #1c1c1a;
+            --ink-muted: #706b60;
+            --accent-terracotta: #cc7b65;
+            --accent-sage: #91a69b;
+            --border-delicate: rgba(28, 28, 28, 0.06);
+            
+            --neon-cyan: #00f3ff;
+            --neon-pink: #ff007f;
+            --neon-glow-cyan: 0 0 12px rgba(0, 243, 255, 0.85), 0 0 24px rgba(0, 243, 255, 0.4);
+            --neon-glow-pink: 0 0 12px rgba(255, 0, 127, 0.85), 0 0 24px rgba(255, 0, 127, 0.4);
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --radius-pinterest: 32px;
+            
+            --cursor-size: 12px;
+            --cursor-halo-size: 30px;
+        }
+
+        /* * 2. CORE LAYOUT ENVIRONMENT */
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        html { scroll-behavior: smooth; }
+        body { background-color: var(--bg-oatmilk); color: var(--ink-rich); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        .cyber-scanline {
+            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), transparent);
+            z-index: 2000; opacity: 0.8;
+        }
+
+        /* * 3. NAVIGATION */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background-color: rgba(247, 245, 240, 0.80); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-delicate); padding: 1.25rem 2.5rem;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .nav-container { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1400px; margin: 0 auto; }
+        .nav-links-left, .nav-links-right { display: flex; flex: 1; gap: 2rem; }
+        .nav-links-right { justify-content: flex-end; }
+        .nav-logo-zone { display: flex; justify-content: center; flex: 1; }
+
+        .nav-link { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; color: var(--ink-rich); transition: all 0.3s ease; }
+        .nav-link:hover { color: var(--neon-cyan); text-shadow: var(--neon-glow-cyan); }
+
+        .nav-logo-embed { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+
+        /* * 4. CUSTOM CURSOR */
+        .cursor-dot { position: fixed; width: var(--cursor-size); height: var(--cursor-size); background-color: var(--ink-rich); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: background-color 0.3s; }
+        .cursor-halo { position: fixed; width: var(--cursor-halo-size); height: var(--cursor-halo-size); background-color: rgba(28, 28, 26, 0.05); border: 1px solid rgba(28, 28, 26, 0.1); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: width 0.4s, height 0.4s; }
+        body.hovering .cursor-halo { width: 60px; height: 60px; border: 2px solid var(--neon-cyan); box-shadow: var(--neon-glow-cyan); }
+        body.hovering .cursor-dot { background-color: var(--neon-pink); box-shadow: var(--neon-glow-pink); }
+        @media (hover: none) and (pointer: coarse) { .cursor-dot, .cursor-halo { display: none !important; } * { cursor: auto !important; } }
+
+        /* * TYPOGRAPHY & UTILITIES */
+        h1, h2, h3 { font-family: var(--font-serif); font-weight: 400; line-height: 1.15; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; }
+        .section-padding { padding: 12vh 0; }
+        .text-muted { color: var(--ink-muted); }
+        .reveal-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* * SECTION 1: TWO-COLUMN HERO (Adapted from reference image) */
+        .hero { min-height: 100vh; display: flex; align-items: center; padding-top: 100px; }
+        .hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        
+        .hero-image-box { position: relative; width: 100%; max-width: 450px; margin: 0 auto; aspect-ratio: 3/4; background: var(--surface-paper); border-radius: var(--radius-pinterest); border: 1px solid var(--border-delicate); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        /* Ambient shapes behind portrait */
+        .hero-image-box::before { content: ''; position: absolute; top: -10%; right: -10%; width: 300px; height: 300px; background: rgba(0, 243, 255, 0.1); border-radius: 50%; filter: blur(40px); }
+        .hero-image-box::after { content: ''; position: absolute; bottom: -10%; left: -10%; width: 300px; height: 300px; background: rgba(255, 0, 127, 0.1); border-radius: 50%; filter: blur(40px); }
+        
+        .portrait-img { width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 2; border-radius: var(--radius-pinterest); }
+
+        .hero-text-box h1 { font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 1.5rem; }
+        .hero-text-box p { font-size: 1.1rem; color: var(--ink-muted); margin-bottom: 2.5rem; max-width: 90%; }
+        
+        .hero-actions { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 3rem; }
+        .btn-primary { padding: 1rem 2.5rem; background-color: var(--ink-rich); color: var(--bg-oatmilk); border-radius: 50px; font-weight: 600; transition: all 0.3s; border: 1px solid transparent; }
+        .btn-primary:hover { background-color: transparent; color: var(--neon-cyan); border-color: var(--neon-cyan); box-shadow: var(--neon-glow-cyan); }
+        
+        .btn-secondary { font-weight: 600; font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; border-bottom: 1px solid var(--ink-rich); padding-bottom: 2px; transition: all 0.3s; }
+        .btn-secondary:hover { color: var(--neon-pink); border-color: var(--neon-pink); text-shadow: var(--neon-glow-pink); }
+
+        .social-follow { display: flex; align-items: center; gap: 1rem; font-size: 0.85rem; font-weight: 600; color: var(--ink-muted); }
+        .social-icons { display: flex; gap: 1rem; }
+        .social-icons a { font-size: 1.25rem; color: var(--ink-rich); transition: color 0.3s; }
+        .social-icons a:hover { color: var(--neon-cyan); }
+
+        /* * SECTION 2: CLIENT BANNER (Adapted from reference image) */
+        .clients-bar { padding: 3rem 0; border-top: 1px solid var(--border-delicate); border-bottom: 1px solid var(--border-delicate); background: var(--surface-paper); }
+        .clients-container { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+        .clients-title { font-family: var(--font-serif); font-style: italic; font-size: 1.25rem; color: var(--ink-muted); white-space: nowrap; }
+        .clients-grid { display: flex; gap: 3rem; align-items: center; flex-wrap: wrap; flex: 1; justify-content: space-around; font-family: var(--font-sans); font-weight: 700; font-size: 1.1rem; color: var(--ink-rich); opacity: 0.6; }
+        .clients-grid span { transition: all 0.3s ease; }
+        .clients-grid span:hover { opacity: 1; color: var(--neon-cyan); text-shadow: var(--neon-glow-cyan); }
+
+        /* * SECTION 3: SPECIALITIES / UTILITIES (Card Grid Layout) */
+        .section-header { margin-bottom: 4rem; text-align: center; }
+        .section-header h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .section-header p { color: var(--ink-muted); max-width: 600px; margin: 0 auto; }
+
+        .capabilities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+        
+        .capability-card { background: var(--surface-paper); padding: 3rem 2rem; border-radius: var(--radius-pinterest); border: 1px solid var(--border-delicate); transition: all 0.4s ease; display: flex; flex-direction: column; align-items: flex-start; }
+        .capability-card:hover { transform: translateY(-8px); border-color: var(--neon-pink); box-shadow: var(--neon-glow-pink); }
+        
+        .capability-icon { font-size: 2.5rem; color: var(--ink-rich); margin-bottom: 1.5rem; transition: color 0.3s; }
+        .capability-card:hover .capability-icon { color: var(--neon-pink); }
+        
+        .capability-card h3 { font-family: var(--font-sans); font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; }
+        .capability-card p { font-size: 0.95rem; color: var(--ink-muted); line-height: 1.6; }
+
+        /* * RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 900px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-image-box { order: -1; max-width: 350px; }
+            .hero-text-box p { margin: 0 auto 2.5rem auto; }
+            .hero-actions { justify-content: center; }
+            .social-follow { justify-content: center; }
+            .capabilities-grid { grid-template-columns: 1fr; }
+            .nav-links-left { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-scanline"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+    <div class="cursor-halo" id="cursor-halo"></div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-links-left">
+                <a href="index.html" class="nav-link hover-target">HOMEPAGE</a>
+                <a href="form.html" class="nav-link hover-target">FORM</a>
+            </div>
+            
+            <div class="nav-logo-zone">
+                <a href="index.html" class="nav-logo-embed hover-target">MEERA WEB DESIGN.</a>
+            </div>
+            
+            <div class="nav-links-right">
+                <a href="mohd-meera.html" class="nav-link hover-target">HEAD OF MWD</a>
+                <a href="prices.html" class="nav-link hover-target">GET A WEBSITE</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="hero reveal-on-scroll">
+            <div class="container hero-grid">
+                <div class="hero-text-box">
+                    <h1>A Cyber-Editorial <br><i>Developer.</i></h1>
+                    <p>I am Muhammad Shayan (Ustadh Jee), Head Teacher at Meera Web Design. I engineer high-conversion web architectures infused with raw neon aesthetics and flawless vanilla performance.</p>
+                    
+                    <div class="hero-actions">
+                        <a href="https://wa.me/923286509300" class="btn-primary hover-target">Secure Stream</a>
+                        <a href="#projects" class="btn-secondary hover-target">The Archives</a>
+                    </div>
+
+                    <div class="social-follow">
+                        Follow me on:
+                        <div class="social-icons">
+                            <a href="https://github.com/MEERA-WEB-DESIGNS/" target="_blank" class="hover-target"><i class="ph ph-github-logo"></i></a>
+                            <a href="https://www.instagram.com/shaaeyan/" target="_blank" class="hover-target"><i class="ph ph-instagram-logo"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-image-box hover-target">
+                    <img src=https://i.postimg.cc/G3k0zcbm/Snap-Insta-to-635621435-17867895561560885-3745169873233539102-n.jpg" alt="Ustadh Jee Portrait" class="portrait-img">
+                </div>
+            </div>
+        </section>
+
+        <section class="clients-bar reveal-on-scroll">
+            <div class="container clients-container">
+                <div class="clients-title">— Meet my recent clients</div>
+                <div class="clients-grid">
+                    <span class="hover-target">Mashroob</span>
+                    <span class="hover-target">3C Pizza</span>
+                    <span class="hover-target">Drench</span>
+                    <span class="hover-target">Euro Kids</span>
+                    <span class="hover-target">Suki's Bakery</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="utilities" class="section-padding reveal-on-scroll">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Specialities</h2>
+                    <p>Bypassing bloated development methodologies to craft independent, high-velocity digital ecosystems.</p>
+                </div>
+                
+                <div class="capabilities-grid">
+                    <div class="capability-card hover-target">
+                        <i class="ph ph-paint-brush-broad capability-icon"></i>
+                        <h3>Web Artistry</h3>
+                        <p>Handcrafting functional applications utilizing semantic scripting systems for accelerated delivery speeds and impactful glowing accent frameworks.</p>
+                    </div>
+
+                    <div class="capability-card hover-target">
+                        <i class="ph ph-chats capability-icon"></i>
+                        <h3>Interaction Engineering</h3>
+                        <p>Sculpting clean checkout routing engines that pipe user conversions securely straight to automated WhatsApp channels.</p>
+                    </div>
+
+                    <div class="capability-card hover-target">
+                        <i class="ph ph-cube capability-icon"></i>
+                        <h3>Hospitality Platforms</h3>
+                        <p>Designing dynamic, sensory menu flows and item navigation architecture built for customized premium presentation footprints.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursorDot = document.getElementById('cursor-dot');
+            const cursorHalo = document.getElementById('cursor-halo');
+            let mouseX = 0, mouseY = 0, haloX = 0, haloY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX; mouseY = e.clientY;
+                cursorDot.style.left = `${mouseX}px`; cursorDot.style.top = `${mouseY}px`;
+            });
+
+            function animateCursor() {
+                const speed = 0.16;
+                haloX += (mouseX - haloX) * speed; haloY += (mouseY - haloY) * speed;
+                cursorHalo.style.left = `${haloX}px`; cursorHalo.style.top = `${haloY}px`;
+                requestAnimationFrame(animateCursor);
+            }
+            animateCursor();
+
+            function syncCursorTargets() {
+                const hoverTargets = document.querySelectorAll('.hover-target, a, button');
+                hoverTargets.forEach(target => {
+                    target.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+                    target.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+                });
+            }
+            syncCursorTargets();
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+
+            document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
