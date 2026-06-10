@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Pakistan Naujawan Party — One Youth, One Nation, One Mission</title>
+<meta name="description" content="Jaag Raha Hai Naujawan — A movement for a better Pakistan led by the youth."/>
+
+<!-- ═══════════════════════════════════════════
+     GOOGLE FONTS — Oswald · Inter · Amiri (Arabic)
+     ═══════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   DESIGN TOKENS — CSS custom properties for light/dark theming
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* Brand palette — preserved from original */
+  --clr-green:       #2ECC71;
+  --clr-green-deep:  #1A7A42;
+  --clr-green-vivid: #00E676;
+  --clr-green-muted: #145A32;
+  --clr-gold:        #F4D03F;
+  --clr-white:       #FFFFFF;
+
+  /* ── DARK THEME (default) ── */
+  --bg-primary:      #0A0F0D;
+  --bg-secondary:    #0F1A12;
+  --bg-card:         #121C15;
+  --bg-glass:        rgba(18,28,21,0.72);
+  --bg-elevated:     #1A2B1D;
+  --border-subtle:   rgba(46,204,113,0.12);
+  --border-mid:      rgba(46,204,113,0.25);
+  --txt-primary:     #F0FFF4;
+  --txt-secondary:   #A8D5B5;
+  --txt-muted:       #5D8A6B;
+  --shadow-glow:     0 0 40px rgba(46,204,113,0.18);
+  --shadow-card:     0 8px 40px rgba(0,0,0,0.55);
+  --overlay-hero:    linear-gradient(110deg,rgba(10,15,13,0.88) 0%,rgba(10,15,13,0.55) 60%,transparent 100%);
+}
+
+/* ── LIGHT THEME ── */
+[data-theme="light"] {
+  --bg-primary:      #F7FFF9;
+  --bg-secondary:    #EEF9F2;
+  --bg-card:         #FFFFFF;
+  --bg-glass:        rgba(255,255,255,0.82);
+  --bg-elevated:     #E8F5EC;
+  --border-subtle:   rgba(26,122,66,0.10);
+  --border-mid:      rgba(26,122,66,0.20);
+  --txt-primary:     #0C1F10;
+  --txt-secondary:   #234D2C;
+  --txt-muted:       #6A9E78;
+  --shadow-glow:     0 0 40px rgba(46,204,113,0.12);
+  --shadow-card:     0 4px 28px rgba(26,122,66,0.10);
+  --overlay-hero:    linear-gradient(110deg,rgba(7,12,9,0.82) 0%,rgba(7,12,9,0.45) 60%,transparent 100%);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESET & BASE
+   ═══════════════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg-primary);
+  color:var(--txt-primary);
+  transition:background .4s ease,color .4s ease;
+  overflow-x:hidden;
+}
+img,video{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+ul,ol{list-style:none;}
+::selection{background:var(--clr-green);color:#000;}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ═══════════════════════════════════════════════════════════════ */
+#scrollBar{
+  position:fixed;top:0;left:0;height:3px;width:0%;z-index:9999;
+  background:linear-gradient(90deg,var(--clr-green),var(--clr-gold));
+  transition:width .1s linear;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PARTICLE CANVAS — 3D depth effect background
+   ═══════════════════════════════════════════════════════════════ */
+#particleCanvas{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;opacity:.35;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════ */
+.container{width:100%;max-width:1240px;margin:0 auto;padding:0 24px;}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--clr-green);margin-bottom:14px;}
+.eyebrow .bar{display:block;width:28px;height:2px;background:var(--clr-green);}
+.section-label{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--clr-green);margin-bottom:8px;display:block;}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+/* ═══════════════════════════════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════════════════════════════ */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 28px;border-radius:4px;
+  font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+  position:relative;overflow:hidden;
+}
+.btn::before{
+  content:'';position:absolute;inset:0;
+  background:rgba(255,255,255,.06);
+  transform:translateX(-100%);transition:transform .3s ease;
+}
+.btn:hover::before{transform:translateX(0);}
+.btn-primary{
+  background:var(--clr-green);color:#000;
+  box-shadow:0 4px 20px rgba(46,204,113,.35);
+}
+.btn-primary:hover{background:var(--clr-green-vivid);transform:translateY(-2px);box-shadow:0 8px 28px rgba(46,204,113,.5);}
+.btn-outline{
+  border:1.5px solid var(--border-mid);color:var(--txt-primary);
+  background:transparent;
+}
+.btn-outline:hover{border-color:var(--clr-green);color:var(--clr-green);transform:translateY(-2px);}
+.btn-ghost-primary{color:var(--clr-green);background:transparent;padding:10px 0;}
+.btn-ghost-primary:hover{gap:14px;}
+.btn-pill{border-radius:50px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════════════════════════ */
+#themeToggle{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:1.5px solid var(--border-mid);
+  color:var(--txt-secondary);
+  transition:all .25s ease;
+  position:relative;overflow:hidden;
+}
+#themeToggle:hover{border-color:var(--clr-green);color:var(--clr-green);transform:rotate(20deg);}
+.icon-sun,.icon-moon{position:absolute;transition:all .3s ease;}
+[data-theme="dark"] .icon-sun{opacity:1;transform:translateY(0);}
+[data-theme="dark"] .icon-moon{opacity:0;transform:translateY(-20px);}
+[data-theme="light"] .icon-sun{opacity:0;transform:translateY(20px);}
+[data-theme="light"] .icon-moon{opacity:1;transform:translateY(0);}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  padding:0 24px;height:70px;
+  display:flex;align-items:center;
+  transition:all .35s ease;
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background:var(--bg-glass);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  border-bottom:1px solid var(--border-subtle);
+  transition:all .35s ease;
+}
+.site-header.scrolled::before{
+  background:var(--bg-glass);
+  box-shadow:0 4px 30px rgba(0,0,0,.25);
+}
+.header-inner{
+  width:100%;max-width:1240px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  position:relative;z-index:1;
+}
+/* Brand */
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;}
+.brand-logo{
+  width:44px;height:44px;border-radius:8px;object-fit:cover;
+  border:1.5px solid var(--border-mid);
+  transition:transform .3s ease;
+}
+.brand:hover .brand-logo{transform:scale(1.06);}
+.brand-text{display:flex;flex-direction:column;line-height:1.15;}
+.brand-line1{font-family:'Oswald',sans-serif;font-weight:700;font-size:1rem;letter-spacing:.06em;color:var(--txt-primary);}
+.brand-line2{font-family:'Oswald',sans-serif;font-weight:400;font-size:.68rem;letter-spacing:.12em;color:var(--clr-green);}
+.brand-tag{display:flex;gap:6px;margin-top:2px;}
+.brand-tag span{height:2px;border-radius:4px;background:var(--clr-green);animation:tagPulse 2s ease-in-out infinite;}
+.brand-tag span:first-child{width:22px;}
+.brand-tag span:last-child{width:10px;animation-delay:.4s;}
+@keyframes tagPulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+/* Nav Desktop */
+.nav-desktop{display:flex;align-items:center;gap:6px;}
+.nav-desktop a{
+  font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--txt-secondary);padding:8px 12px;border-radius:4px;
+  transition:all .2s ease;position:relative;
+}
+.nav-desktop a::after{
+  content:'';position:absolute;bottom:4px;left:12px;right:12px;height:1.5px;
+  background:var(--clr-green);transform:scaleX(0);transform-origin:left;
+  transition:transform .25s ease;
+}
+.nav-desktop a:hover{color:var(--txt-primary);}
+.nav-desktop a:hover::after{transform:scaleX(1);}
+/* Header right */
+.header-right{display:flex;align-items:center;gap:10px;}
+.hamburger{
+  display:none;padding:8px;border-radius:6px;color:var(--txt-primary);
+  border:1.5px solid var(--border-subtle);
+  transition:all .2s ease;
+}
+.hamburger:hover{border-color:var(--clr-green);color:var(--clr-green);}
+.join-desktop{font-size:.75rem;padding:9px 20px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   MOBILE DRAWER
+   ═══════════════════════════════════════════════════════════════ */
+.mobile-overlay{
+  position:fixed;inset:0;z-index:950;
+  background:rgba(0,0,0,.7);backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.mobile-overlay.open{opacity:1;pointer-events:all;}
+.mobile-drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:960;
+  width:min(320px,85vw);
+  background:var(--bg-secondary);
+  border-left:1px solid var(--border-subtle);
+  transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;
+}
+.mobile-drawer.open{transform:translateX(0);}
+.drawer-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 24px;border-bottom:1px solid var(--border-subtle);
+}
+.drawer-title{font-family:'Oswald',sans-serif;font-size:.72rem;letter-spacing:.2em;color:var(--txt-muted);}
+.drawer-close{
+  width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;
+  color:var(--txt-secondary);border:1px solid var(--border-subtle);
+  transition:all .2s ease;
+}
+.drawer-close:hover{border-color:var(--clr-green);color:var(--clr-green);}
+.drawer-nav{display:flex;flex-direction:column;padding:16px 0;flex:1;overflow-y:auto;}
+.drawer-nav a{
+  padding:14px 24px;font-size:.9rem;font-weight:500;letter-spacing:.06em;
+  color:var(--txt-secondary);border-bottom:1px solid var(--border-subtle);
+  transition:all .2s ease;
+}
+.drawer-nav a:hover{color:var(--clr-green);padding-left:32px;}
+.drawer-join{margin:20px 24px;text-align:center;border:none !important;border-radius:4px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  padding:100px 0 60px;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center top;}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:var(--overlay-hero);
+}
+/* 3D floating particles layer */
+.hero-particles{
+  position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;
+}
+.p-dot{
+  position:absolute;border-radius:50%;
+  background:var(--clr-green);opacity:.25;
+  animation:floatDot linear infinite;
+}
+@keyframes floatDot{
+  0%{transform:translateY(100vh) scale(0);opacity:0;}
+  10%{opacity:.3;}
+  90%{opacity:.15;}
+  100%{transform:translateY(-20vh) scale(1);opacity:0;}
+}
+.hero-inner{
+  position:relative;z-index:3;
+  display:grid;grid-template-columns:1fr;
+  gap:48px;align-items:center;
+}
+.hero-content{max-width:640px;}
+.hero-flag-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:50px;
+  border:1px solid var(--border-mid);
+  background:var(--bg-glass);backdrop-filter:blur(10px);
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--clr-green);margin-bottom:24px;
+  animation:fadeSlideUp .8s ease both;
+}
+.hero-flag-tag span{width:8px;height:8px;border-radius:50%;background:var(--clr-green);animation:dotBlink 1.5s ease-in-out infinite;}
+@keyframes dotBlink{0%,100%{opacity:.4;transform:scale(.8);}50%{opacity:1;transform:scale(1.2);}}
+.hero-title{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(3.2rem,8vw,7rem);
+  font-weight:700;line-height:.92;
+  letter-spacing:-.02em;
+  color:var(--clr-white);
+  text-transform:uppercase;
+  animation:fadeSlideUp .9s .1s ease both;
+}
+.hero-title .accent{
+  color:transparent;
+  -webkit-text-stroke:2px var(--clr-green);
+  display:block;
+}
+.hero-title .accent-fill{
+  color:var(--clr-green);display:block;
+}
+.hero-sub{
+  font-size:1.05rem;font-weight:400;line-height:1.7;
+  color:rgba(240,255,244,.75);margin-top:22px;
+  animation:fadeSlideUp 1s .2s ease both;
+}
+.hero-actions{
+  display:flex;flex-wrap:wrap;gap:12px;margin-top:32px;
+  animation:fadeSlideUp 1s .3s ease both;
+}
+.hero-scroll-hint{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  color:var(--txt-muted);font-size:.68rem;letter-spacing:.14em;
+  text-transform:uppercase;animation:fadeSlideUp 1.2s .6s ease both;z-index:3;
+}
+.scroll-arrow{
+  width:20px;height:30px;border:1.5px solid var(--border-mid);border-radius:10px;
+  display:flex;align-items:flex-start;justify-content:center;padding-top:5px;
+}
+.scroll-arrow::after{
+  content:'';width:4px;height:6px;border-radius:2px;
+  background:var(--clr-green);
+  animation:scrollBounce 1.6s ease infinite;
+}
+@keyframes scrollBounce{0%{transform:translateY(0);opacity:1;}60%{transform:translateY(10px);opacity:.4;}100%{transform:translateY(0);opacity:1;}}
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+
+/* ═══════════════════════════════════════════════════════════════
+   MARQUEE TICKER
+   ═══════════════════════════════════════════════════════════════ */
+.ticker{
+  background:var(--clr-green);overflow:hidden;
+  padding:10px 0;position:relative;z-index:5;
+}
+.ticker-inner{
+  display:flex;gap:0;width:max-content;
+  animation:tickerRoll 25s linear infinite;
+}
+.ticker-inner:hover{animation-play-state:paused;}
+.ticker-item{
+  font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:#000;
+  padding:0 28px;white-space:nowrap;display:flex;align-items:center;gap:12px;
+}
+.ticker-item::before{content:'✦';font-size:.65rem;}
+@keyframes tickerRoll{from{transform:translateX(0);}to{transform:translateX(-50%)}}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISSION SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.mission{padding:100px 0;position:relative;z-index:2;}
+.mission-card{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;
+  align-items:center;
+}
+.mission-text h2{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(2.4rem,5vw,3.8rem);font-weight:700;
+  text-transform:uppercase;line-height:1;letter-spacing:-.02em;
+  color:var(--txt-primary);margin-bottom:20px;
+}
+.mission-text h2 .accent{color:var(--clr-green);}
+.mission-text p{font-size:1rem;line-height:1.75;color:var(--txt-secondary);margin-bottom:16px;}
+.mission-text .quote{
+  font-style:italic;color:var(--txt-muted);
+  padding-left:16px;border-left:2px solid var(--clr-green);
+}
+.mission-media{
+  position:relative;border-radius:12px;overflow:hidden;
+  box-shadow:var(--shadow-card);
+}
+.mission-media::after{
+  content:'';position:absolute;inset:0;
+  border-radius:12px;border:1px solid var(--border-subtle);
+  pointer-events:none;
+}
+.mission-media video{width:100%;border-radius:12px;}
+/* 3D tilt card effect */
+.mission-media{
+  transform-style:preserve-3d;
+  transition:transform .4s ease;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   URDU SLIDER (Mobile)
+   ═══════════════════════════════════════════════════════════════ */
+.urdu-slider{padding:60px 0;}
+.urdu-slider-card{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border-subtle);
+  background:var(--bg-card);
+}
+.urdu-slider-wrapper{position:relative;overflow:hidden;aspect-ratio:16/9;}
+.urdu-slider-track{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1);}
+.urdu-slider-slide{min-width:100%;position:relative;}
+.urdu-slider-slide img{width:100%;height:100%;object-fit:cover;}
+.urdu-slider-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:40px;height:40px;border-radius:50%;
+  background:var(--bg-glass);backdrop-filter:blur(10px);
+  border:1px solid var(--border-mid);color:var(--txt-primary);
+  display:flex;align-items:center;justify-content:center;
+  z-index:5;transition:all .2s ease;
+}
+.urdu-slider-btn:hover{background:var(--clr-green);color:#000;border-color:var(--clr-green);}
+.urdu-slider-prev{left:12px;}
+.urdu-slider-next{right:12px;}
+.urdu-slider-dots{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:5;
+}
+.urdu-slider-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.4);transition:all .3s ease;cursor:pointer;
+}
+.urdu-slider-dot.active{background:var(--clr-green);width:18px;border-radius:3px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   CORE VALUES
+   ═══════════════════════════════════════════════════════════════ */
+.values{padding:100px 0;position:relative;z-index:2;}
+.section-heading{
+  text-align:center;margin-bottom:56px;
+  display:flex;align-items:center;justify-content:center;gap:16px;
+}
+.section-heading h2{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--txt-primary);
+}
+.section-heading .bar{flex:1;height:1px;background:var(--border-mid);}
+.values-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+}
+.value-card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:16px;padding:36px 20px;
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:12px;text-align:center;
+  cursor:pointer;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;overflow:hidden;
+}
+.value-card::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 100%,rgba(46,204,113,.12),transparent 70%);
+  opacity:0;transition:opacity .3s ease;
+}
+.value-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--clr-green);
+  box-shadow:0 12px 40px rgba(46,204,113,.2);
+}
+.value-card:hover::before{opacity:1;}
+.value-icon{
+  width:44px;height:44px;stroke:var(--clr-green);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.value-card:hover .value-icon{transform:scale(1.2) rotate(5deg);}
+.value-card div{
+  font-family:'Oswald',sans-serif;font-size:.82rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--txt-secondary);
+  line-height:1.4;
+}
+.explore-card{
+  border:1px dashed var(--border-mid);
+  background:transparent;
+}
+.explore-card:hover{background:var(--bg-card);}
+
+/* ═══════════════════════════════════════════════════════════════
+   STATS SECTION — 3D animated counters
+   ═══════════════════════════════════════════════════════════════ */
+.stats-section{padding:80px 0;position:relative;z-index:2;}
+.stats-card{
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:16px;padding:60px 48px;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:0;
+  position:relative;overflow:hidden;
+}
+.stats-card::before{
+  content:'';position:absolute;inset:-1px;
+  background:linear-gradient(135deg,var(--clr-green),transparent 40%,transparent 60%,var(--clr-green));
+  opacity:.08;border-radius:16px;
+  pointer-events:none;
+}
+.stat{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  padding:0 24px;
+  border-right:1px solid var(--border-subtle);
+  position:relative;
+}
+.stat:last-child{border-right:none;}
+.stat svg{width:32px;height:32px;stroke:var(--clr-green);}
+.stat .num{
+  font-family:'Oswald',sans-serif;font-size:2.4rem;font-weight:700;
+  color:var(--txt-primary);line-height:1;
+  transition:transform .3s ease;
+}
+.stat .lbl{
+  font-size:.72rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--txt-muted);
+  text-align:center;
+}
+.stat-clickable{cursor:pointer;}
+.stat-clickable:hover .num{color:var(--clr-green);transform:scale(1.08);}
+
+/* ═══════════════════════════════════════════════════════════════
+   ★ SACRED QURAN SECTION ★
+   ═══════════════════════════════════════════════════════════════ */
+.quran-section{
+  padding:100px 0;
+  position:relative;z-index:2;
+  overflow:hidden;
+}
+.quran-bg{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(46,204,113,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+/* Calligraphic border lines */
+.quran-bg::before,.quran-bg::after{
+  content:'';position:absolute;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border-mid),transparent);
+}
+.quran-bg::before{top:0;}
+.quran-bg::after{bottom:0;}
+.quran-inner{
+  max-width:860px;margin:0 auto;text-align:center;position:relative;
+}
+.quran-ornament{
+  width:48px;height:48px;margin:0 auto 24px;
+  color:var(--clr-green);opacity:.7;
+}
+.quran-bismillah{
+  font-family:'Amiri',serif;
+  font-size:clamp(1.4rem,3.5vw,2rem);
+  color:var(--clr-green);
+  letter-spacing:.08em;
+  margin-bottom:20px;
+  line-height:1.8;
+  direction:rtl;
+  unicode-bidi:bidi-override;
+}
+.quran-ayah{
+  font-family:'Amiri',serif;
+  font-size:clamp(1.9rem,5vw,3rem);
+  font-weight:700;
+  line-height:1.8;
+  direction:rtl;
+  unicode-bidi:bidi-override;
+  color:var(--txt-primary);
+  margin-bottom:28px;
+  padding:32px 40px;
+  background:var(--bg-card);
+  border-radius:16px;
+  border:1px solid var(--border-subtle);
+  position:relative;
+}
+.quran-ayah::before{
+  content:'"';
+  font-family:'Amiri',serif;font-size:6rem;
+  color:var(--clr-green);opacity:.15;
+  position:absolute;top:-20px;right:24px;line-height:1;
+}
+.quran-translation{
+  font-size:1.1rem;font-weight:300;line-height:1.9;
+  color:var(--txt-secondary);font-style:italic;
+  margin-bottom:16px;
+}
+.quran-ref{
+  display:inline-block;
+  font-size:.72rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--clr-green);
+  padding:6px 18px;border-radius:50px;
+  border:1px solid var(--border-mid);
+  background:var(--bg-card);
+}
+/* Subtle 3D floating Islamic star */
+.quran-star{
+  position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+  opacity:.05;pointer-events:none;
+}
+.quran-star-l{
+  position:absolute;left:-60px;top:50%;transform:translateY(-50%);
+  opacity:.05;pointer-events:none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   IMAGE SLIDER
+   ═══════════════════════════════════════════════════════════════ */
+.image-slider{padding:80px 0;position:relative;z-index:2;}
+.slider-card{
+  position:relative;border-radius:16px;overflow:hidden;
+  border:1px solid var(--border-subtle);
+}
+.slider-wrapper{position:relative;overflow:hidden;aspect-ratio:21/9;}
+.slider-track{display:flex;height:100%;transition:transform .6s cubic-bezier(.4,0,.2,1);}
+.slider-slide{min-width:100%;position:relative;overflow:hidden;}
+.slider-slide img{width:100%;height:100%;object-fit:cover;}
+.slider-img-zoomout{animation:kenBurns 8s ease-in-out infinite alternate;}
+@keyframes kenBurns{from{transform:scale(1.05);}to{transform:scale(1);}}
+.slider-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:var(--bg-glass);backdrop-filter:blur(12px);
+  border:1px solid var(--border-mid);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  z-index:5;transition:all .25s ease;
+}
+.slider-btn:hover{background:var(--clr-green);color:#000;border-color:var(--clr-green);transform:translateY(-50%) scale(1.1);}
+.slider-prev{left:16px;}
+.slider-next{right:16px;}
+.slider-dots{
+  position:absolute;bottom:18px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:5;
+}
+.slider-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.4);cursor:pointer;transition:all .3s ease;
+}
+.slider-dot.active{background:#fff;width:20px;border-radius:3px;}
+
+/* ═══════════════════════════════════════════════════════════════
+   LATEST UPDATES
+   ═══════════════════════════════════════════════════════════════ */
+.updates{padding:80px 0;position:relative;z-index:2;}
+.updates-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:36px;}
+.updates-head h2{
+  font-family:'Oswald',sans-serif;font-size:clamp(1.6rem,3.5vw,2.2rem);
+  font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--txt-primary);
+}
+.view-all{
+  display:flex;align-items:center;gap:6px;
+  font-size:.78rem;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--clr-green);
+  transition:gap .2s ease;
+}
+.view-all:hover{gap:10px;}
+.updates-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+}
+.update-card{
+  background:var(--bg-card);border-radius:12px;overflow:hidden;
+  border:1px solid var(--border-subtle);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;
+}
+.update-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--border-mid);
+  box-shadow:var(--shadow-card);
+}
+.update-card .thumb{
+  aspect-ratio:16/10;overflow:hidden;
+}
+.update-card .thumb img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;
+}
+.update-card:hover .thumb img{transform:scale(1.08);}
+.update-card .body{padding:18px 16px;}
+.update-card .body h3{
+  font-size:.9rem;font-weight:600;color:var(--txt-primary);
+  margin-bottom:6px;line-height:1.4;
+}
+.update-card .body p{font-size:.75rem;color:var(--txt-muted);}
+
+/* ═══════════════════════════════════════════════════════════════
+   CTA SECTION
+   ═══════════════════════════════════════════════════════════════ */
+.cta{padding:80px 0;position:relative;z-index:2;}
+.cta-card{
+  position:relative;border-radius:20px;overflow:hidden;
+  min-height:360px;display:flex;align-items:center;
+}
+.cta-bg{position:absolute;inset:0;}
+.cta-bg img{width:100%;height:100%;object-fit:cover;}
+.cta-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(10,15,13,.95) 0%,rgba(10,15,13,.7) 60%,rgba(10,15,13,.4) 100%);
+}
+.cta-inner{
+  position:relative;z-index:2;padding:60px 64px;max-width:600px;
+}
+.cta-inner h2{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(2.4rem,5vw,3.6rem);font-weight:700;
+  text-transform:uppercase;line-height:.95;letter-spacing:-.02em;
+  color:#fff;margin-bottom:20px;
+}
+.cta-inner h2 span{color:var(--clr-green);}
+.cta-inner p{
+  font-size:1rem;line-height:1.75;
+  color:rgba(240,255,244,.75);margin-bottom:32px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ★ GREENO-STYLE PREMIUM FOOTER ★
+   ═══════════════════════════════════════════════════════════════ */
+.site-footer{
+  background:var(--clr-green-deep);
+  position:relative;z-index:5;
+  overflow:hidden;
+}
+/* Top decorative line */
+.site-footer::before{
+  content:'';display:block;
+  height:3px;
+  background:linear-gradient(90deg,var(--clr-green),var(--clr-gold),var(--clr-green));
+}
+.footer-top{
+  padding:72px 0 56px;
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1fr 1.4fr;
+  gap:48px;
+}
+/* Brand column */
+.footer-brand .brand-logo-f{
+  width:60px;height:60px;border-radius:10px;object-fit:cover;
+  border:2px solid rgba(255,255,255,.15);margin-bottom:20px;
+}
+.footer-brand h3{
+  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:#fff;
+  margin-bottom:6px;
+}
+.footer-brand p{
+  font-size:.82rem;line-height:1.75;color:rgba(255,255,255,.6);
+  margin-bottom:24px;max-width:260px;
+}
+/* Social icons */
+.footer-socials{display:flex;gap:10px;}
+.footer-social{
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.7);
+  transition:all .25s ease;
+  text-decoration:none;
+}
+.footer-social:hover{
+  background:var(--clr-green-vivid);
+  border-color:var(--clr-green-vivid);
+  color:#000;transform:translateY(-3px);
+}
+/* Footer nav columns */
+.footer-col h4{
+  font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);
+  margin-bottom:20px;
+}
+.footer-col ul li{margin-bottom:10px;}
+.footer-col ul li a{
+  font-size:.88rem;color:rgba(255,255,255,.65);
+  transition:all .2s ease;display:inline-block;
+  position:relative;
+}
+.footer-col ul li a::after{
+  content:'';position:absolute;left:0;bottom:-1px;height:1px;
+  width:0;background:var(--clr-green-vivid);transition:width .25s ease;
+}
+.footer-col ul li a:hover{color:#fff;transform:translateX(4px);}
+.footer-col ul li a:hover::after{width:100%;}
+/* Newsletter column */
+.footer-newsletter h4{
+  font-family:'Oswald',sans-serif;font-size:.72rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);
+  margin-bottom:8px;
+}
+.footer-newsletter p{
+  font-size:.82rem;color:rgba(255,255,255,.6);margin-bottom:16px;line-height:1.6;
+}
+.newsletter-form{display:flex;flex-direction:column;gap:10px;}
+.newsletter-input{
+  width:100%;padding:12px 16px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:6px;color:#fff;font-family:'Inter',sans-serif;font-size:.85rem;
+  transition:border-color .2s ease;outline:none;
+}
+.newsletter-input::placeholder{color:rgba(255,255,255,.35);}
+.newsletter-input:focus{border-color:var(--clr-green-vivid);}
+.newsletter-btn{
+  padding:12px 20px;background:var(--clr-green);color:#000;
+  border-radius:6px;font-family:'Oswald',sans-serif;font-size:.82rem;
+  font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  transition:all .25s ease;border:none;cursor:pointer;
+}
+.newsletter-btn:hover{background:var(--clr-green-vivid);transform:translateY(-2px);}
+/* Footer divider */
+.footer-divider{
+  height:1px;background:rgba(255,255,255,.08);margin:0;
+}
+/* Footer bottom bar */
+.footer-bottom{
+  padding:20px 0;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:12px;
+}
+.footer-copy{
+  font-size:.76rem;color:rgba(255,255,255,.4);
+}
+.footer-bottom-links{
+  display:flex;gap:20px;
+}
+.footer-bottom-links a{
+  font-size:.76rem;color:rgba(255,255,255,.4);
+  transition:color .2s ease;
+}
+.footer-bottom-links a:hover{color:rgba(255,255,255,.8);}
+.footer-mission-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 14px;border-radius:50px;
+  background:rgba(46,204,113,.12);
+  border:1px solid rgba(46,204,113,.2);
+  font-size:.7rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:rgba(46,204,113,.8);
+}
+/* Footer background texture */
+.footer-pattern{
+  position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 10% 50%,rgba(0,0,0,.15) 0%,transparent 50%),
+    radial-gradient(circle at 90% 20%,rgba(46,204,113,.06) 0%,transparent 40%);
+  pointer-events:none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   ★ FLOATING WHATSAPP BUTTON ★
+   ═══════════════════════════════════════════════════════════════ */
+.whatsapp-float{
+  position:fixed;
+  bottom:28px;right:28px;z-index:800;
+  display:flex;align-items:center;gap:0;
+}
+.wa-btn{
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,.45);
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  position:relative;text-decoration:none;
+}
+.wa-btn::before,.wa-btn::after{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  background:#25D366;opacity:.25;
+  animation:waPulse 2s ease-in-out infinite;
+}
+.wa-btn::after{animation-delay:.5s;opacity:.15;}
+@keyframes waPulse{
+  0%{transform:scale(1);opacity:.25;}
+  70%{transform:scale(1.6);opacity:0;}
+  100%{transform:scale(1.6);opacity:0;}
+}
+.wa-btn:hover{transform:scale(1.12);box-shadow:0 10px 32px rgba(37,211,102,.65);}
+.wa-label{
+  position:absolute;right:68px;top:50%;transform:translateY(-50%);
+  background:var(--bg-card);border:1px solid var(--border-subtle);
+  padding:8px 14px;border-radius:8px;
+  font-size:.78rem;font-weight:600;letter-spacing:.06em;
+  color:var(--txt-primary);white-space:nowrap;
+  box-shadow:var(--shadow-card);
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease;
+}
+.wa-label::after{
+  content:'';position:absolute;right:-5px;top:50%;transform:translateY(-50%);
+  width:10px;height:10px;background:var(--bg-card);
+  border-top:1px solid var(--border-subtle);border-right:1px solid var(--border-subtle);
+  rotate:45deg;
+}
+.whatsapp-float:hover .wa-label{opacity:1;}
+
+/* ═══════════════════════════════════════════════════════════════
+   REGIONS POPUP
+   ═══════════════════════════════════════════════════════════════ */
+.regions-popup,.manifesto-popup{
+  position:fixed;inset:0;z-index:980;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.regions-popup.open,.manifesto-popup.open{opacity:1;pointer-events:all;}
+.regions-popup-overlay,.manifesto-popup-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.75);backdrop-filter:blur(6px);
+}
+.regions-popup-content,.manifesto-popup-content{
+  position:relative;z-index:2;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-mid);
+  border-radius:16px;padding:36px;
+  max-width:520px;width:90%;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow-card);
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{transform:scale(.92);opacity:0;}to{transform:scale(1);opacity:1;}}
+.regions-popup-close,.manifesto-popup-close{
+  position:absolute;top:16px;right:16px;
+  width:36px;height:36px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--txt-secondary);border:1px solid var(--border-subtle);
+  transition:all .2s ease;
+}
+.regions-popup-close:hover,.manifesto-popup-close:hover{
+  border-color:var(--clr-green);color:var(--clr-green);
+}
+.regions-popup-content h3,.manifesto-popup-content h2{
+  font-family:'Oswald',sans-serif;font-size:1.5rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+  color:var(--txt-primary);margin-bottom:6px;
+}
+.regions-subtitle,.manifesto-subtitle{
+  font-size:.8rem;color:var(--txt-muted);margin-bottom:24px;
+}
+.regions-list li{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 0;border-bottom:1px solid var(--border-subtle);
+  font-size:.92rem;color:var(--txt-secondary);
+}
+.regions-list li:last-child{border-bottom:none;}
+.region-num{
+  width:28px;height:28px;border-radius:6px;
+  background:var(--bg-card);border:1px solid var(--border-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Oswald',sans-serif;font-size:.75rem;font-weight:700;
+  color:var(--clr-green);flex-shrink:0;
+}
+/* Manifesto popup */
+.manifesto-logo{width:52px;height:52px;border-radius:8px;object-fit:cover;margin-bottom:12px;}
+.manifesto-header{text-align:center;margin-bottom:28px;}
+.manifesto-goals-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.goal-card{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;
+  background:var(--bg-card);border:1px solid var(--border-subtle);
+  border-radius:8px;transition:all .2s ease;
+}
+.goal-card:hover{border-color:var(--border-mid);}
+.goal-num{
+  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
+  color:var(--clr-green);min-width:28px;
+}
+.goal-text{font-size:.78rem;color:var(--txt-secondary);line-height:1.4;}
+
+/* ═══════════════════════════════════════════════════════════════
+   PETITION MODAL
+   ═══════════════════════════════════════════════════════════════ */
+.petition-overlay{
+  position:fixed;inset:0;z-index:990;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+.petition-overlay.open,.petition-overlay.active{opacity:1;pointer-events:all;}
+.petition-overlay-bg{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
+}
+.petition-modal{
+  position:relative;z-index:2;
+  background:var(--bg-secondary);
+  border:1px solid var(--border-mid);
+  border-radius:16px;
+  width:min(780px,96vw);max-height:92vh;overflow-y:auto;
+  box-shadow:var(--shadow-card);
+  animation:popIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+.petition-close{
+  position:sticky;top:16px;right:16px;float:right;margin:16px 16px 0 0;
+  width:36px;height:36px;border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--txt-secondary);border:1px solid var(--border-subtle);
+  background:var(--bg-card);
+  transition:all .2s ease;z-index:5;
+}
+.petition-close:hover{border-color:var(--clr-green);color:var(--clr-green);}
+.petition-body{padding:0 32px 32px;clear:both;}
+.petition-badge{
+  display:inline-flex;padding:4px 12px;border-radius:50px;
+  background:var(--bg-elevated);border:1px solid var(--border-mid);
+  font-size:.68rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--clr-green);margin-bottom:16px;
+}
+.petition-main-title{
+  font-family:'Oswald',sans-serif;font-size:1.3rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.04em;
+  color:var(--txt-primary);margin-bottom:20px;line-height:1.3;
+}
+.petition-address,.petition-content p{
+  font-size:.88rem;line-height:1.75;color:var(--txt-secondary);margin-bottom:14px;
+}
+.petition-section-title{
+  font-family:'Oswald',sans-serif;font-size:.88rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;
+  color:var(--clr-green);margin:20px 0 10px;
+}
+.petition-list,.petition-impact-list{
+  padding-left:20px;margin-bottom:14px;
+}
+.petition-list li,.petition-impact-list li{
+  font-size:.85rem;line-height:1.7;color:var(--txt-secondary);margin-bottom:8px;
+}
+.petition-list{list-style:decimal;}
+.petition-impact-list{list-style:disc;}
+.petition-closing{color:var(--txt-muted);font-style:italic;}
+.petition-form-section{
+  margin-top:32px;padding-top:32px;
+  border-top:1px solid var(--border-subtle);
+}
+.petition-form-title{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Oswald',sans-serif;font-size:1.1rem;font-weight:700;
+  text-transform:uppercase;color:var(--txt-primary);margin-bottom:8px;
+}
+.petition-form-title svg{stroke:var(--clr-green);}
+.petition-form-desc{font-size:.85rem;color:var(--txt-muted);margin-bottom:24px;}
+.petition-field{margin-bottom:16px;}
+.petition-field label{
+  display:block;font-size:.78rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--txt-secondary);margin-bottom:6px;
+}
+.petition-required{color:var(--clr-green);}
+.petition-field input,.petition-field textarea{
+  width:100%;padding:11px 14px;
+  background:var(--bg-card);
+  border:1px solid var(--border-subtle);
+  border-radius:6px;color:var(--txt-primary);
+  font-family:'Inter',sans-serif;font-size:.9rem;
+  transition:border-color .2s ease;outline:none;resize:vertical;
+}
+.petition-field input:focus,.petition-field textarea:focus{border-color:var(--clr-green);}
+.petition-error{font-size:.75rem;color:#ff6b6b;margin-top:4px;display:none;}
+.petition-error.show{display:block;}
+.petition-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.petition-btn-download{font-size:.8rem;padding:12px 22px;}
+.petition-btn-close{font-size:.8rem;padding:12px 22px;}
+.petition-salutation{color:var(--txt-primary) !important;font-weight:500;}
+
+/* ═══════════════════════════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+   ═══════════════════════════════════════════════════════════════ */
+.reveal{
+  opacity:0;transform:translateY(32px);
+  transition:opacity .7s ease,transform .7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-40px);}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(40px);}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
+.reveal-scale{opacity:0;transform:scale(.92);}
+.reveal-scale.visible{opacity:1;transform:scale(1);}
+
+/* ═══════════════════════════════════════════════════════════════
+   3D CUBE BACKGROUND DECORATION
+   ═══════════════════════════════════════════════════════════════ */
+.cube-bg{
+  position:absolute;pointer-events:none;z-index:1;
+}
+.cube-shape{
+  width:60px;height:60px;
+  border:1px solid var(--border-subtle);
+  border-radius:8px;
+  animation:cubeFloat 6s ease-in-out infinite;
+  transform-style:preserve-3d;
+}
+@keyframes cubeFloat{
+  0%,100%{transform:translateY(0) rotate(0deg);}
+  50%{transform:translateY(-20px) rotate(10deg);}
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET
+   ═══════════════════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .nav-desktop{display:none;}
+  .hamburger{display:flex;}
+  .join-desktop{display:none;}
+  .mission-card{grid-template-columns:1fr;}
+  .footer-top{grid-template-columns:1fr 1fr;}
+  .stats-card{grid-template-columns:repeat(3,1fr);gap:24px;}
+  .stat{border-right:none;border-bottom:1px solid var(--border-subtle);padding-bottom:24px;}
+  .stat:last-child{border-bottom:none;}
+}
+@media(max-width:768px){
+  .values-grid{grid-template-columns:repeat(2,1fr);}
+  .updates-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-card{grid-template-columns:repeat(2,1fr);padding:40px 28px;}
+  .cta-inner{padding:40px 32px;}
+  .footer-top{grid-template-columns:1fr;}
+  .manifesto-goals-grid{grid-template-columns:1fr;}
+  .slider-wrapper{aspect-ratio:16/9;}
+  .hero-title{font-size:clamp(2.4rem,10vw,4rem);}
+  .quran-ayah{font-size:clamp(1.5rem,6vw,2rem);padding:24px;}
+  .whatsapp-float{bottom:20px;right:20px;}
+  .wa-label{display:none;}
+}
+@media(max-width:480px){
+  .values-grid{grid-template-columns:1fr 1fr;}
+  .updates-grid{grid-template-columns:1fr;}
+  .stats-card{grid-template-columns:repeat(2,1fr);}
+  .footer-top{gap:32px;}
+  .footer-bottom{flex-direction:column;text-align:center;}
+}
+/* Reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+<!-- ══════════════════ SCROLL PROGRESS BAR ══════════════════ -->
+<div id="scrollBar"></div>
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <!-- Brand -->
+    <a href="#" class="brand" target="_self">
+      <img src="https://pakistannaujawanparty.com/logo.jpeg" alt="PNP logo" class="brand-logo"/>
+      <div class="brand-text">
+        <div class="brand-line1">Pakistan Naujawan</div>
+        <div class="brand-line2">Party — Jaag Raha Hai</div>
+        <div class="brand-tag"><span></span><span></span></div>
+      </div>
+    </a>
+    <!-- Desktop nav -->
+    <nav class="nav-desktop">
+      <a href="#" class="manifesto-trigger" target="_self">Manifesto</a>
+      <a href="#" target="_self">Membership</a>
+      <a href="#" target="_self">Rah e Taraqi</a>
+      <a href="#" target="_self">Naujawan TV</a>
+      <a href="#" target="_self">Masail</a>
+      <a href="#" target="_self">Madadgar</a>
+      <a href="#" target="_self">Political Game</a>
+    </nav>
+    <!-- Right controls -->
+    <div class="header-right">
+      <!-- Theme toggle — light/dark switch -->
+      <button id="themeToggle" aria-label="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <a href="https://forms.gle/ExuChNumyBGTj1Z96" class="btn btn-primary btn-pill join-desktop">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        JOIN US
+      </a>
+      <button id="menuToggle" class="hamburger" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════ MOBILE DRAWER ══════════════════ -->
+<div id="mobileOverlay" class="mobile-overlay"></div>
+<aside id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <span class="drawer-title">MENU</span>
+    <button id="drawerClose" class="drawer-close" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="drawer-nav">
+    <a href="#" class="manifesto-trigger" target="_self">Manifesto</a>
+    <a href="#" target="_self">Membership</a>
+    <a href="#" target="_self">Rozgar</a>
+    <a href="#" target="_self">Naujawan TV</a>
+    <a href="#" target="_self">Masail</a>
+    <a href="#" target="_self">Madadgar</a>
+    <a href="#" target="_self">Political Game</a>
+    <a href="https://forms.gle/ExuChNumyBGTj1Z96" class="btn btn-primary btn-pill drawer-join">JOIN US</a>
+  </nav>
+</aside>
+
+<!-- ══════════════════ HERO SECTION ══════════════════ -->
+<section class="hero" id="home">
+  <div class="hero-bg">
+    <img src="hero-bg.jpeg" alt="" fetchpriority="high"/>
+    <div class="hero-overlay"></div>
+  </div>
+  <!-- 3D floating particles -->
+  <div class="hero-particles" id="heroParticles"></div>
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-flag-tag">
+        <span></span>
+        Pakistan Naujawan Party — Official
+      </div>
+      <h1 class="hero-title">
+        PAKISTAN<br/>
+        <span class="accent">NAUJAWAN</span>
+        <span class="accent-fill">PARTY</span>
+      </h1>
+      <p class="hero-sub">A political movement by youth and GenZ of Pakistan for a stronger, united and progressive Pakistan. Jaag Raha Hai Naujawan.</p>
+      <div class="hero-actions">
+        <a href="https://forms.gle/ExuChNumyBGTj1Z96" class="btn btn-primary">JOIN THE MOVEMENT
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a href="#mission" class="btn btn-outline" target="_self">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          WATCH VIDEO
+        </a>
+        <button id="signPetitionBtn" class="btn btn-outline" type="button">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          SIGN PETITION
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    <div class="scroll-arrow"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ══════════════════ TICKER MARQUEE ══════════════════ -->
+<div class="ticker">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">Jaag Raha Hai Naujawan</span>
+    <span class="ticker-item">One Youth, One Nation, One Mission</span>
+    <span class="ticker-item">Education Reforms for Pakistan</span>
+    <span class="ticker-item">Youth Empowerment Now</span>
+    <span class="ticker-item">Corruption-Free Pakistan</span>
+    <span class="ticker-item">Rule of Law &amp; Justice</span>
+    <span class="ticker-item">Digital Pakistan Movement</span>
+    <span class="ticker-item">Women Empowerment &amp; Safety</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">Jaag Raha Hai Naujawan</span>
+    <span class="ticker-item">One Youth, One Nation, One Mission</span>
+    <span class="ticker-item">Education Reforms for Pakistan</span>
+    <span class="ticker-item">Youth Empowerment Now</span>
+    <span class="ticker-item">Corruption-Free Pakistan</span>
+    <span class="ticker-item">Rule of Law &amp; Justice</span>
+    <span class="ticker-item">Digital Pakistan Movement</span>
+    <span class="ticker-item">Women Empowerment &amp; Safety</span>
+  </div>
+</div>
+
+<!-- ══════════════════ MISSION SECTION ══════════════════ -->
+<section id="mission" class="mission">
+  <div class="container">
+    <div class="mission-card">
+      <div class="mission-text reveal-left">
+        <div class="eyebrow"><span class="bar"></span><span>Our Mission</span></div>
+        <h2>JAG RAHA<br/><span class="accent">HAI NAUJAWAN</span></h2>
+        <p>The nation's youth, especially students, should devote themselves to education and character-building, as they are the future leaders of Pakistan.</p>
+        <p class="quote">"Quaid-e-Azam Muhammad Ali Jinnah"</p>
+        <a href="#" class="btn btn-ghost-primary" target="_self">READ MORE
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="mission-media reveal-right" id="missionMedia">
+        <video src="side-video.mp4" controls preload="metadata" playsinline></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ URDU SLIDER ══════════════════ -->
+<section class="urdu-slider">
+  <div class="container">
+    <div class="urdu-slider-card reveal-scale">
+      <div class="urdu-slider-wrapper">
+        <div class="urdu-slider-track" id="urduSliderTrack">
+          <div class="urdu-slider-slide active"><img src="urduslider1.jpeg" alt="Pakistan Naujawan Party" loading="lazy"/></div>
+          <div class="urdu-slider-slide"><img src="urduslider2.jpeg" alt="Jaag Raha Hai Naujawan" loading="lazy"/></div>
+          <div class="urdu-slider-slide"><img src="urduslider3.jpeg" alt="Youth Message" loading="lazy"/></div>
+          <div class="urdu-slider-slide"><img src="urduslider4.jpeg" alt="Political Message" loading="lazy"/></div>
+        </div>
+        <button class="urdu-slider-btn urdu-slider-prev" id="urduSliderPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="urdu-slider-btn urdu-slider-next" id="urduSliderNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <div class="urdu-slider-dots" id="urduSliderDots">
+          <span class="urdu-slider-dot active" data-index="0"></span>
+          <span class="urdu-slider-dot" data-index="1"></span>
+          <span class="urdu-slider-dot" data-index="2"></span>
+          <span class="urdu-slider-dot" data-index="3"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CORE VALUES ══════════════════ -->
+<section class="values">
+  <div class="container">
+    <div class="section-heading reveal">
+      <span class="bar"></span>
+      <h2>Our Core Values</h2>
+      <span class="bar"></span>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal" style="transition-delay:.05s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+        <div>YOUTH<br/>LEADERSHIP</div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:.1s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762"/></svg>
+        <div>WOMEN<br/>EMPOWERMENT</div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:.15s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+        <div>EDUCATION &amp;<br/>REFORMS</div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:.2s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17H7A5 5 0 0 1 7 7h2"/><path d="M15 7h2a5 5 0 1 1 0 10h-2"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        <div>CORRUPTION<br/>FREE PAKISTAN</div>
+      </div>
+      <div class="value-card reveal" style="transition-delay:.25s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0z"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0z"/><path d="M7 21h10"/></svg>
+        <div>RULE OF LAW &amp;<br/>JUSTICE SYSTEM</div>
+      </div>
+      <div class="value-card explore-card reveal" id="exploreMoreCard" style="transition-delay:.3s">
+        <svg class="value-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+        <div>EXPLORE<br/>MORE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ STATS ══════════════════ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-card reveal-scale">
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+        <div class="num" data-target="40000" data-suffix="k+">0</div>
+        <div class="lbl">Youth Engaged</div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+        <div class="num" data-target="500" data-suffix="+">0</div>
+        <div class="lbl">Campuses</div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg>
+        <div class="num" data-target="250" data-suffix="+">0</div>
+        <div class="lbl">Events</div>
+      </div>
+      <div class="stat stat-clickable" id="citiesStat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        <div class="num" data-target="10" data-suffix="">0</div>
+        <div class="lbl">Regions</div>
+      </div>
+      <div class="stat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19.414 14.414C21 12.828 22 11.5 22 9.5a5.5 5.5 0 0 0-9.591-3.676.6.6 0 0 1-.818.001A5.5 5.5 0 0 0 2 9.5c0 2.3 1.5 4 3 5.5l5.535 5.362a2 2 0 0 0 2.879.052 2.12 2.12 0 0 0-.004-3 2.124 2.124 0 1 0 3-3 2.124 2.124 0 0 0 3.004 0 2 2 0 0 0 0-2.828l-1.881-1.882a2.41 2.41 0 0 0-3.409 0l-1.71 1.71a2 2 0 0 1-2.828 0 2 2 0 0 1 0-2.828l2.823-2.762"/></svg>
+        <div class="num" data-target="2000" data-suffix="+">0</div>
+        <div class="lbl">Volunteers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ REGIONS POPUP ══════════════════ -->
+<div id="regionsPopup" class="regions-popup">
+  <div class="regions-popup-overlay"></div>
+  <div class="regions-popup-content">
+    <button class="regions-popup-close" id="regionsPopupClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <h3>Our 10 Regions</h3>
+    <p class="regions-subtitle">One United Movement • One Strong Pakistan</p>
+    <ul class="regions-list">
+      <li><span class="region-num">1</span>North KPK</li>
+      <li><span class="region-num">2</span>South KPK</li>
+      <li><span class="region-num">3</span>Twin Cities</li>
+      <li><span class="region-num">4</span>Northern Punjab</li>
+      <li><span class="region-num">5</span>Southern Punjab</li>
+      <li><span class="region-num">6</span>Kashmir</li>
+      <li><span class="region-num">7</span>Balochistan</li>
+      <li><span class="region-num">8</span>Gilgit Baltistan</li>
+      <li><span class="region-num">9</span>Sindh</li>
+      <li><span class="region-num">10</span>Karachi Sindh</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ══════════════════ MANIFESTO POPUP ══════════════════ -->
+<div id="manifestoPopup" class="manifesto-popup">
+  <div class="manifesto-popup-overlay"></div>
+  <div class="manifesto-popup-content">
+    <button class="manifesto-popup-close" id="manifestoPopupClose" aria-label="Close">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="manifesto-header">
+      <img src="https://pakistannaujawanparty.com/logo.jpeg" alt="PNP Logo" class="manifesto-logo"/>
+      <h2>TEHREEK-E-NAUJAWAN PAKISTAN</h2>
+      <p class="manifesto-subtitle">25 Goals for a Stronger, Prosperous Pakistan</p>
+    </div>
+    <div class="manifesto-goals-grid">
+      <div class="goal-card"><span class="goal-num">01</span><span class="goal-text">Youth Empowerment &amp; Leadership</span></div>
+      <div class="goal-card"><span class="goal-num">02</span><span class="goal-text">Political Stability &amp; Social Activism</span></div>
+      <div class="goal-card"><span class="goal-num">03</span><span class="goal-text">End of Colonial Mindset, Social Harmony &amp; National Unity</span></div>
+      <div class="goal-card"><span class="goal-num">04</span><span class="goal-text">Education Reforms and Standard Education System</span></div>
+      <div class="goal-card"><span class="goal-num">05</span><span class="goal-text">Health Reforms and Standard Healthcare for Every Pakistani</span></div>
+      <div class="goal-card"><span class="goal-num">06</span><span class="goal-text">Right Person for the Right Position</span></div>
+      <div class="goal-card"><span class="goal-num">07</span><span class="goal-text">Strong Geopolitics, Foreign Policy &amp; Alliances</span></div>
+      <div class="goal-card"><span class="goal-num">08</span><span class="goal-text">Women Empowerment &amp; Safety Reforms</span></div>
+      <div class="goal-card"><span class="goal-num">09</span><span class="goal-text">Rule of Law &amp; Justice System</span></div>
+      <div class="goal-card"><span class="goal-num">10</span><span class="goal-text">National Security &amp; Defense Strength</span></div>
+      <div class="goal-card"><span class="goal-num">11</span><span class="goal-text">Sustainable Energy for a Sustainable Future</span></div>
+      <div class="goal-card"><span class="goal-num">12</span><span class="goal-text">Green Pakistan &amp; Environmental Protection</span></div>
+      <div class="goal-card"><span class="goal-num">13</span><span class="goal-text">Population Control &amp; Family Planning</span></div>
+      <div class="goal-card"><span class="goal-num">14</span><span class="goal-text">Corruption-Free Pakistan</span></div>
+      <div class="goal-card"><span class="goal-num">15</span><span class="goal-text">Industrial &amp; Agricultural Revamp</span></div>
+      <div class="goal-card"><span class="goal-num">16</span><span class="goal-text">Promote Culture, Festivals &amp; Moral Reforms</span></div>
+      <div class="goal-card"><span class="goal-num">17</span><span class="goal-text">Media Upgradation &amp; Information Integrity</span></div>
+      <div class="goal-card"><span class="goal-num">18</span><span class="goal-text">Transportation &amp; Infrastructure Development</span></div>
+      <div class="goal-card"><span class="goal-num">19</span><span class="goal-text">Transparent Public Assets &amp; Tax System</span></div>
+      <div class="goal-card"><span class="goal-num">20</span><span class="goal-text">Blockchain-Based Voting &amp; Transparency</span></div>
+      <div class="goal-card"><span class="goal-num">21</span><span class="goal-text">Meritocracy, Citizenship Awards &amp; Recognition</span></div>
+      <div class="goal-card"><span class="goal-num">22</span><span class="goal-text">Islamic Teachings &amp; Mental Health Awareness</span></div>
+      <div class="goal-card"><span class="goal-num">23</span><span class="goal-text">Digital Pakistan &amp; Nationwide Internet Access</span></div>
+      <div class="goal-card"><span class="goal-num">24</span><span class="goal-text">Senior Citizen Support &amp; End of Child Labor</span></div>
+      <div class="goal-card"><span class="goal-num">25</span><span class="goal-text">Economic Growth &amp; Employment Opportunities</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ IMAGE SLIDER ══════════════════ -->
+<section class="image-slider">
+  <div class="container">
+    <div class="slider-card reveal-scale">
+      <div class="slider-wrapper">
+        <div class="slider-track" id="sliderTrack">
+          <div class="slider-slide active"><img src="slider1.jpeg" alt="Together for a Better Pakistan" loading="lazy" class="slider-img-zoomout"/></div>
+          <div class="slider-slide"><img src="slider2.jpeg" alt="Jaag Raha Hai Naujawan" loading="lazy" class="slider-img-zoomout"/></div>
+          <div class="slider-slide"><img src="slider3.jpeg" alt="Become a Member" loading="lazy" class="slider-img-zoomout"/></div>
+          <div class="slider-slide"><img src="slider4.jpeg" alt="Together We Can Build a Better Pakistan" loading="lazy" class="slider-img-zoomout"/></div>
+          <div class="slider-slide"><img src="slider5.jpeg" alt="Youth Leadership" loading="lazy" class="slider-img-zoomout"/></div>
+        </div>
+        <button class="slider-btn slider-prev" id="sliderPrev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button class="slider-btn slider-next" id="sliderNext" aria-label="Next">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+        <div class="slider-dots" id="sliderDots">
+          <span class="slider-dot active" data-index="0"></span>
+          <span class="slider-dot" data-index="1"></span>
+          <span class="slider-dot" data-index="2"></span>
+          <span class="slider-dot" data-index="3"></span>
+          <span class="slider-dot" data-index="4"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ LATEST UPDATES ══════════════════ -->
+<section class="updates">
+  <div class="container">
+    <div class="updates-head">
+      <h2>Latest Updates</h2>
+      <a href="#" class="view-all" target="_self">View All
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="updates-grid">
+      <article class="update-card reveal" style="transition-delay:.05s">
+        <div class="thumb"><img src="https://naujawan-join-pakistan.lovable.app/assets/news-convention-DOvejbqt.jpg" alt="Youth Convention in Lahore" loading="lazy"/></div>
+        <div class="body"><h3>Youth Convention in Lahore</h3><p>May 20, 2025</p></div>
+      </article>
+      <article class="update-card reveal" style="transition-delay:.1s">
+        <div class="thumb"><img src="https://naujawan-join-pakistan.lovable.app/assets/news-tree-BOUm4fRs.jpg" alt="Clean and Green Pakistan Drive" loading="lazy"/></div>
+        <div class="body"><h3>Clean &amp; Green Pakistan Drive Seminar</h3><p>August 14, 2026</p></div>
+      </article>
+      <article class="update-card reveal" style="transition-delay:.15s">
+        <div class="thumb"><img src="https://naujawan-join-pakistan.lovable.app/assets/news-seminar-C_D1sMWy.jpg" alt="Education Reform Seminar in Islamabad" loading="lazy"/></div>
+        <div class="body"><h3>Education Reform Seminar in Islamabad</h3><p>May 10, 2025</p></div>
+      </article>
+      <article class="update-card reveal" style="transition-delay:.2s">
+        <div class="thumb"><img src="https://naujawan-join-pakistan.lovable.app/assets/news-clean-D4xWUR5N.jpg" alt="Meeting in Twin Cities" loading="lazy"/></div>
+        <div class="body"><h3>Meeting in Twin Cities of Pakistan</h3><p>June 7, 2026</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ ★ QURANIC AYAH SECTION ★ ══════════════════ -->
+<!--
+  Sacred Integration: Surah Al-Ra'd 13:11
+  "Allah does not change the condition of a people until they change what is in themselves."
+  Treated with reverential typography using Amiri Arabic font, calligraphic spacing,
+  and a dedicated calm visual block.
+-->
+<section class="quran-section">
+  <div class="quran-bg"></div>
+  <!-- Decorative Islamic star SVG (right) -->
+  <svg class="quran-star" width="280" height="280" viewBox="0 0 100 100" fill="var(--clr-green)">
+    <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"/>
+  </svg>
+  <svg class="quran-star-l" width="280" height="280" viewBox="0 0 100 100" fill="var(--clr-green)">
+    <polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35"/>
+  </svg>
+  <div class="container">
+    <div class="quran-inner reveal-scale">
+      <!-- Ornamental SVG bismillah icon -->
+      <svg class="quran-ornament" viewBox="0 0 48 48" fill="none">
+        <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <path d="M24 8 L26 14 L32 14 L27 18 L29 24 L24 20 L19 24 L21 18 L16 14 L22 14 Z" fill="currentColor" opacity=".6"/>
+      </svg>
+      <!-- Arabic Bismillah line -->
+      <p class="quran-bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</p>
+      <!-- The Ayah — Arabic script, right-to-left, Amiri font -->
+      <div class="quran-ayah">
+        إِنَّ اللَّهَ لَا يُغَيِّرُ مَا بِقَوْمٍ حَتَّىٰ يُغَيِّرُوا مَا بِأَنفُسِهِمْ
+      </div>
+      <!-- English Translation -->
+      <p class="quran-translation">
+        "Indeed, Allah will not change the condition of a people until they change what is in themselves."
+      </p>
+      <!-- Reference badge -->
+      <span class="quran-ref">Surah Al-Ra'd — Verse 11 (13:11)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA SECTION ══════════════════ -->
+<section class="cta">
+  <div class="container">
+    <div class="cta-card">
+      <div class="cta-bg">
+        <img src="hero-bg.jpeg" alt=""/>
+        <div class="cta-overlay"></div>
+      </div>
+      <div class="cta-inner">
+        <h2>BE THE ONE,<br/>BE THE <span>CHANGE</span></h2>
+        <p>Join millions of young Pakistanis who are rising for a better, stronger and prosperous Pakistan.</p>
+        <a href="https://forms.gle/ExuChNumyBGTj1Z96" class="btn btn-primary">JOIN US TODAY
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PETITION MODAL ══════════════════ -->
+<div id="petitionModal" class="petition-overlay">
+  <div class="petition-overlay-bg"></div>
+  <div class="petition-modal">
+    <button class="petition-close" id="petitionClose" aria-label="Close petition">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="petition-body">
+      <div class="petition-text-section">
+        <div class="petition-badge">OFFICIAL PETITION</div>
+        <h2 class="petition-main-title">PETITION FOR THE ESTABLISHMENT OF SPECIALIZED WOMEN'S COURTS IN PAKISTAN</h2>
+        <div class="petition-address">
+          <p><strong>To:</strong> The Honorable Chief Justice of Pakistan<br/>Supreme Court of Pakistan, Constitution Avenue, Islamabad</p>
+          <p><strong>Subject:</strong> Public Interest Petition for the Establishment of Specialized Women's Courts Across Pakistan for the Protection of Women and Expeditious Justice in Cases of Gender-Based Violence</p>
+        </div>
+        <div class="petition-content">
+          <p class="petition-salutation">Respected Chief Justice of Pakistan,</p>
+          <p>We, the undersigned citizens of the Islamic Republic of Pakistan, respectfully submit this petition in the public interest concerning the increasing incidents of violence, harassment, abduction, domestic abuse, sexual assault, and other crimes committed against women throughout the country.</p>
+          <p>Pakistan's women and girls continue to face serious threats to their safety, dignity, and fundamental rights. Reports of rape, kidnapping, harassment, domestic violence, forced marriages, workplace abuse, cyber-harassment, and other forms of violence against women are frequently reported.</p>
+          <p>While Pakistan possesses laws intended to protect women, many victims face obstacles in reporting crimes, pursuing legal remedies, and obtaining justice. Lengthy proceedings, social pressures, intimidation, stigma, and procedural difficulties often discourage victims from fully participating in the legal process.</p>
+          <h3 class="petition-section-title">CONSTITUTIONAL AND PUBLIC INTEREST CONCERNS</h3>
+          <p>This petition is founded upon the constitutional principles of equality before law, protection of life and liberty, human dignity, equal protection of the law, and access to justice for all citizens.</p>
+          <h3 class="petition-section-title">NEED FOR SPECIALIZED WOMEN'S COURTS</h3>
+          <p>We respectfully submit that there is an urgent need for dedicated Women's Courts throughout Pakistan with exclusive jurisdiction over matters involving rape and sexual assault, kidnapping, domestic violence, harassment, cyber-harassment, forced marriages, honour-based violence, acid attacks, and other gender-based crimes.</p>
+          <h3 class="petition-section-title">PROPOSED STRUCTURE</h3>
+          <ol class="petition-list">
+            <li><strong>Female Judicial Officers</strong> — Women's Courts should be presided over by qualified female judges possessing specialized training in dealing with gender-based crimes and victim protection.</li>
+            <li><strong>Female Legal and Support Staff</strong> — To create a supportive environment for victims, consideration may be given to appointing female prosecutors, legal aid officers, and victim-support personnel.</li>
+            <li><strong>Victim-Centered Proceedings</strong> — The courts should operate under procedures designed to protect victims from intimidation, humiliation, and unnecessary trauma during legal proceedings.</li>
+            <li><strong>Expedited Disposal of Cases</strong> — Cases involving violence against women should be heard on a priority basis to prevent prolonged delays and ensure timely justice.</li>
+            <li><strong>Psychological and Legal Support</strong> — Victims should have access to counseling services, legal assistance, and protection mechanisms where necessary.</li>
+            <li><strong>Safe Court Environment</strong> — Dedicated facilities should be established to ensure privacy, security, and dignity for women appearing before the court.</li>
+          </ol>
+          <h3 class="petition-section-title">PRAYER</h3>
+          <p>In light of the foregoing, the petitioners respectfully request that the Honorable Supreme Court of Pakistan consider directing the relevant federal and provincial authorities to examine and implement appropriate measures for the establishment of specialized Women's Courts across Pakistan.</p>
+          <p class="petition-closing">Respectfully submitted,</p>
+        </div>
+      </div>
+      <div class="petition-form-section">
+        <h3 class="petition-form-title">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
+          Sign This Petition
+        </h3>
+        <p class="petition-form-desc">Fill in your details below to download the signed petition document.</p>
+        <form id="petitionForm" novalidate>
+          <div class="petition-field">
+            <label for="petitionName">Full Name <span class="petition-required">*</span></label>
+            <input type="text" id="petitionName" placeholder="Enter your full name" autocomplete="name"/>
+            <span class="petition-error" id="petitionNameError">Full name is required</span>
+          </div>
+          <div class="petition-field">
+            <label for="petitionCNIC">CNIC Number <span class="petition-required">*</span></label>
+            <input type="text" id="petitionCNIC" placeholder="00000-0000000-0" maxlength="15" inputmode="numeric"/>
+            <span class="petition-error" id="petitionCNICError">Valid CNIC is required (00000-0000000-0)</span>
+          </div>
+          <div class="petition-field">
+            <label for="petitionAddress">Address <span class="petition-required">*</span></label>
+            <textarea id="petitionAddress" placeholder="Enter your full address" rows="3"></textarea>
+            <span class="petition-error" id="petitionAddressError">Address is required</span>
+          </div>
+          <div class="petition-field">
+            <label for="petitionContact">Contact Number <span class="petition-required">*</span></label>
+            <input type="text" id="petitionContact" placeholder="03XX-XXXXXXX" maxlength="12" inputmode="numeric"/>
+            <span class="petition-error" id="petitionContactError">Contact number is required</span>
+          </div>
+          <div class="petition-field">
+            <label for="petitionDate">Date <span class="petition-required">*</span></label>
+            <input type="date" id="petitionDate"/>
+            <span class="petition-error" id="petitionDateError">Date is required</span>
+          </div>
+          <div class="petition-actions">
+            <button type="submit" class="btn btn-primary petition-btn-download" id="petitionDownloadBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              DOWNLOAD SIGNED PETITION
+            </button>
+            <button type="button" class="btn btn-outline petition-btn-close" id="petitionCloseBtn">CLOSE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ ★ GREENO-STYLE PREMIUM FOOTER ★ ══════════════════ -->
+<!--
+  GreenO-style Footer:
+  - Deep emerald background (#1A7A42)
+  - Multi-column: Brand + Mission | Quick Links | Movement | Newsletter
+  - Micro-interactions on nav links (slide underline)
+  - Newsletter subscription input
+  - Social icons with hover transform
+  - Decorative gradient top line
+-->
+<footer class="site-footer">
+  <div class="footer-pattern"></div>
+  <div class="container">
+    <div class="footer-top">
+      <!-- Column 1: Brand + Mission -->
+      <div class="footer-brand">
+        <img src="https://pakistannaujawanparty.com/logo.jpeg" alt="PNP Logo" class="brand-logo-f"/>
+        <h3>Pakistan Naujawan Party</h3>
+        <p>A youth-led political movement committed to building a stronger, united, and progressive Pakistan. Jaag Raha Hai Naujawan — the future belongs to us.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Facebook" target="_self">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Instagram" target="_self">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="YouTube" target="_self">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="#1A7A42" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="Twitter/X" target="_self">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://wa.me/923001234567" class="footer-social" aria-label="WhatsApp" target="_blank">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#" target="_self">Home</a></li>
+          <li><a href="#mission" target="_self">Our Mission</a></li>
+          <li><a href="#" class="manifesto-trigger" target="_self">Manifesto</a></li>
+          <li><a href="#" target="_self">Membership</a></li>
+          <li><a href="#" target="_self">Naujawan TV</a></li>
+          <li><a href="#" target="_self">Masail</a></li>
+          <li><a href="#" target="_self">Madadgar</a></li>
+        </ul>
+      </div>
+      <!-- Column 3: The Movement -->
+      <div class="footer-col">
+        <h4>The Movement</h4>
+        <ul>
+          <li><a href="#" target="_self">Rah e Taraqi</a></li>
+          <li><a href="#" target="_self">Political Game</a></li>
+          <li><a href="#" target="_self">Youth Leaders</a></li>
+          <li><a href="#" target="_self">Campus Chapters</a></li>
+          <li><a href="#" target="_self">Volunteer</a></li>
+          <li><a href="#" target="_self">Our Regions</a></li>
+          <li><a href="#" target="_self">Press &amp; Media</a></li>
+        </ul>
+      </div>
+      <!-- Column 4: Newsletter -->
+      <div class="footer-newsletter">
+        <h4>Stay Updated</h4>
+        <p>Join our movement newsletter. Get updates, event announcements, and the latest from Pakistan Naujawan Party.</p>
+        <div class="newsletter-form">
+          <input type="email" class="newsletter-input" placeholder="Enter your email address" aria-label="Email address"/>
+          <button class="newsletter-btn" type="button">SUBSCRIBE NOW</button>
+        </div>
+        <div class="footer-mission-badge" style="margin-top:20px">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          One Youth • One Nation • One Mission
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="container">
+    <div class="footer-bottom">
+      <p class="footer-copy">© <span id="year"></span> Pakistan Naujawan Party. All rights reserved. Built for Pakistan's Future.</p>
+      <div class="footer-bottom-links">
+        <a href="#" target="_self">Privacy Policy</a>
+        <a href="#" target="_self">Terms of Use</a>
+        <a href="#" target="_self">Contact</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════════════ ★ FLOATING WHATSAPP BUTTON ★ ══════════════════ -->
+<!--
+  Floating action button — bottom-right fixed, premium pulse animation,
+  hover label reveals, official WhatsApp green branding.
+-->
+<div class="whatsapp-float">
+  <div class="wa-label">Chat on WhatsApp</div>
+  <a href="https://wa.me/923001234567" class="wa-btn" target="_blank" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/>
+    </svg>
+  </a>
+</div>
+
+<!-- ══════════════════ SCRIPTS ══════════════════ -->
+<script src="https://unpkg.com/docx@8.5.0/build/index.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   CORE INTERACTIVITY — PNP Elite Website
+   ═══════════════════════════════════════════════════════════════ */
+
+// ── Year ──
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// ════════════════════════════════
+// THEME TOGGLE (Light / Dark)
+// ════════════════════════════════
+const html = document.documentElement;
+const themeBtn = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('pnp-theme') || 'dark';
+html.setAttribute('data-theme', savedTheme);
+
+themeBtn.addEventListener('click', () => {
+  const cur = html.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('pnp-theme', next);
+});
+
+// ════════════════════════════════
+// SCROLL PROGRESS BAR
+// ════════════════════════════════
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+  scrollBar.style.width = pct + '%';
+}, { passive: true });
+
+// ════════════════════════════════
+// HEADER SCROLL EFFECT
+// ════════════════════════════════
+const header = document.getElementById('siteHeader');
+window.addEventListener('scroll', () => {
+  header.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// ════════════════════════════════
+// 3D PARTICLE DOTS — Hero
+// ════════════════════════════════
+const particlesEl = document.getElementById('heroParticles');
+if (particlesEl) {
+  for (let i = 0; i < 18; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'p-dot';
+    const sz = Math.random() * 5 + 3;
+    dot.style.cssText = `
+      width:${sz}px;height:${sz}px;
+      left:${Math.random() * 100}%;
+      animation-duration:${Math.random() * 10 + 8}s;
+      animation-delay:${Math.random() * 8}s;
+    `;
+    particlesEl.appendChild(dot);
+  }
+}
+
+// ════════════════════════════════
+// MOBILE DRAWER
+// ════════════════════════════════
+const menuToggle = document.getElementById('menuToggle');
+const mobileDrawer = document.getElementById('mobileDrawer');
+const mobileOverlay = document.getElementById('mobileOverlay');
+const drawerClose = document.getElementById('drawerClose');
+
+function openDrawer() {
+  mobileDrawer.classList.add('open');
+  mobileOverlay.classList.add('open');
+  mobileDrawer.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  mobileDrawer.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+  mobileDrawer.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+menuToggle?.addEventListener('click', openDrawer);
+drawerClose?.addEventListener('click', closeDrawer);
+mobileOverlay?.addEventListener('click', closeDrawer);
+
+// ════════════════════════════════
+// SCROLL REVEAL OBSERVER
+// ════════════════════════════════
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ════════════════════════════════
+// ANIMATED STAT COUNTERS
+// ════════════════════════════════
+const statNums = document.querySelectorAll('.num[data-target]');
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const el = e.target;
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1600;
+      const step = dur / 60;
+      let cur = 0;
+      const inc = target / (dur / step);
+      const timer = setInterval(() => {
+        cur = Math.min(cur + inc, target);
+        if (target >= 1000) {
+          el.textContent = (cur >= 1000 ? Math.floor(cur / 1000) + 'k' : Math.floor(cur)) + suffix;
+        } else {
+          el.textContent = Math.floor(cur) + suffix;
+        }
+        if (cur >= target) clearInterval(timer);
+      }, step);
+      statsObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.4 });
+statNums.forEach(el => statsObserver.observe(el));
+
+// ════════════════════════════════
+// SLIDER — Main image slider
+// ════════════════════════════════
+function makeSlider(trackId, prevId, nextId, dotsId) {
+  const track = document.getElementById(trackId);
+  const prev = document.getElementById(prevId);
+  const next = document.getElementById(nextId);
+  const dotsWrap = document.getElementById(dotsId);
+  if (!track) return;
+  const slides = track.querySelectorAll('[class*="slide"]');
+  const dots = dotsWrap ? dotsWrap.querySelectorAll('[class*="dot"]') : [];
+  let cur = 0, timer;
+
+  function go(idx) {
+    cur = (idx + slides.length) % slides.length;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+  }
+  function autoplay() {
+    timer = setInterval(() => go(cur + 1), 5000);
+  }
+  function resetTimer() { clearInterval(timer); autoplay(); }
+
+  prev?.addEventListener('click', () => { go(cur - 1); resetTimer(); });
+  next?.addEventListener('click', () => { go(cur + 1); resetTimer(); });
+  dots.forEach((d, i) => d.addEventListener('click', () => { go(i); resetTimer(); }));
+  // Touch support
+  let tx = 0;
+  track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = tx - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { go(diff > 0 ? cur + 1 : cur - 1); resetTimer(); }
+  }, { passive: true });
+  autoplay();
+}
+makeSlider('sliderTrack', 'sliderPrev', 'sliderNext', 'sliderDots');
+makeSlider('urduSliderTrack', 'urduSliderPrev', 'urduSliderNext', 'urduSliderDots');
+
+// ════════════════════════════════
+// REGIONS POPUP
+// ════════════════════════════════
+const regionsPopup = document.getElementById('regionsPopup');
+const regionsClose = document.getElementById('regionsPopupClose');
+document.getElementById('citiesStat')?.addEventListener('click', () => {
+  regionsPopup.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+regionsClose?.addEventListener('click', () => {
+  regionsPopup.classList.remove('open');
+  document.body.style.overflow = '';
+});
+regionsPopup?.querySelector('.regions-popup-overlay')?.addEventListener('click', () => {
+  regionsPopup.classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+// ════════════════════════════════
+// MANIFESTO POPUP
+// ════════════════════════════════
+const manifestoPopup = document.getElementById('manifestoPopup');
+const manifestoClose = document.getElementById('manifestoPopupClose');
+document.querySelectorAll('.manifesto-trigger').forEach(btn => {
+  btn.addEventListener('click', e => {
+    e.preventDefault();
+    manifestoPopup.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    closeDrawer();
+  });
+});
+manifestoClose?.addEventListener('click', () => {
+  manifestoPopup.classList.remove('open');
+  document.body.style.overflow = '';
+});
+manifestoPopup?.querySelector('.manifesto-popup-overlay')?.addEventListener('click', () => {
+  manifestoPopup.classList.remove('open');
+  document.body.style.overflow = '';
+});
+
+// ════════════════════════════════
+// PETITION MODAL
+// ════════════════════════════════
+const petitionModal = document.getElementById('petitionModal');
+function openPetition() {
+  petitionModal.classList.add('open','active');
+  document.body.style.overflow = 'hidden';
+}
+function closePetition() {
+  petitionModal.classList.remove('open','active');
+  document.body.style.overflow = '';
+}
+document.getElementById('signPetitionBtn')?.addEventListener('click', openPetition);
+document.getElementById('petitionClose')?.addEventListener('click', closePetition);
+document.getElementById('petitionCloseBtn')?.addEventListener('click', closePetition);
+petitionModal?.querySelector('.petition-overlay-bg')?.addEventListener('click', closePetition);
+
+// CNIC auto-format
+document.getElementById('petitionCNIC')?.addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'');
+  if (v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+  if (v.length > 13) v = v.slice(0,13) + '-' + v.slice(13);
+  this.value = v.slice(0,15);
+});
+// Contact auto-format
+document.getElementById('petitionContact')?.addEventListener('input', function() {
+  let v = this.value.replace(/\D/g,'');
+  if (v.length > 4) v = v.slice(0,4) + '-' + v.slice(4);
+  this.value = v.slice(0,12);
+});
+
+// Petition form submit
+document.getElementById('petitionForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  let valid = true;
+  const fields = [
+    { id: 'petitionName', errId: 'petitionNameError', test: v => v.trim().length >= 2 },
+    { id: 'petitionCNIC', errId: 'petitionCNICError', test: v => /^\d{5}-\d{7}-\d$/.test(v) },
+    { id: 'petitionAddress', errId: 'petitionAddressError', test: v => v.trim().length >= 5 },
+    { id: 'petitionContact', errId: 'petitionContactError', test: v => v.trim().length >= 5 },
+    { id: 'petitionDate', errId: 'petitionDateError', test: v => v !== '' }
+  ];
+  fields.forEach(f => {
+    const el = document.getElementById(f.id);
+    const err = document.getElementById(f.errId);
+    const ok = el && f.test(el.value);
+    err?.classList.toggle('show', !ok);
+    if (!ok) valid = false;
+  });
+  if (valid) {
+    const btn = document.getElementById('petitionDownloadBtn');
+    if (btn) {
+      btn.textContent = '✓ SUBMITTED SUCCESSFULLY';
+      btn.style.background = '#27ae60';
+      setTimeout(() => {
+        btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> DOWNLOAD SIGNED PETITION';
+        btn.style.background = '';
+      }, 3000);
+    }
+  }
+});
+
+// ════════════════════════════════
+// EXPLORE MORE → MANIFESTO
+// ════════════════════════════════
+document.getElementById('exploreMoreCard')?.addEventListener('click', () => {
+  manifestoPopup.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+
+// ════════════════════════════════
+// 3D TILT on mission media card
+// ════════════════════════════════
+const tiltCard = document.getElementById('missionMedia');
+if (tiltCard && window.matchMedia('(min-width:769px)').matches) {
+  tiltCard.addEventListener('mousemove', e => {
+    const r = tiltCard.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 10;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -10;
+    tiltCard.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) translateZ(10px)`;
+  });
+  tiltCard.addEventListener('mouseleave', () => {
+    tiltCard.style.transform = 'perspective(800px) rotateY(0deg) rotateX(0deg)';
+  });
+}
+
+// ════════════════════════════════
+// VALUE CARDS — 3D micro-tilt
+// ════════════════════════════════
+document.querySelectorAll('.value-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
+    const y = ((e.clientY - r.top) / r.height - 0.5) * -14;
+    card.style.transform = `translateY(-6px) perspective(600px) rotateY(${x}deg) rotateX(${y}deg)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ════════════════════════════════
+// NEWSLETTER BUTTON FEEDBACK
+// ════════════════════════════════
+document.querySelector('.newsletter-btn')?.addEventListener('click', function() {
+  const inp = this.previousElementSibling;
+  if (inp && inp.value && inp.value.includes('@')) {
+    this.textContent = '✓ SUBSCRIBED!';
+    this.style.background = '#27ae60';
+    inp.value = '';
+    setTimeout(() => {
+      this.textContent = 'SUBSCRIBE NOW';
+      this.style.background = '';
+    }, 3000);
+  } else {
+    inp && (inp.style.borderColor = '#e74c3c');
+    setTimeout(() => { if(inp) inp.style.borderColor = ''; }, 1500);
+  }
+});
+
+// ════════════════════════════════
+// ESCAPE KEY — close all modals
+// ════════════════════════════════
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePetition();
+    manifestoPopup?.classList.remove('open');
+    regionsPopup?.classList.remove('open');
+    closeDrawer();
+    document.body.style.overflow = '';
+  }
+});
+</script>
+<script src="petition-modal.js" defer></script>
+<script src="script.js" defer></script>
+</body>
+</html>
