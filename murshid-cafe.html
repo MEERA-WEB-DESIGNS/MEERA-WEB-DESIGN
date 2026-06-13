@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Murshid Chay Cafe | The Elite Chai Experience</title>
+    <meta name="description" content="Experience the finest tea, exquisite fast food, and elite ambiance at Murshid Chay Cafe, Karor Lal Esan.">
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700;800&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        arabic: ['Amiri', 'serif'],
+                    },
+                    colors: {
+                        // The Chai Color Palette
+                        chai: {
+                            50: '#fdf8f4',  // Milk foam
+                            100: '#faefe5',
+                            200: '#f1dac2',
+                            300: '#e5bf99', // Milky tea
+                            400: '#d59e66',
+                            500: '#c6803c', // Caramel/Saffron
+                            600: '#b7642d',
+                            700: '#994b26', // Strong brew
+                            800: '#7d3d23',
+                            900: '#64321f',
+                            950: '#36180e', // Dark roast/Espresso
+                        },
+                        gold: {
+                            light: '#fde08b',
+                            DEFAULT: '#d4af37',
+                            dark: '#997a15',
+                        },
+                        dark: '#0f0a06', // Almost black, very warm
+                        darker: '#080503',
+                        light: '#faf6f0', // Creamy warm white
+                    },
+                    boxShadow: {
+                        'gold': '0 0 25px rgba(212, 175, 55, 0.3)',
+                        'gold-lg': '0 0 50px rgba(212, 175, 55, 0.5)',
+                        'inner-gold': 'inset 0 0 20px rgba(212, 175, 55, 0.1)',
+                    },
+                    backgroundImage: {
+                        'mandala': "url('data:image/svg+xml,%3Csvg width=\\'60\\' height=\\'60\\' viewBox=\\'0 0 60 60\\' xmlns=\\'http://www.w3.org/2000/svg\\'%3E%3Cg fill=\\'none\\' fill-rule=\\'evenodd\\'%3E%3Cg fill=\\'%23d4af37\\' fill-opacity=\\'0.05\\'%3E%3Cpath d=\\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* =========================================
+           CORE & UTILITIES
+           ========================================= */
+        html, body { overflow-x: hidden; scroll-behavior: smooth; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #080503; }
+        ::-webkit-scrollbar-thumb { background: #c6803c; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(250, 246, 240, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(198, 128, 60, 0.2);
+        }
+        .dark .glass {
+            background: rgba(15, 10, 6, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        /* =========================================
+           ANIMATIONS & KEYFRAMES
+           ========================================= */
+        @keyframes float-cup {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            33% { transform: translateY(-20px) rotate(2deg) scale(1.02); }
+            66% { transform: translateY(10px) rotate(-1deg) scale(0.98); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+        @keyframes steam {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            50% { transform: translateY(-40px) translateX(10px) scale(1.2); }
+            100% { transform: translateY(-100px) translateX(-20px) scale(2); opacity: 0; }
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 0 50px rgba(212, 175, 55, 0.6); }
+            100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        }
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(50px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        @keyframes loader-spin {
+            0% { transform: rotate(0deg); border-top-color: #d4af37; }
+            50% { transform: rotate(180deg); border-top-color: #c6803c; }
+            100% { transform: rotate(360deg); border-top-color: #d4af37; }
+        }
+        @keyframes loader-text {
+            0% { letter-spacing: 2px; opacity: 0; filter: blur(10px); }
+            50% { opacity: 1; filter: blur(0); }
+            100% { letter-spacing: 12px; opacity: 1; }
+        }
+
+        /* =========================================
+           COMPONENT CLASSES
+           ========================================= */
+        .animate-float { animation: float-cup 8s ease-in-out infinite; }
+        .steam-1 { animation: steam 4s ease-out infinite; }
+        .steam-2 { animation: steam 5s ease-out infinite 1.5s; }
+        .steam-3 { animation: steam 6s ease-out infinite 3s; }
+        
+        .scroll-reveal { opacity: 0; transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .scroll-reveal.active { animation: reveal 1s forwards; }
+        
+        .ticker-wrapper {
+            width: 100%; overflow: hidden; white-space: nowrap; box-sizing: border-box;
+        }
+        .ticker-content {
+            display: inline-block; animation: marquee 25s linear infinite;
+        }
+
+        .text-gradient-gold {
+            background: linear-gradient(to right, #d4af37, #fde08b, #c6803c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .img-hover-zoom {
+            overflow: hidden; border-radius: 1rem;
+        }
+        .img-hover-zoom img {
+            transition: transform 0.7s ease, filter 0.7s ease; filter: grayscale(80%) sepia(20%);
+        }
+        .img-hover-zoom:hover img {
+            transform: scale(1.1) rotate(2deg); filter: grayscale(0%) sepia(0%);
+        }
+
+        /* Premium Loader Screen */
+        #loader {
+            position: fixed; inset: 0; z-index: 99999;
+            background: #080503; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            transition: opacity 1s ease-in-out, visibility 1s;
+        }
+        .loader-ring {
+            width: 150px; height: 150px; border: 3px solid rgba(212, 175, 55, 0.1);
+            border-radius: 50%; border-top: 3px solid #d4af37;
+            animation: loader-spin 1.5s linear infinite; position: relative;
+        }
+        .loader-ring::before {
+            content: ''; position: absolute; inset: 10px;
+            border: 3px solid rgba(198, 128, 60, 0.1); border-radius: 50%;
+            border-bottom: 3px solid #c6803c; animation: loader-spin 2s linear infinite reverse;
+        }
+        .loader-text {
+            margin-top: 40px; font-family: 'Cinzel', serif; color: #d4af37;
+            font-size: 2rem; font-weight: bold; text-transform: uppercase;
+            animation: loader-text 2.5s forwards ease-out;
+        }
+    </style>
+</head>
+
+<body class="bg-light text-chai-900 dark:bg-darker dark:text-chai-100 transition-colors duration-700 bg-mandala">
+
+    <!-- ==========================================
+         PRELOADER
+         ========================================== -->
+    <div id="loader">
+        <div class="loader-ring"></div>
+        <div class="loader-text">Murshid Chay Cafe</div>
+        <p class="mt-4 text-chai-400 font-sans tracking-widest text-sm uppercase opacity-50">Curating Perfection...</p>
+    </div>
+
+    <!-- ==========================================
+         NEWS TICKER
+         ========================================== -->
+    <div class="bg-chai-900 dark:bg-black text-gold border-b border-chai-800 py-2 text-xs md:text-sm font-sans tracking-widest uppercase ticker-wrapper z-50 relative shadow-lg">
+        <div class="ticker-content">
+            <span class="mx-4"><i class="fas fa-star text-gold mr-2"></i> Rated 4.6/5.0 on Google</span>
+            <span class="mx-4">|</span>
+            <span class="mx-4"><i class="fas fa-fire text-chai-500 mr-2"></i> Try our new Murshid Special Zafrani Chai</span>
+            <span class="mx-4">|</span>
+            <span class="mx-4"><i class="fas fa-clock text-gold mr-2"></i> Open Today until 11:00 PM</span>
+            <span class="mx-4">|</span>
+            <span class="mx-4"><i class="fas fa-map-marker-alt text-chai-500 mr-2"></i> Karor Lal Esan</span>
+            <span class="mx-4">|</span>
+            <span class="mx-4"><i class="fas fa-truck text-gold mr-2"></i> Order via WhatsApp Now</span>
+            <!-- Duplicate for seamless loop -->
+            <span class="mx-4"><i class="fas fa-star text-gold mr-2"></i> Rated 4.6/5.0 on Google</span>
+            <span class="mx-4">|</span>
+            <span class="mx-4"><i class="fas fa-fire text-chai-500 mr-2"></i> Try our new Murshid Special Zafrani Chai</span>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         NAVIGATION (MASHROOB STYLE MINIMIZING)
+         ========================================== -->
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-500 py-6 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center rounded-2xl px-6 py-3 transition-all duration-500" id="nav-inner">
+                
+                <!-- Logo -->
+                <a href="#" class="flex-shrink-0 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-gold to-chai-600 flex items-center justify-center shadow-gold">
+                        <i class="fas fa-leaf text-darker"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-cinzel font-bold text-2xl tracking-widest text-chai-950 dark:text-gold leading-none">MURSHID</span>
+                        <span class="font-sans text-[0.65rem] tracking-[0.3em] text-chai-600 dark:text-chai-400 uppercase">Chay Cafe</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Links -->
+                <div class="hidden lg:flex space-x-10 items-center font-sans text-sm font-semibold tracking-wider">
+                    <a href="#about" class="text-chai-800 dark:text-chai-200 hover:text-gold dark:hover:text-gold transition duration-300 relative group">
+                        EXPERIENCE
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#special" class="text-chai-800 dark:text-chai-200 hover:text-gold dark:hover:text-gold transition duration-300 relative group">
+                        SPECIALTY
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#menu" class="text-chai-800 dark:text-chai-200 hover:text-gold dark:hover:text-gold transition duration-300 relative group">
+                        MENU
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#gallery" class="text-chai-800 dark:text-chai-200 hover:text-gold dark:hover:text-gold transition duration-300 relative group">
+                        GALLERY
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="#reviews" class="text-chai-800 dark:text-chai-200 hover:text-gold dark:hover:text-gold transition duration-300 relative group">
+                        REVIEWS
+                        <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-gold transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="themeToggle" class="w-10 h-10 rounded-full flex items-center justify-center bg-chai-200 dark:bg-chai-900 border border-chai-300 dark:border-chai-700 hover:border-gold transition duration-300 shadow-inner text-chai-800 dark:text-gold">
+                        <i id="themeIcon" class="fas fa-moon"></i>
+                    </button>
+                    
+                    <!-- Order Button -->
+                    <a href="#menu" class="bg-gradient-to-r from-gold to-chai-500 text-darker px-6 py-2.5 rounded-full font-bold hover:shadow-gold transition duration-300 flex items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Order Now
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center gap-4">
+                    <button id="themeToggleMobile" class="w-10 h-10 rounded-full flex items-center justify-center bg-chai-200 dark:bg-chai-900 border border-chai-300 dark:border-chai-700 hover:border-gold text-chai-800 dark:text-gold">
+                        <i id="themeIconMobile" class="fas fa-moon"></i>
+                    </button>
+                    <button class="text-chai-900 dark:text-gold text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==========================================
+         HERO SECTION (MILLION DOLLAR DESIGN)
+         ========================================== -->
+    <section class="relative min-h-[100svh] flex items-center pt-24 pb-12 overflow-hidden">
+        <!-- Abstract Chai Splashes Background -->
+        <div class="absolute top-1/4 -left-32 w-96 h-96 bg-chai-500/10 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-1/4 -right-32 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[150px]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Left: Text Content -->
+                <div class="text-center lg:text-left scroll-reveal">
+                    <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 backdrop-blur-sm mb-8">
+                        <i class="fas fa-crown text-gold"></i>
+                        <span class="text-xs md:text-sm font-sans tracking-widest text-chai-800 dark:text-chai-200 uppercase">Premium Chai Experience</span>
+                    </div>
+                    
+                    <h1 class="font-serif text-6xl md:text-8xl font-black mb-6 leading-[1.1] text-chai-950 dark:text-light drop-shadow-xl">
+                        Sip the <br />
+                        <span class="text-gradient-gold italic font-light">Elegance.</span>
+                    </h1>
+                    
+                    <p class="font-sans text-lg md:text-xl text-chai-700 dark:text-chai-300 mb-10 max-w-xl mx-auto lg:mx-0 font-light leading-relaxed">
+                        Welcome to Murshid Chay Cafe. An architectural and culinary masterpiece in Karor Lal Esan where tradition meets billion-dollar luxury. Curated by Waseem Khan Lashari.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6">
+                        <a href="#menu" class="group relative px-8 py-4 bg-gradient-to-r from-gold to-chai-600 text-darker rounded-full font-bold tracking-wider uppercase text-sm overflow-hidden shadow-gold-lg">
+                            <span class="relative z-10 flex items-center gap-2"><i class="fas fa-coffee"></i> Explore Menu</span>
+                            <div class="absolute inset-0 bg-white/20 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                        </a>
+                        
+                        <div class="flex items-center gap-4">
+                            <div class="flex -space-x-3">
+                                <img src="https://i.pravatar.cc/100?img=1" alt="User" class="w-10 h-10 rounded-full border-2 border-darker">
+                                <img src="https://i.pravatar.cc/100?img=2" alt="User" class="w-10 h-10 rounded-full border-2 border-darker">
+                                <img src="https://i.pravatar.cc/100?img=3" alt="User" class="w-10 h-10 rounded-full border-2 border-darker">
+                                <div class="w-10 h-10 rounded-full border-2 border-darker bg-chai-800 flex items-center justify-center text-xs text-white">+70</div>
+                            </div>
+                            <div class="text-sm font-sans">
+                                <div class="flex text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                <span class="text-chai-600 dark:text-chai-400 font-semibold">4.6 Google Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Premium 3D SVG Floating Cup -->
+                <div class="relative hidden lg:flex justify-center items-center h-[600px] scroll-reveal" style="animation-delay: 0.3s;">
+                    <!-- Ambient Glow -->
+                    <div class="absolute inset-0 bg-gold/20 rounded-full blur-[100px] animate-pulse"></div>
+                    
+                    <div class="relative w-full h-full animate-float flex justify-center items-center">
+                        
+                        <!-- Steam SVG -->
+                        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-48 h-64 z-0">
+                            <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full opacity-60">
+                                <path class="steam-1" d="M30 150 C 40 100, 10 50, 30 0" stroke="url(#steamGradient)" stroke-width="4" stroke-linecap="round" filter="blur(3px)"/>
+                                <path class="steam-2" d="M50 150 C 70 110, 30 60, 50 0" stroke="url(#steamGradient)" stroke-width="5" stroke-linecap="round" filter="blur(4px)"/>
+                                <path class="steam-3" d="M70 150 C 60 120, 80 40, 70 0" stroke="url(#steamGradient)" stroke-width="3" stroke-linecap="round" filter="blur(2px)"/>
+                                <defs>
+                                    <linearGradient id="steamGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+                                        <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+                                        <stop offset="50%" stop-color="#fdf8f4" stop-opacity="0.8" />
+                                        <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+
+                        <!-- Highly Detailed SVG Cup (To add weight and premium feel) -->
+                        <svg width="450" height="400" viewBox="0 0 450 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="relative z-10 drop-shadow-2xl">
+                            <!-- Cup Shadow on saucer -->
+                            <ellipse cx="225" cy="320" rx="140" ry="25" fill="#000000" fill-opacity="0.5" filter="blur(8px)"/>
+                            <!-- Saucer Base -->
+                            <ellipse cx="225" cy="330" rx="180" ry="40" fill="url(#saucerGrad)"/>
+                            <ellipse cx="225" cy="325" rx="180" ry="40" fill="url(#saucerTopGrad)"/>
+                            <ellipse cx="225" cy="325" rx="120" ry="25" fill="none" stroke="#d4af37" stroke-width="2"/>
+                            <!-- Handle -->
+                            <path d="M340 180 C 420 180, 420 280, 320 280" fill="none" stroke="url(#handleGrad)" stroke-width="25" stroke-linecap="round"/>
+                            <path d="M340 180 C 420 180, 420 280, 320 280" fill="none" stroke="#d4af37" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Cup Body -->
+                            <path d="M90 120 L 120 300 C 130 330, 320 330, 330 300 L 360 120 Z" fill="url(#cupGrad)"/>
+                            <!-- Cup Golden Trim Bottom -->
+                            <path d="M120 300 C 130 330, 320 330, 330 300" fill="none" stroke="#d4af37" stroke-width="6"/>
+                            <!-- Liquid inside -->
+                            <ellipse cx="225" cy="120" rx="130" ry="25" fill="#64321f"/>
+                            <ellipse cx="225" cy="120" rx="125" ry="22" fill="url(#teaGrad)"/>
+                            <!-- Cup Rim -->
+                            <ellipse cx="225" cy="120" rx="135" ry="30" fill="none" stroke="url(#rimGrad)" stroke-width="8"/>
+                            <ellipse cx="225" cy="120" rx="135" ry="30" fill="none" stroke="#d4af37" stroke-width="2"/>
+                            
+                            <!-- Ornaments/Mandala on Cup -->
+                            <g stroke="#d4af37" stroke-width="1.5" opacity="0.6">
+                                <path d="M 180 200 Q 225 150 270 200 Q 225 250 180 200 Z" fill="none"/>
+                                <path d="M 160 220 Q 225 170 290 220 Q 225 270 160 220 Z" fill="none"/>
+                                <circle cx="225" cy="200" r="15" fill="none"/>
+                                <circle cx="225" cy="200" r="5" fill="#d4af37"/>
+                            </g>
+                            <!-- Highlights -->
+                            <path d="M110 150 Q 130 250 140 280" stroke="white" stroke-width="8" stroke-linecap="round" opacity="0.3" filter="blur(2px)"/>
+
+                            <defs>
+                                <linearGradient id="saucerGrad" x1="0" y1="0" x2="450" y2="400">
+                                    <stop offset="0%" stop-color="#1a1a1a"/>
+                                    <stop offset="100%" stop-color="#000000"/>
+                                </linearGradient>
+                                <linearGradient id="saucerTopGrad" x1="0" y1="0" x2="450" y2="0">
+                                    <stop offset="0%" stop-color="#2a2a2a"/>
+                                    <stop offset="50%" stop-color="#3a3a3a"/>
+                                    <stop offset="100%" stop-color="#1a1a1a"/>
+                                </linearGradient>
+                                <linearGradient id="cupGrad" x1="90" y1="120" x2="360" y2="330">
+                                    <stop offset="0%" stop-color="#2a2a2a"/>
+                                    <stop offset="30%" stop-color="#4a4a4a"/>
+                                    <stop offset="70%" stop-color="#1a1a1a"/>
+                                    <stop offset="100%" stop-color="#0a0a0a"/>
+                                </linearGradient>
+                                <linearGradient id="handleGrad" x1="320" y1="180" x2="420" y2="280">
+                                    <stop offset="0%" stop-color="#3a3a3a"/>
+                                    <stop offset="100%" stop-color="#0a0a0a"/>
+                                </linearGradient>
+                                <linearGradient id="rimGrad" x1="90" y1="120" x2="360" y2="120">
+                                    <stop offset="0%" stop-color="#b8860b"/>
+                                    <stop offset="50%" stop-color="#ffd700"/>
+                                    <stop offset="100%" stop-color="#b8860b"/>
+                                </linearGradient>
+                                <linearGradient id="teaGrad" x1="100" y1="120" x2="350" y2="120">
+                                    <stop offset="0%" stop-color="#7d3d23"/>
+                                    <stop offset="50%" stop-color="#c6803c"/>
+                                    <stop offset="100%" stop-color="#36180e"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         AYAH SECTION (SPIRITUAL CORE)
+         ========================================== -->
+    <section class="py-24 bg-white dark:bg-dark border-y border-chai-200 dark:border-chai-900 relative overflow-hidden">
+        <div class="absolute inset-0 bg-mandala opacity-5"></div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 scroll-reveal">
+            <div class="text-gold mb-6 opacity-80 animate-pulse">
+                <i class="fas fa-star-and-crescent text-3xl"></i>
+            </div>
+            <h2 class="font-arabic text-5xl md:text-7xl text-chai-950 dark:text-gold mb-8 leading-normal drop-shadow-md" dir="rtl" style="line-height: 1.6;">
+                فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ
+            </h2>
+            <p class="font-serif text-2xl md:text-3xl text-chai-800 dark:text-chai-200 italic mb-6">
+                "So which of the favors of your Lord would you deny?"
+            </p>
+            <div class="flex items-center justify-center gap-4">
+                <div class="h-px w-16 bg-gold"></div>
+                <p class="text-sm text-chai-500 font-cinzel font-bold uppercase tracking-[0.4em]">Surah Ar-Rahman</p>
+                <div class="h-px w-16 bg-gold"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         SPECIAL ITEM SPOTLIGHT
+         ========================================== -->
+    <section id="special" class="py-32 relative bg-chai-50 dark:bg-darker overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="glass rounded-[3rem] p-8 md:p-16 border-2 border-gold/20 relative overflow-hidden shadow-2xl scroll-reveal">
+                <!-- Background Decoration -->
+                <div class="absolute -top-24 -right-24 text-[20rem] text-gold/5 rotate-45 pointer-events-none">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="order-2 md:order-1">
+                        <div class="inline-block bg-chai-900 text-gold px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Chef's Masterpiece</div>
+                        <h2 class="font-serif text-4xl md:text-6xl font-bold text-chai-950 dark:text-white mb-6">The Golden <br><span class="text-gold">Zafrani</span> Blend</h2>
+                        <p class="font-sans text-chai-700 dark:text-chai-300 mb-8 leading-relaxed text-lg">
+                            An opulent fusion of robust Assam leaves, slow-brewed overnight with pure Kashmiri saffron threads, crushed cardamom, and rich buffalo milk. This isn't just tea; it is a liquid gold experience crafted for royalty.
+                        </p>
+                        <div class="flex items-end gap-6 mb-8">
+                            <span class="font-cinzel text-5xl font-bold text-chai-950 dark:text-white">Rs 450</span>
+                            <span class="text-chai-500 line-through text-xl pb-1">Rs 600</span>
+                        </div>
+                        <button onclick="orderViaWhatsApp('The Golden Zafrani Blend (Special)', 'Rs 450')" class="w-full md:w-auto bg-gradient-to-r from-gold to-chai-600 text-darker px-10 py-4 rounded-full font-bold hover:shadow-gold-lg transition transform hover:-translate-y-1 duration-300 flex items-center justify-center gap-3">
+                            <i class="fab fa-whatsapp text-xl"></i> Order the Masterpiece
+                        </button>
+                    </div>
+                    
+                    <div class="order-1 md:order-2 flex justify-center relative">
+                        <!-- Glowing backdrop -->
+                        <div class="absolute inset-0 bg-gold/30 blur-[80px] rounded-full"></div>
+                        <!-- High res image placeholder via CSS (Stylized Cup) -->
+                        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full border-4 border-gold p-4 relative z-10 bg-darker flex items-center justify-center animate-[glow_4s_infinite]">
+                            <i class="fas fa-mug-hot text-9xl text-gradient-gold drop-shadow-2xl"></i>
+                            <!-- Floating saffron elements -->
+                            <i class="fas fa-seedling text-red-500 absolute top-10 right-20 animate-float text-2xl"></i>
+                            <i class="fas fa-seedling text-red-500 absolute bottom-20 left-10 animate-float text-xl" style="animation-delay: 1s;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         BILLION DOLLAR MENU SECTION
+         ========================================== -->
+    <section id="menu" class="py-32 relative bg-light dark:bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20 scroll-reveal">
+                <h4 class="text-gold font-sans tracking-[0.3em] text-sm uppercase mb-4">Culinary Excellence</h4>
+                <h2 class="font-serif text-5xl md:text-7xl font-bold text-chai-950 dark:text-white mb-6">The Royal Menu</h2>
+                <div class="h-1 w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto"></div>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-16 scroll-reveal">
+                <button class="px-8 py-3 rounded-full border border-gold bg-gold text-darker font-bold tracking-wider transition">Signature Teas</button>
+                <button class="px-8 py-3 rounded-full border border-chai-300 dark:border-chai-700 text-chai-800 dark:text-chai-200 hover:border-gold hover:text-gold transition font-bold tracking-wider">Fast Food</button>
+                <button class="px-8 py-3 rounded-full border border-chai-300 dark:border-chai-700 text-chai-800 dark:text-chai-200 hover:border-gold hover:text-gold transition font-bold tracking-wider">Desserts</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Item 1 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden border-t-4 border-t-gold">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-gold/10 rounded-full blur-2xl group-hover:bg-gold/30 transition"></div>
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Murshid Special Chai</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 250</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">Our flagship blend. Rich, creamy, and infused with a secret mix of aromatic spices imported from the finest estates.</p>
+                    <button onclick="orderViaWhatsApp('Murshid Special Chai', 'Rs 250')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Karak Elaichi</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 200</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">A strong, bold brew heavily accented with crushed green cardamom for a refreshing and deeply traditional kick.</p>
+                    <button onclick="orderViaWhatsApp('Karak Elaichi', 'Rs 200')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Matka Tandoori Chai</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 350</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">Served in a traditional clay pot roasted in a tandoor, giving the tea a unique, mesmerizing smoky flavor.</p>
+                    <button onclick="orderViaWhatsApp('Matka Tandoori Chai', 'Rs 350')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Gourmet Zinger Burger</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 650</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">Extra crispy, spicy chicken breast layered with fresh iceberg lettuce, melted cheese, and our signature sauce.</p>
+                    <button onclick="orderViaWhatsApp('Gourmet Zinger Burger', 'Rs 650')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Item 5 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Loaded Fries Plate</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 400</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">Golden crispy fries smothered in jalapeño cheese sauce, topped with spicy chicken chunks and olives.</p>
+                    <button onclick="orderViaWhatsApp('Loaded Fries Plate', 'Rs 400')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+                <!-- Item 6 -->
+                <div class="glass rounded-2xl p-8 hover:shadow-gold transition duration-500 group scroll-reveal relative overflow-hidden">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-2xl font-serif font-bold text-chai-950 dark:text-white group-hover:text-gold transition">Royal Nutella Paratha</h3>
+                        <span class="text-xl font-cinzel font-bold text-gold bg-gold/10 px-3 py-1 rounded-lg">Rs 300</span>
+                    </div>
+                    <p class="text-chai-600 dark:text-chai-400 text-sm mb-6 h-16">A crispy, flaky golden paratha generously stuffed and drizzled with premium Nutella and crushed hazelnuts.</p>
+                    <button onclick="orderViaWhatsApp('Royal Nutella Paratha', 'Rs 300')" class="w-full border border-gold text-gold hover:bg-gold hover:text-darker py-3 rounded-xl font-bold tracking-wider transition flex justify-center items-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Buy Now
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         GALLERY SECTION
+         ========================================== -->
+    <section id="gallery" class="py-32 bg-chai-100 dark:bg-darker relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 scroll-reveal">
+                <h4 class="text-gold font-sans tracking-[0.3em] text-sm uppercase mb-4">Visual Aesthetics</h4>
+                <h2 class="font-serif text-4xl md:text-6xl font-bold text-chai-950 dark:text-white">The Atmosphere</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-[250px]">
+                
+                <!-- Gallery Item 1 -->
+                <div class="img-hover-zoom lg:col-span-2 lg:row-span-2 relative group scroll-reveal">
+                    <!-- Using unsplash Placeholders themed around cafe/tea -->
+                    <img src="https://images.unsplash.com/photo-1544144433-d50aff500b91?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Cafe Interior" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-cinzel text-xl border-b-2 border-gold pb-2">Elite Ambience</span>
+                    </div>
+                </div>
+
+                <!-- Gallery Item 2 -->
+                <div class="img-hover-zoom relative group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1576092762791-dd9e2220abd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Pouring Tea" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Gallery Item 3 -->
+                <div class="img-hover-zoom relative group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1563805042-7684c8a9e9cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Spices" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Gallery Item 4 -->
+                <div class="img-hover-zoom relative group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Burger" class="w-full h-full object-cover">
+                </div>
+
+                <!-- Gallery Item 5 -->
+                <div class="img-hover-zoom lg:col-span-2 relative group scroll-reveal">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Coffee Shop" class="w-full h-full object-cover">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         REVIEWS SECTION
+         ========================================== -->
+    <section id="reviews" class="py-32 bg-light dark:bg-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 scroll-reveal">
+                <div class="flex justify-center text-gold text-3xl mb-4 gap-2">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+                <h2 class="font-serif text-5xl md:text-6xl font-bold text-chai-950 dark:text-white mb-4">Voices of Delight</h2>
+                <p class="text-chai-600 dark:text-chai-400 font-sans">4.6 out of 5 based on 73 verified Google Reviews</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="glass p-8 rounded-3xl relative scroll-reveal">
+                    <i class="fas fa-quote-left text-4xl text-gold/20 absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="text-chai-800 dark:text-chai-200 font-sans italic mb-6 leading-relaxed">"Absolutely loved my experience at Murshid chaey Caffe! Great tea, calming ambiance, and super friendly staff. Highly recommended."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-chai-300 dark:bg-chai-800 rounded-full flex items-center justify-center font-bold text-chai-900 dark:text-white">A</div>
+                            <div>
+                                <h4 class="font-bold text-chai-950 dark:text-white">Anonymous User</h4>
+                                <p class="text-xs text-chai-500">Google Local Guide</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="glass p-8 rounded-3xl relative scroll-reveal transition transform md:-translate-y-6">
+                    <i class="fas fa-quote-left text-4xl text-gold/20 absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="text-chai-800 dark:text-chai-200 font-sans italic mb-6 leading-relaxed">"Tea is so good with excellent ambience and fast food is fantastic. Best place in Karor Lal Esan hands down."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-chai-300 dark:bg-chai-800 rounded-full flex items-center justify-center font-bold text-chai-900 dark:text-white">H</div>
+                            <div>
+                                <h4 class="font-bold text-chai-950 dark:text-white">Hassan R.</h4>
+                                <p class="text-xs text-chai-500">Google Reviewer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="glass p-8 rounded-3xl relative scroll-reveal">
+                    <i class="fas fa-quote-left text-4xl text-gold/20 absolute top-6 left-6"></i>
+                    <div class="relative z-10">
+                        <div class="flex text-gold text-sm mb-4"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="text-chai-800 dark:text-chai-200 font-sans italic mb-6 leading-relaxed">"Tea is Fantastic with Excellent Environment. Staff is So Polite & Owner Waseem Khan Lashari is 👍 Great."</p>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-chai-300 dark:bg-chai-800 rounded-full flex items-center justify-center font-bold text-chai-900 dark:text-white">M</div>
+                            <div>
+                                <h4 class="font-bold text-chai-950 dark:text-white">Muhammad A.</h4>
+                                <p class="text-xs text-chai-500">Google Reviewer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12 scroll-reveal">
+                <a href="https://google.com" target="_blank" class="inline-flex items-center gap-2 border-b border-gold text-gold font-bold hover:text-chai-600 transition pb-1">
+                    Read all 73 Reviews on Google <i class="fas fa-arrow-right text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+  <!-- ==========================================
+         GREENO STYLE PREMIUM FOOTER
+         ========================================== -->
+    <footer class="bg-chai-950 dark:bg-black text-chai-100 pt-24 pb-8 border-t-[10px] border-gold relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
+                
+                <!-- Brand Info (Spans 4 cols) -->
+                <div class="lg:col-span-4">
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-gold flex items-center justify-center">
+                            <i class="fas fa-leaf text-darker text-xl"></i>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-cinzel font-bold text-3xl tracking-widest text-white leading-none">MURSHID</span>
+                            <span class="font-sans text-[0.7rem] tracking-[0.3em] text-gold uppercase">Chay Cafe</span>
+                        </div>
+                    </a>
+                    <p class="text-chai-400 font-sans text-sm leading-loose mb-8 pr-4">
+                        Redefining the tea culture. Murshid Chay Cafe is not just a place to drink tea; it's a sanctuary for taste, conversations, and elite hospitality in the heart of Karor Lal Esan.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full border border-chai-700 flex items-center justify-center hover:bg-gold hover:text-darker hover:border-gold transition duration-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-chai-700 flex items-center justify-center hover:bg-gold hover:text-darker hover:border-gold transition duration-300">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full border border-chai-700 flex items-center justify-center hover:bg-gold hover:text-darker hover:border-gold transition duration-300">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Explore (Spans 2 cols) -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-white font-cinzel font-bold text-lg mb-6 border-b border-chai-800 pb-2">Explore</h4>
+                    <ul class="space-y-4 font-sans text-sm text-chai-400">
+                        <li><a href="#about" class="hover:text-gold transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-gold"></i> Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-gold transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-gold"></i> Full Menu</a></li>
+                        <li><a href="#special" class="hover:text-gold transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-gold"></i> Chef's Special</a></li>
+                        <li><a href="#gallery" class="hover:text-gold transition flex items-center gap-2"><i class="fas fa-chevron-right text-[10px] text-gold"></i> Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact & Visit (Spans 3 cols) -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-cinzel font-bold text-lg mb-6 border-b border-chai-800 pb-2">Visit Us</h4>
+                    <ul class="space-y-5 font-sans text-sm text-chai-400">
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-map-marker-alt text-gold mt-1 text-lg"></i>
+                            <div>
+                                <strong class="text-white block mb-1">Location</strong>
+                                6W9X+6V6, Imam di Tibbi Rd<br>Karor Lal Esan
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-clock text-gold mt-1 text-lg"></i>
+                            <div>
+                                <strong class="text-white block mb-1">Working Hours</strong>
+                                Open Daily<br>Closes at 11:00 PM<br>
+                                <span class="text-chai-500 text-xs mt-1 block">Peak hour: ~9:00 PM</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fas fa-phone text-gold mt-1 text-lg"></i>
+                            <div>
+                                <strong class="text-white block mb-1">Contact / Order</strong>
+                                0333 8917399
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-chai-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="font-sans text-sm text-chai-500">
+                    &copy; 2026 Murshid Chay Cafe. All rights reserved. <br class="md:hidden">Owned by Waseem Khan Lashari.
+                </p>
+                <div class="flex items-center gap-2">
+                    <span class="font-sans text-sm text-chai-500">Premium Web Design by</span>
+                    <span class="text-gold font-cinzel font-bold tracking-wider">SHAYAN HANAFII</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         JAVASCRIPT LOGIC
+         ========================================== -->
+    <script>
+        // 1. Loader Animation Logic
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+                document.body.style.overflowY = 'auto'; // Re-enable scrolling
+            }, 2500); // 2.5 second premium load sequence
+        });
+
+        // Lock scroll during load
+        document.body.style.overflowY = 'hidden';
+
+        // 2. Light/Dark Mode Logic
+        const themeToggleBtn = document.getElementById('themeToggle');
+        const themeToggleMobileBtn = document.getElementById('themeToggleMobile');
+        const themeIcons = [document.getElementById('themeIcon'), document.getElementById('themeIconMobile')];
+        const htmlElement = document.documentElement;
+
+        function updateTheme(isDark) {
+            if (isDark) {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcons.forEach(icon => {
+                    if(icon) {
+                        icon.classList.remove('fa-sun');
+                        icon.classList.add('fa-moon');
+                    }
+                });
+            } else {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcons.forEach(icon => {
+                    if(icon) {
+                        icon.classList.remove('fa-moon');
+                        icon.classList.add('fa-sun');
+                    }
+                });
+            }
+        }
+
+        // Init theme
+        if (localStorage.getItem('theme') === 'light') {
+            updateTheme(false);
+        } else {
+            updateTheme(true); // Default to dark for premium feel
+        }
+
+        const toggleHandler = () => {
+            const isDark = htmlElement.classList.contains('dark');
+            updateTheme(!isDark);
+        };
+
+        if(themeToggleBtn) themeToggleBtn.addEventListener('click', toggleHandler);
+        if(themeToggleMobileBtn) themeToggleMobileBtn.addEventListener('click', toggleHandler);
+
+        // 3. Mashroob-style Minimizing Navbar Logic
+        const navbar = document.getElementById('navbar');
+        const navInner = document.getElementById('navInner');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('py-6', 'bg-transparent');
+                navbar.classList.add('py-2', 'bg-light/80', 'dark:bg-darker/90', 'backdrop-blur-xl', 'shadow-lg', 'border-b', 'border-gold/10');
+            } else {
+                navbar.classList.add('py-6', 'bg-transparent');
+                navbar.classList.remove('py-2', 'bg-light/80', 'dark:bg-darker/90', 'backdrop-blur-xl', 'shadow-lg', 'border-b', 'border-gold/10');
+            }
+        });
+
+        // 4. Scroll Reveal Animations (Intersection Observer)
+        const revealElements = document.querySelectorAll('.scroll-reveal');
+        
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Only animate once
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // 5. WhatsApp Purchasing System
+        function orderViaWhatsApp(itemName, price) {
+            const phoneNumber = "923338917399";
+            const greeting = "Hello Murshid Chay Cafe! ☕👑\n\n";
+            const orderDetails = `I would like to place a premium order for:\n\n*Item:* ${itemName}\n*Price:* ${price}\n\n`;
+            const footer = "Please let me know the estimated time for preparation/delivery.";
+            
+            const message = encodeURIComponent(greeting + orderDetails + footer);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
