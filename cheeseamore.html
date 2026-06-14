@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CheesAmore | Crown Crust Pizza, Kunafa & Late-Night Cravings — Bahria Heights, Karachi</title>
+<meta name="description" content="CheesAmore — Bahria Heights' favorite late-night spot for Crown Crust Pizza, Kunafa, Corn Dogs & Chicken Corn Soup. 4.7★ rated. Open till 6:30 AM. Order on WhatsApp.">
+
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Google Fonts: Playfair Display (display) + Inter (body) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#FBF6EE',
+          charcoal: '#1B1714',
+          ember: '#C2542B',
+          ember2: '#E0763C',
+          olive: '#8A8159',
+          gold: '#D9A441',
+        },
+        fontFamily: {
+          display: ['Playfair Display', 'serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        boxShadow: {
+          warm: '0 20px 60px -15px rgba(28, 18, 10, 0.25)',
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #FBF6EE;
+    color: #1B1714;
+  }
+
+  .font-display { font-family: 'Playfair Display', serif; }
+
+  /* ---------- Scroll fade-in ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1.is-visible { transition-delay: 0.12s; }
+  .reveal-delay-2.is-visible { transition-delay: 0.24s; }
+  .reveal-delay-3.is-visible { transition-delay: 0.36s; }
+  .reveal-delay-4.is-visible { transition-delay: 0.48s; }
+
+  /* ---------- Navbar transition ---------- */
+  #navbar {
+    transition: background-color 0.5s ease, box-shadow 0.5s ease, padding 0.4s ease, backdrop-filter 0.5s ease;
+  }
+  #navbar.scrolled {
+    background-color: rgba(251, 246, 238, 0.85);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px -15px rgba(28, 18, 10, 0.15);
+  }
+
+  /* ---------- Menu card hover overlay ---------- */
+  .menu-card { position: relative; overflow: hidden; border-radius: 1.5rem; }
+  .menu-card img {
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.7s ease;
+  }
+  .menu-card:hover img {
+    transform: scale(1.08);
+    filter: brightness(0.65);
+  }
+  .menu-card .order-overlay {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .menu-card:hover .order-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- Marquee for reviews (mobile carousel feel) ---------- */
+  .review-track {
+    display: flex;
+    gap: 1.5rem;
+  }
+  @media (max-width: 767px) {
+    .review-scroll {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 1.25rem;
+      padding-bottom: 0.5rem;
+    }
+    .review-scroll::-webkit-scrollbar { display: none; }
+    .review-scroll > * {
+      scroll-snap-align: center;
+      min-width: 86%;
+    }
+  }
+
+  /* ---------- Subtle glow / hover lift ---------- */
+  .lift {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  }
+  .lift:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ---------- Floating WhatsApp button pulse ---------- */
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45); }
+    70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  }
+  .pulse-wa { animation: pulse-ring 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+  /* ---------- Hero blob/texture ---------- */
+  .hero-glow {
+    background: radial-gradient(60% 60% at 70% 30%, rgba(224, 118, 60, 0.20) 0%, rgba(224, 118, 60, 0) 70%);
+  }
+
+  /* ---------- Star rating ---------- */
+  .star { color: #D9A441; }
+
+  /* ---------- Underline accent ---------- */
+  .accent-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .accent-underline::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0.08em;
+    height: 0.28em;
+    background: rgba(224, 118, 60, 0.28);
+    border-radius: 999px;
+    z-index: -1;
+  }
+
+  /* ---------- Smooth marquee badges ---------- */
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+  .float-soft { animation: float-soft 5s ease-in-out infinite; }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ================= NAVBAR ================= -->
+<header id="navbar" class="fixed top-0 left-0 right-0 z-50">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 py-4 flex items-center justify-between">
+    <a href="#home" class="flex items-center gap-2.5 group">
+      <span class="w-9 h-9 rounded-full bg-ember flex items-center justify-center text-cream font-display font-bold text-base shadow-warm group-hover:rotate-12 transition-transform duration-500">C</span>
+      <span class="font-display text-xl sm:text-2xl font-bold tracking-tight text-charcoal">CheesAmore</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-9 font-medium text-sm text-charcoal/80">
+      <a href="#home" class="hover:text-ember transition-colors duration-300">Home</a>
+      <a href="#menu" class="hover:text-ember transition-colors duration-300">Menu</a>
+      <a href="#reviews" class="hover:text-ember transition-colors duration-300">Reviews</a>
+      <a href="#location" class="hover:text-ember transition-colors duration-300">Visit Us</a>
+    </div>
+
+    <div class="hidden md:block">
+      <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%95"
+         target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-charcoal text-cream font-semibold text-sm px-5 py-3 rounded-full hover:bg-ember transition-colors duration-300 lift">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+        Order Now
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button id="menu-btn" aria-label="Toggle menu" class="md:hidden w-10 h-10 flex items-center justify-center rounded-full border border-charcoal/15 text-charcoal">
+      <svg id="icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      <svg id="icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu panel -->
+  <div id="mobile-menu" class="md:hidden hidden bg-cream/95 backdrop-blur-md border-t border-charcoal/10 px-6 py-6 flex flex-col gap-5 font-medium text-charcoal">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#menu" class="mobile-link">Menu</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#location" class="mobile-link">Visit Us</a>
+    <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%95"
+       target="_blank" rel="noopener"
+       class="mt-2 inline-flex items-center justify-center gap-2 bg-ember text-cream font-semibold text-sm px-5 py-3.5 rounded-full">
+      Order via WhatsApp
+    </a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section id="home" class="relative pt-32 pb-20 sm:pt-40 sm:pb-28 lg:pt-48 lg:pb-32 overflow-hidden hero-glow">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10 grid lg:grid-cols-2 gap-14 lg:gap-10 items-center">
+
+    <!-- Copy -->
+    <div class="reveal">
+      <!-- Rating badge -->
+      <div class="inline-flex items-center gap-2.5 bg-white/80 border border-charcoal/10 rounded-full pl-2 pr-4 py-1.5 shadow-sm mb-7 float-soft">
+        <span class="flex -space-x-1">
+          <svg class="w-7 h-7 rounded-full ring-2 ring-cream" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#D9A441"/><text x="16" y="21" font-family="Playfair Display, serif" font-size="14" font-weight="700" fill="#1B1714" text-anchor="middle">★</text></svg>
+        </span>
+        <span class="text-sm font-semibold text-charcoal">4.7 <span class="star">★★★★★</span></span>
+        <span class="text-sm text-charcoal/60">· 212 reviews</span>
+      </div>
+
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-[4.2rem] font-bold leading-[1.08] text-charcoal">
+        Cheesy, Golden &amp;
+        <span class="italic text-ember accent-underline">Irresistible</span><br class="hidden sm:block">
+        — Bahria Heights' Late-Night Obsession.
+      </h1>
+
+      <p class="mt-6 text-base sm:text-lg text-charcoal/70 max-w-xl leading-relaxed">
+        From our legendary Crown Crust Pizza to syrup-soaked Kunafa fresh out of the kitchen — CheesAmore is the warm, melty comfort your cravings have been waiting for. Open till sunrise, every single night.
+      </p>
+
+      <div class="mt-9 flex flex-col sm:flex-row gap-4">
+        <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%95"
+           target="_blank" rel="noopener"
+           class="inline-flex items-center justify-center gap-3 bg-ember text-cream font-semibold text-base px-8 py-4 rounded-full shadow-warm hover:bg-ember2 transition-all duration-300 lift">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+          Order via WhatsApp
+        </a>
+        <a href="#menu"
+           class="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-charcoal/15 text-charcoal font-semibold text-base px-8 py-4 rounded-full hover:border-charcoal hover:bg-charcoal hover:text-cream transition-all duration-300">
+          View Menu
+          <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+        </a>
+      </div>
+
+      <!-- Mini info row -->
+      <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-charcoal/60">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Open Late · Closes 6:30 AM
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-ember" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Bahria Heights, Gadap Town
+        </div>
+      </div>
+    </div>
+
+    <!-- Visual -->
+    <div class="reveal reveal-delay-2 relative">
+      <div class="relative rounded-[2rem] overflow-hidden shadow-warm aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]">
+        <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=1200&auto=format&fit=crop"
+             alt="Crown Crust Pizza fresh from CheesAmore's oven" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent"></div>
+      </div>
+
+      <!-- Floating card -->
+      <div class="absolute -bottom-6 -left-4 sm:-left-8 bg-white rounded-2xl shadow-warm px-5 py-4 max-w-[210px] float-soft">
+        <p class="font-display text-2xl font-bold text-charcoal">Crown Crust</p>
+        <p class="text-xs text-charcoal/60 mt-1">Our signature stuffed-crust pizza, golden &amp; molten.</p>
+      </div>
+
+      <!-- Floating chip -->
+      <div class="absolute top-5 right-5 bg-charcoal/90 text-cream text-xs font-semibold px-4 py-2 rounded-full backdrop-blur-sm">
+        🔥 Most Ordered
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAN FAVORITES ================= -->
+<section id="menu" class="py-20 sm:py-28">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal text-center max-w-2xl mx-auto mb-14">
+      <span class="text-ember font-semibold text-sm uppercase tracking-[0.2em]">Fan Favorites</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal mt-3 leading-tight">
+        What Everyone Comes Back For
+      </h2>
+      <p class="mt-4 text-charcoal/65 leading-relaxed">
+        A handful of dishes that built our reputation — each one made fresh, every order, every night.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
+
+      <!-- Item 1: Crown Crust Pizza -->
+      <div class="reveal reveal-delay-1 menu-card group shadow-warm">
+        <div class="aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?q=80&w=900&auto=format&fit=crop"
+               alt="Crown Crust Pizza loaded with cheese" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-x-0 bottom-0 p-5 text-cream">
+          <h3 class="font-display text-xl font-bold">Crown Crust Pizza</h3>
+          <p class="text-sm text-cream/75 mt-1">Stuffed-crust, extra cheesy, golden-baked.</p>
+          <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20order%20the%20Crown%20Crust%20Pizza%20%F0%9F%8D%95"
+             target="_blank" rel="noopener"
+             class="order-overlay mt-4 inline-flex items-center gap-2 bg-ember text-cream text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-ember2 transition-colors duration-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+            Add to Order
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 2: Kunafa -->
+      <div class="reveal reveal-delay-2 menu-card group shadow-warm">
+        <div class="aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?q=80&w=900&auto=format&fit=crop"
+               alt="Warm Kunafa dessert with cheese and syrup" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-x-0 bottom-0 p-5 text-cream">
+          <h3 class="font-display text-xl font-bold">Kunafa</h3>
+          <p class="text-sm text-cream/75 mt-1">Crisp shredded pastry, sweet cheese, warm syrup.</p>
+          <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20order%20the%20Kunafa%20%F0%9F%8D%AF"
+             target="_blank" rel="noopener"
+             class="order-overlay mt-4 inline-flex items-center gap-2 bg-ember text-cream text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-ember2 transition-colors duration-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+            Add to Order
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 3: Corn Dogs -->
+      <div class="reveal reveal-delay-3 menu-card group shadow-warm">
+        <div class="aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1612392062798-2dd637e0b3a4?q=80&w=900&auto=format&fit=crop"
+               alt="Crispy golden corn dogs" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-x-0 bottom-0 p-5 text-cream">
+          <h3 class="font-display text-xl font-bold">Corn Dogs</h3>
+          <p class="text-sm text-cream/75 mt-1">Crispy golden batter, melty cheese center.</p>
+          <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20order%20Corn%20Dogs%20%F0%9F%8C%AD"
+             target="_blank" rel="noopener"
+             class="order-overlay mt-4 inline-flex items-center gap-2 bg-ember text-cream text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-ember2 transition-colors duration-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+            Add to Order
+          </a>
+        </div>
+      </div>
+
+      <!-- Item 4: Chicken Corn Soup -->
+      <div class="reveal reveal-delay-4 menu-card group shadow-warm">
+        <div class="aspect-[3/4]">
+          <img src="https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=900&auto=format&fit=crop"
+               alt="Hot bowl of chicken corn soup" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-x-0 bottom-0 p-5 text-cream">
+          <h3 class="font-display text-xl font-bold">Chicken Corn Soup</h3>
+          <p class="text-sm text-cream/75 mt-1">Hearty, hot, comforting — a customer favorite.</p>
+          <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20order%20the%20Chicken%20Corn%20Soup%20%F0%9F%8D%B2"
+             target="_blank" rel="noopener"
+             class="order-overlay mt-4 inline-flex items-center gap-2 bg-ember text-cream text-sm font-semibold px-4 py-2.5 rounded-full hover:bg-ember2 transition-colors duration-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+            Add to Order
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= REVIEWS ================= -->
+<section id="reviews" class="py-20 sm:py-28 bg-charcoal/[0.035]">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+    <div class="reveal text-center max-w-2xl mx-auto mb-14">
+      <span class="text-ember font-semibold text-sm uppercase tracking-[0.2em]">Loved By Locals</span>
+      <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-charcoal mt-3 leading-tight">
+        212 Reviews. One Theme: <span class="italic text-ember">Cheesy Perfection.</span>
+      </h2>
+    </div>
+
+    <div class="review-scroll md:grid md:grid-cols-3 gap-6 lg:gap-7">
+
+      <!-- Review 1 -->
+      <div class="reveal reveal-delay-1 bg-white rounded-3xl shadow-warm p-7 sm:p-8 flex flex-col">
+        <div class="flex items-center gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display text-lg sm:text-xl leading-relaxed text-charcoal italic">
+          "Best pizza in Bahria town! Cheesy and crown crust pizzas were amazing."
+        </p>
+        <div class="mt-6 flex items-center gap-3 pt-5 border-t border-charcoal/10">
+          <div class="w-10 h-10 rounded-full bg-ember/15 text-ember font-display font-bold flex items-center justify-center">T</div>
+          <div>
+            <p class="font-semibold text-sm text-charcoal">Tooba K.</p>
+            <p class="text-xs text-charcoal/50">Verified Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 2 -->
+      <div class="reveal reveal-delay-2 bg-white rounded-3xl shadow-warm p-7 sm:p-8 flex flex-col">
+        <div class="flex items-center gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display text-lg sm:text-xl leading-relaxed text-charcoal italic">
+          "Great place and very delicious taste of all bites n specially Soup... you are winner!!!!"
+        </p>
+        <div class="mt-6 flex items-center gap-3 pt-5 border-t border-charcoal/10">
+          <div class="w-10 h-10 rounded-full bg-ember/15 text-ember font-display font-bold flex items-center justify-center">Y</div>
+          <div>
+            <p class="font-semibold text-sm text-charcoal">Yumna W.</p>
+            <p class="text-xs text-charcoal/50">Verified Customer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review 3 -->
+      <div class="reveal reveal-delay-3 bg-white rounded-3xl shadow-warm p-7 sm:p-8 flex flex-col">
+        <div class="flex items-center gap-1 mb-4 star text-lg">★★★★★</div>
+        <p class="font-display text-lg sm:text-xl leading-relaxed text-charcoal italic">
+          "The pizza was awesome—fresh, tasty, and well prepared. Highly recommended!"
+        </p>
+        <div class="mt-6 flex items-center gap-3 pt-5 border-t border-charcoal/10">
+          <div class="w-10 h-10 rounded-full bg-ember/15 text-ember font-display font-bold flex items-center justify-center">Y</div>
+          <div>
+            <p class="font-semibold text-sm text-charcoal">Yamna W.</p>
+            <p class="text-xs text-charcoal/50">Verified Customer</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Big rating summary -->
+    <div class="reveal mt-14 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-center">
+      <div class="font-display text-5xl sm:text-6xl font-bold text-charcoal">4.7<span class="text-2xl text-charcoal/40">/5</span></div>
+      <div class="text-charcoal/60 text-sm leading-relaxed">
+        <div class="star text-xl mb-1">★★★★★</div>
+        Based on <span class="font-semibold text-charcoal">212 Google reviews</span> from our Bahria Heights community.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LOCATION & FOOTER ================= -->
+<footer id="location" class="bg-charcoal text-cream pt-20 sm:pt-24 pb-10">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 lg:px-10">
+
+    <div class="reveal grid lg:grid-cols-2 gap-14 lg:gap-10 items-start">
+
+      <!-- Left: Brand + CTA -->
+      <div>
+        <div class="flex items-center gap-2.5 mb-6">
+          <span class="w-9 h-9 rounded-full bg-ember flex items-center justify-center font-display font-bold text-base">C</span>
+          <span class="font-display text-2xl font-bold">CheesAmore</span>
+        </div>
+        <h3 class="font-display text-3xl sm:text-4xl font-bold leading-tight max-w-md">
+          Craving something cheesy? We're open till sunrise.
+        </h3>
+        <p class="mt-4 text-cream/55 max-w-md leading-relaxed">
+          Drop by Bahria Heights any night for crown crust pizza, kunafa, corn dogs &amp; more — or get it delivered straight to your door.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%95"
+             target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 bg-ember text-cream font-semibold text-sm px-6 py-3.5 rounded-full hover:bg-ember2 transition-colors duration-300 lift">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+            Order via WhatsApp
+          </a>
+          <a href="https://maps.app.goo.gl/JvECszZbLZwdgnpAA" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 border-2 border-cream/20 text-cream font-semibold text-sm px-6 py-3.5 rounded-full hover:border-cream hover:bg-cream hover:text-charcoal transition-all duration-300">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Get Directions
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Info grid -->
+      <div class="grid sm:grid-cols-2 gap-8 sm:gap-10">
+        <div>
+          <h4 class="font-display text-lg font-bold mb-3 text-gold">Visit Us</h4>
+          <p class="text-cream/65 leading-relaxed text-sm">
+            Tower-A, Shop No. 01<br>
+            Bahria Heights, Gadap Town<br>
+            Karachi, Pakistan
+          </p>
+        </div>
+        <div>
+          <h4 class="font-display text-lg font-bold mb-3 text-gold">Hours</h4>
+          <p class="text-cream/65 leading-relaxed text-sm">
+            Open Daily<br>
+            <span class="text-cream font-semibold">Late Night → Closes 6:30 AM</span><br>
+            Perfect for midnight cravings.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-display text-lg font-bold mb-3 text-gold">Contact</h4>
+          <p class="text-cream/65 leading-relaxed text-sm">
+            <a href="tel:+923352474555" class="hover:text-ember transition-colors">+92 335 2474555</a><br>
+            <a href="https://wa.me/923352474555" target="_blank" rel="noopener" class="hover:text-ember transition-colors">WhatsApp Orders</a>
+          </p>
+        </div>
+        <div>
+          <h4 class="font-display text-lg font-bold mb-3 text-gold">Follow</h4>
+          <div class="flex items-center gap-3 mt-1">
+            <a href="#" aria-label="Instagram" class="w-10 h-10 rounded-full border border-cream/15 flex items-center justify-center hover:bg-ember hover:border-ember transition-colors duration-300">
+              <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-10 h-10 rounded-full border border-cream/15 flex items-center justify-center hover:bg-ember hover:border-ember transition-colors duration-300">
+              <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://wa.me/923352474555" target="_blank" rel="noopener" aria-label="WhatsApp" class="w-10 h-10 rounded-full border border-cream/15 flex items-center justify-center hover:bg-ember hover:border-ember transition-colors duration-300">
+              <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/40">
+      <p>&copy; <span id="year"></span> CheesAmore. All rights reserved.</p>
+      <p>Crafted with <span class="text-ember">♥</span> in Bahria Heights, Karachi.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ================= FLOATING WHATSAPP CTA (mobile) ================= -->
+<a href="https://wa.me/923352474555?text=Hi%20CheesAmore!%20I%27d%20like%20to%20place%20an%20order%20%F0%9F%8D%95"
+   target="_blank" rel="noopener" aria-label="Order via WhatsApp"
+   class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-warm pulse-wa hover:scale-110 transition-transform duration-300">
+  <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.78 8.78 0 0 0 12.04 3a8.94 8.94 0 0 0-7.74 13.4L3 21l4.74-1.25a8.9 8.9 0 0 0 4.29 1.1h.01c4.94 0 8.95-4.01 8.95-8.95a8.9 8.9 0 0 0-3.39-6.58zM12.04 19.4a7.4 7.4 0 0 1-3.78-1.04l-.27-.16-2.81.74.75-2.74-.18-.28a7.42 7.42 0 0 1 11.6-9.13 7.36 7.36 0 0 1 2.18 5.25c0 4.09-3.33 7.36-7.49 7.36zm4.06-5.5c-.22-.11-1.31-.65-1.51-.72-.2-.07-.35-.11-.5.11-.15.22-.57.72-.7.86-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.65 6.65 0 0 1-1.23-1.53c-.13-.22-.01-.34.11-.45.11-.11.25-.28.37-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.04-.41-.07-.11-.31-.75-.53-1.21-.2-.43-.4-.37-.55-.38-.14-.01-.3-.01-.46-.01-.16 0-.42.06-.64.31-.22.25-.85.83-.85 2.02 0 1.19.87 2.34 1 2.5.12.16 1.69 2.58 4.09 3.51 2.4.93 2.4.62 2.83.58.43-.04 1.39-.57 1.59-1.12.2-.55.2-1.02.14-1.12-.06-.1-.22-.16-.44-.27z"/></svg>
+</a>
+
+<!-- ================= JS ================= -->
+<script>
+  // Footer year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Sticky navbar background on scroll
+  const navbar = document.getElementById('navbar');
+  const onScroll = () => {
+    if (window.scrollY > 24) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  menuBtn.addEventListener('click', () => {
+    const isHidden = mobileMenu.classList.toggle('hidden');
+    iconOpen.classList.toggle('hidden', !isHidden);
+    iconClose.classList.toggle('hidden', isHidden);
+  });
+
+  // Close mobile menu on link click
+  document.querySelectorAll('.mobile-link, #mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // Scroll-triggered fade-in (IntersectionObserver)
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  revealEls.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
