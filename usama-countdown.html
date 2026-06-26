@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usama's Birthday Countdown</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        /* Animated Ambient Background for Light Theme */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background: radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(14, 165, 233, 0.05), transparent 25%);
+            animation: breathe 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .ui-element {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Premium Frosted Glass Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+        }
+
+        .soft-glow {
+            box-shadow: 0 10px 30px -10px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-emerald-200 selection:text-emerald-900" x-data="countdownTimer()">
+
+    <div class="ambient-bg"></div>
+
+    <div id="loader" class="fixed inset-0 bg-[#f8fafc] z-50 flex flex-col items-center justify-center space-y-6">
+        <div class="relative w-24 h-24 flex items-center justify-center">
+            <div class="absolute inset-0 border-t-2 border-r-2 border-emerald-500 rounded-full animate-spin" style="animation-duration: 1.5s;"></div>
+            <div class="absolute inset-2 border-b-2 border-l-2 border-emerald-300 rounded-full animate-spin" style="animation-duration: 1s; animation-direction: reverse;"></div>
+            <span class="text-[10px] tracking-[0.2em] font-semibold text-emerald-600 uppercase">27.06</span>
+        </div>
+        <div class="overflow-hidden h-[3px] w-32 bg-slate-200 rounded-full shadow-inner">
+            <div id="loading-bar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-emerald-600 rounded-full"></div>
+        </div>
+        <p id="loader-text" class="text-[11px] tracking-[0.4em] text-slate-400 uppercase font-medium">Initializing Scene</p>
+    </div>
+
+    <canvas id="webgl-canvas"></canvas>
+
+    <div id="main-content" class="ui-element flex-grow flex flex-col items-center justify-center px-6 py-12 max-w-2xl mx-auto w-full space-y-16 opacity-0">
+        
+        <section class="text-center space-y-4 w-full reveal-item">
+            <p class="text-xs tracking-[0.4em] text-emerald-600 uppercase font-semibold">The Annual Paradigm</p>
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight text-slate-900 leading-none">
+                Usama's Birthday
+            </h1>
+        </section>
+
+        <section class="w-full text-center reveal-item">
+            <template x-if="!isBirthday">
+                <div class="grid grid-cols-4 gap-3 md:gap-5">
+                    <div class="glass-card rounded-3xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-emerald-200 group">
+                        <span class="block text-4xl md:text-5xl font-light text-slate-800 tracking-tight transition-colors group-hover:text-emerald-600" x-text="formatNumber(days)">00</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-slate-500 uppercase mt-3 font-semibold">Days</span>
+                    </div>
+                    <div class="glass-card rounded-3xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-emerald-200 group">
+                        <span class="block text-4xl md:text-5xl font-light text-slate-800 tracking-tight transition-colors group-hover:text-emerald-600" x-text="formatNumber(hours)">00</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-slate-500 uppercase mt-3 font-semibold">Hours</span>
+                    </div>
+                    <div class="glass-card rounded-3xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-emerald-200 group">
+                        <span class="block text-4xl md:text-5xl font-light text-slate-800 tracking-tight transition-colors group-hover:text-emerald-600" x-text="formatNumber(minutes)">00</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-slate-500 uppercase mt-3 font-semibold">Mins</span>
+                    </div>
+                    <div class="glass-card rounded-3xl p-5 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:border-emerald-200 group relative overflow-hidden">
+                        <div class="absolute inset-0 bg-emerald-500/5 transition-opacity group-hover:opacity-100 opacity-0"></div>
+                        <span class="block text-4xl md:text-5xl font-semibold text-emerald-500 tracking-tight relative z-10" x-text="formatNumber(seconds)">00</span>
+                        <span class="block text-[10px] tracking-[0.2em] text-emerald-600 uppercase mt-3 font-semibold relative z-10">Secs</span>
+                    </div>
+                </div>
+            </template>
+
+            <template x-if="isBirthday">
+                <div class="py-6 space-y-8 glass-card rounded-3xl border-emerald-200">
+                    <p class="text-xl text-emerald-600 font-medium tracking-widest uppercase animate-pulse">The Event Window Is Active</p>
+                    <a href="https://theasheclub.store/usama-birthday" 
+                       target="_blank"
+                       class="inline-flex items-center justify-center px-10 py-5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold tracking-widest uppercase text-sm rounded-full transition-all duration-500 transform hover:-translate-y-1 soft-glow group">
+                        Open Surprise
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-3 transition-transform duration-300 group-hover:translate-x-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </template>
+        </section>
+
+        <section class="w-full max-w-xl glass-card border-l-4 border-l-emerald-500 rounded-r-2xl p-6 text-left reveal-item relative group hover:bg-white/80 transition-all duration-500">
+            <p class="text-xl text-slate-700 font-medium italic leading-relaxed tracking-wide pl-2">
+                "A surprise is in here."
+            </p>
+        </section>
+
+        <section class="w-full rounded-2xl overflow-hidden shadow-2xl shadow-slate-300/50 reveal-item border border-slate-200 bg-white hover:shadow-emerald-200/50 transition-shadow duration-700">
+            <iframe style="border-radius:12px; display: block;" 
+                    src="https://open.spotify.com/embed/track/0mboVyI4R4MPH23yceAMz3?utm_source=generator&si=64acd76a6ff84230" 
+                    width="100%" 
+                    height="152" 
+                    frameBorder="0" 
+                    allowfullscreen="" 
+                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                    loading="lazy">
+            </iframe>
+        </section>
+
+    </div>
+
+    <footer id="main-footer" class="ui-element w-full glass-card border-t border-slate-200 py-6 px-6 opacity-0 mt-12">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-left text-center sm:text-left">
+                <p class="text-[12px] tracking-[0.2em] uppercase text-slate-800 font-bold">Usama Tariq</p>
+                <p class="text-[10px] tracking-[0.1em] text-slate-500 uppercase mt-1 font-medium">Annual Commemorative Portal</p>
+            </div>
+            <a href="https://www.facebook.com/usama.tariq.904108" 
+               target="_blank" 
+               class="inline-flex items-center gap-2.5 px-6 py-3 bg-white hover:bg-emerald-50 border border-slate-200 hover:border-emerald-300 rounded-xl text-[11px] tracking-[0.2em] uppercase text-emerald-600 transition-all duration-500 group font-bold shadow-sm">
+                Connect on Facebook
+                <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-500 transition-colors duration-500" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12z"/>
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <script>
+        // GSAP Initialization and Entry Sequence for Light Theme
+        window.addEventListener('DOMContentLoaded', () => {
+            const tl = gsap.timeline();
+            tl.to("#loading-bar", { width: "100%", duration: 1.8, ease: "power2.inOut" })
+              .to("#loader-text", { textContent: "Environment Ready", duration: 0.2 })
+              .to("#loader", { opacity: 0, duration: 1, ease: "power2.inOut", onComplete: () => document.getElementById('loader').style.display = 'none' })
+              .to("#main-content", { opacity: 1, duration: 1 }, "-=0.5")
+              .from(".reveal-item", { y: 40, opacity: 0, duration: 1.2, stagger: 0.15, ease: "power3.out" }, "-=0.8")
+              .to("#main-footer", { opacity: 1, duration: 0.8 }, "-=0.8");
+        });
+
+        // Background 3D Engine Initialization (Optimized for Light Mode)
+        const canvas = document.querySelector('#webgl-canvas');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const particlesCount = 800; // Slightly fewer particles for cleaner light mode
+        const posArray = new Float32Array(particlesCount * 3);
+        
+        for(let i=0; i < particlesCount * 3; i++) { 
+            posArray[i] = (Math.random() - 0.5) * 8; 
+        }
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+        // Darker emerald particles to stand out against the white/gray background
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.012, 
+            color: '#10b981', 
+            transparent: true, 
+            opacity: 0.4 
+        });
+
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        camera.position.z = 3;
+
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        const clock = new THREE.Clock();
+        const animateScene = () => {
+            const elapsedTime = clock.getElapsedTime();
+            particlesMesh.rotation.y = elapsedTime * 0.02; // Slower rotation for elegant feel
+            particlesMesh.rotation.x = elapsedTime * 0.01;
+            
+            particlesMesh.position.x += (mouseX * 0.2 - particlesMesh.position.x) * 0.05;
+            particlesMesh.position.y += (-mouseY * 0.2 - particlesMesh.position.y) * 0.05;
+            
+            renderer.render(scene, camera);
+            requestAnimationFrame(animateScene);
+        };
+        animateScene();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Countdown Logic Engine (Alpine.js)
+        function countdownTimer() {
+            return {
+                days: '00', hours: '00', minutes: '00', seconds: '00', isBirthday: false,
+                init() {
+                    this.updateCountdown();
+                    setInterval(() => this.updateCountdown(), 1000);
+                },
+                updateCountdown() {
+                    const now = new Date();
+                    const currentYear = now.getFullYear();
+                    let targetDate = new Date(`June 27, ${currentYear} 00:00:00`);
+                    
+                    if (now > targetDate && now.getDate() !== 27) {
+                        targetDate = new Date(`June 27, ${currentYear + 1} 00:00:00`);
+                    }
+                    if (now.getMonth() === 5 && now.getDate() === 27) {
+                        this.isBirthday = true;
+                        return;
+                    }
+                    this.isBirthday = false;
+                    const difference = targetDate - now;
+                    this.days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                    this.hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    this.minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                    this.seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                },
+                formatNumber(num) { return String(num).padStart(2, '0'); }
+            }
+        }
+    </script>
+</body>
+</html>

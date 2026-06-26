@@ -1,0 +1,1972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>USAMA MALIK — JUNE 27 — FROM SHAYAN</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Bebas+Neue&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        obsidian: '#0A0E0B',
+        'deep-black': '#040A06',
+        'near-black': '#010402',
+        mint: '#00FF88',
+        'mint-soft': '#7FFFC4',
+        'mint-dim': '#2ECC71',
+        emerald: '#064E3B',
+        'emerald-glow': '#10B981',
+        sage: '#84A98C',
+        'glass-border': 'rgba(0,255,136,0.15)',
+        'glass-bg': 'rgba(0,255,136,0.04)',
+      },
+      fontFamily: {
+        display: ['Bebas Neue', 'sans-serif'],
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Space Grotesk', 'sans-serif'],
+        mono: ['DM Mono', 'monospace'],
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  :root {
+    --mint: #00FF88;
+    --mint-soft: #7FFFC4;
+    --mint-dim: #2ECC71;
+    --obsidian: #0A0E0B;
+    --deep-black: #040A06;
+    --near-black: #010402;
+    --glass-border: rgba(0,255,136,0.15);
+    --glass-bg: rgba(0,255,136,0.04);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--obsidian);
+    color: #E8F5E9;
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--near-black); }
+  ::-webkit-scrollbar-thumb { background: var(--mint); border-radius: 2px; }
+
+  /* ─── AMBIENT GLOWS ─────────────────────── */
+  .ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .glow-mint  { background: rgba(0,255,136,0.07); }
+  .glow-emerald { background: rgba(6,78,59,0.18); }
+
+  /* ─── GLASSMORPHISM ─────────────────────── */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 16px;
+  }
+
+  .glass-strong {
+    background: rgba(0,255,136,0.06);
+    border: 1px solid rgba(0,255,136,0.22);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+    border-radius: 20px;
+  }
+
+  /* ─── TYPOGRAPHY ────────────────────────── */
+  .display { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+  .serif-display { font-family: 'Playfair Display', serif; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  .text-mint { color: var(--mint); }
+  .text-mint-soft { color: var(--mint-soft); }
+  .text-sage { color: #84A98C; }
+
+  /* ─── SECTION BASE ──────────────────────── */
+  .section-pad { padding: 120px 0; }
+
+  /* ─── HERO ──────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    background: var(--near-black);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(0,255,136,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,255,136,0.035) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridPulse 8s ease-in-out infinite;
+  }
+
+  @keyframes gridPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .hero-tagline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 10rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: #fff;
+  }
+
+  .hero-tagline .accent { color: var(--mint); }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.1rem, 2.5vw, 2rem);
+    letter-spacing: 0.3em;
+    color: var(--mint-soft);
+    text-transform: uppercase;
+  }
+
+  .hero-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: rgba(132,169,140,0.7);
+    text-transform: uppercase;
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 10;
+  }
+
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--mint), transparent);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ─── SPOTIFY SECTION ───────────────────── */
+  #soundtrack {
+    background: var(--deep-black);
+    position: relative; overflow: hidden;
+  }
+
+  /* ─── TIMELINE ──────────────────────────── */
+  #timeline {
+    background: var(--near-black);
+    position: relative; overflow: hidden;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--mint), var(--mint), transparent);
+    transform: translateX(-50%);
+  }
+
+  .timeline-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--mint);
+    box-shadow: 0 0 20px var(--mint), 0 0 40px rgba(0,255,136,0.4);
+    cursor: pointer;
+    transition: transform 0.3s;
+  }
+
+  .timeline-dot:hover { transform: scale(1.5); }
+
+  .timeline-item { opacity: 0; transform: translateY(30px); }
+
+  /* ─── CHARACTER STATS ───────────────────── */
+  #characters {
+    background: var(--obsidian);
+  }
+
+  .stat-bar-track {
+    height: 4px;
+    background: rgba(132,169,140,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--mint-dim), var(--mint));
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: 0 0 10px rgba(0,255,136,0.5);
+  }
+
+  .char-card {
+    background: linear-gradient(135deg, rgba(0,255,136,0.04), rgba(6,78,59,0.08));
+    border: 1px solid rgba(0,255,136,0.12);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .char-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(0,255,136,0.05), transparent 60%);
+    pointer-events: none;
+  }
+
+  /* ─── GALLERY ───────────────────────────── */
+  #gallery {
+    background: var(--deep-black);
+    position: relative; overflow: hidden;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid rgba(0,255,136,0.08);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+    background: linear-gradient(135deg, #0d1810, #071209);
+    aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .gallery-item:hover {
+    transform: scale(1.04) rotate(-0.5deg);
+    box-shadow: 0 0 40px rgba(0,255,136,0.2), 0 0 80px rgba(0,255,136,0.07);
+    border-color: rgba(0,255,136,0.3);
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+  }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex; align-items: flex-end; padding: 16px;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+  /* ─── MODAL ─────────────────────────────── */
+  #modal {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(1,4,2,0.95);
+    backdrop-filter: blur(30px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 24px;
+  }
+
+  #modal.active { display: flex; }
+
+  #modal-img {
+    max-width: 88vw; max-height: 82vh;
+    border-radius: 16px;
+    border: 1px solid rgba(0,255,136,0.25);
+    box-shadow: 0 0 80px rgba(0,255,136,0.12);
+    object-fit: contain;
+    animation: modalIn 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  #modal-close {
+    position: absolute; top: 28px; right: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--mint);
+    background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.2);
+    padding: 10px 20px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+    backdrop-filter: blur(10px);
+  }
+
+  #modal-close:hover {
+    background: rgba(0,255,136,0.15);
+    transform: scale(1.05);
+  }
+
+  #modal-caption {
+    position: absolute;
+    bottom: 28px; left: 50%; transform: translateX(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(132,169,140,0.7);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* ─── LYRICS SECTION ────────────────────── */
+  #lyrics {
+    background: var(--near-black);
+    position: relative; overflow: hidden;
+  }
+
+  .lyric-line {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2.4rem);
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(232,245,233,0.85);
+    border-left: 2px solid var(--mint);
+    padding-left: 28px;
+    margin-bottom: 32px;
+    transition: color 0.3s;
+  }
+
+  .lyric-line:hover { color: #fff; }
+
+  /* ─── ACCORDION ─────────────────────────── */
+  #brolore {
+    background: var(--obsidian);
+  }
+
+  .accordion-item {
+    border: 1px solid rgba(0,255,136,0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .accordion-item.open { border-color: rgba(0,255,136,0.3); }
+
+  .accordion-trigger {
+    width: 100%; padding: 22px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    cursor: pointer;
+    background: rgba(0,255,136,0.03);
+    transition: background 0.3s;
+    text-align: left;
+  }
+
+  .accordion-trigger:hover { background: rgba(0,255,136,0.07); }
+  .accordion-item.open .accordion-trigger { background: rgba(0,255,136,0.07); }
+
+  .accordion-icon {
+    width: 24px; height: 24px;
+    border: 1px solid rgba(0,255,136,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s, background 0.3s;
+    color: var(--mint);
+    font-size: 14px;
+  }
+
+  .accordion-item.open .accordion-icon {
+    transform: rotate(45deg);
+    background: rgba(0,255,136,0.15);
+  }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
+    padding: 0 28px;
+  }
+
+  .accordion-item.open .accordion-body {
+    max-height: 400px;
+    padding: 0 28px 22px;
+  }
+
+  /* ─── PILLAR SECTION ────────────────────── */
+  #pillars {
+    background: linear-gradient(180deg, var(--near-black), var(--deep-black));
+  }
+
+  .pillar-card {
+    padding: 36px;
+    background: linear-gradient(135deg, rgba(0,255,136,0.03), rgba(6,78,59,0.06));
+    border: 1px solid rgba(0,255,136,0.1);
+    border-radius: 20px;
+    transition: border-color 0.4s, transform 0.4s;
+  }
+
+  .pillar-card:hover {
+    border-color: rgba(0,255,136,0.25);
+    transform: translateY(-4px);
+  }
+
+  /* ─── JUNE 27 STATEMENT ─────────────────── */
+  #statement {
+    background: var(--near-black);
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+
+  .statement-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 14vw, 16rem);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    color: #fff;
+  }
+
+  .statement-big .dim { color: rgba(132,169,140,0.25); }
+  .statement-big .bright { color: var(--mint); }
+
+  /* ─── NEXT CHAPTER ──────────────────────── */
+  #nextchapter {
+    background: var(--obsidian);
+  }
+
+  .goal-card {
+    background: rgba(0,255,136,0.03);
+    border: 1px solid rgba(0,255,136,0.1);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: flex; align-items: flex-start; gap: 16px;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .goal-card:hover {
+    background: rgba(0,255,136,0.06);
+    border-color: rgba(0,255,136,0.25);
+  }
+
+  .goal-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--mint);
+    background: rgba(0,255,136,0.1);
+    border-radius: 6px;
+    padding: 4px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  /* ─── FOOTER ────────────────────────────── */
+  #footer {
+    background: linear-gradient(180deg, var(--deep-black) 0%, var(--near-black) 100%);
+    position: relative; overflow: hidden;
+  }
+
+  .footer-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 7vw, 7.5rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: #fff;
+  }
+
+  .footer-name span { color: var(--mint); }
+
+  /* ─── SPOTIFY FLOAT ─────────────────────── */
+  .spotify-float {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    z-index: 999;
+    width: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,255,136,0.2);
+    box-shadow: 0 8px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,255,136,0.08);
+    transform: translateY(120px);
+    transition: transform 0.5s cubic-bezier(0.34,1.2,0.64,1), opacity 0.4s;
+    opacity: 0;
+  }
+
+  .spotify-float.visible {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .spotify-float-toggle {
+    position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+    background: var(--obsidian);
+    border: 1px solid rgba(0,255,136,0.2);
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--mint);
+    letter-spacing: 0.15em;
+    cursor: pointer;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+
+  .spotify-float-toggle:hover { background: rgba(0,255,136,0.1); }
+
+  /* ─── SECTION LABELS ────────────────────── */
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--mint);
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--mint);
+  }
+
+  /* ─── DIVIDER ───────────────────────────── */
+  .mint-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.3), transparent);
+    margin: 0;
+  }
+
+  /* ─── BLOCKQUOTE ────────────────────────── */
+  .manifesto-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.25rem, 2.5vw, 2rem);
+    font-style: italic;
+    line-height: 1.7;
+    color: rgba(232,245,233,0.9);
+  }
+
+  /* ─── ANIMATIONS (initial states) ─────────── */
+  .gsap-fade-up { opacity: 0; transform: translateY(40px); }
+  .gsap-fade-in { opacity: 0; }
+  .gsap-slide-left { opacity: 0; transform: translateX(-40px); }
+  .gsap-slide-right { opacity: 0; transform: translateX(40px); }
+
+  /* ─── LOADING SCREEN ────────────────────── */
+  #loader {
+    position: fixed; inset: 0;
+    background: var(--near-black);
+    z-index: 99999;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 20px;
+  }
+
+  .loader-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    color: var(--mint);
+    text-transform: uppercase;
+    animation: loaderPulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes loaderPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .loader-bar-track {
+    width: 200px; height: 1px;
+    background: rgba(0,255,136,0.15);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .loader-bar-fill {
+    height: 100%;
+    background: var(--mint);
+    border-radius: 1px;
+    animation: loaderBar 1.8s ease-in-out forwards;
+  }
+
+  @keyframes loaderBar {
+    from { width: 0%; }
+    to { width: 100%; }
+  }
+
+  /* pulse dot hero */
+  .pulse-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(0,255,136,0.2);
+    animation: pulseExpand 4s ease-out infinite;
+  }
+
+  @keyframes pulseExpand {
+    0% { transform: scale(0.6); opacity: 0.8; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line { left: 24px; }
+    .spotify-float { width: 260px; right: 16px; bottom: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ LOADER ══════════ -->
+<div id="loader">
+  <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.12em;color:var(--mint);">JUNE 27</div>
+  <div class="loader-text">Loading the tribute…</div>
+  <div class="loader-bar-track"><div class="loader-bar-fill"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ MODAL ═══════════ -->
+<div id="modal">
+  <button id="modal-close" onclick="closeModal()">✕ Close</button>
+  <img id="modal-img" src="" alt="Archive Photo"/>
+  <div id="modal-caption">The Elite Archives — Shayan × Usama</div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SPOTIFY FLOAT ═══ -->
+<div class="spotify-float" id="spotifyFloat">
+  <button class="spotify-float-toggle" onclick="toggleSpotify()">♫ Now Playing</button>
+  <iframe style="border-radius:0" 
+    src="https://open.spotify.com/embed/track/6OUPWxtBj1KaAV7Ku3xgmr?utm_source=generator&si=46d77ed6caba4522"
+    width="100%" height="80" frameBorder="0" allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy"></iframe>
+</div>
+
+<!-- ═══════════════════════════════════════════ SECTION 1: HERO ══ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Ambient pulses -->
+  <div class="ambient-glow glow-mint" style="width:700px;height:700px;top:-200px;left:-200px;opacity:0.6;"></div>
+  <div class="ambient-glow glow-emerald" style="width:600px;height:600px;bottom:-150px;right:-100px;opacity:0.8;"></div>
+
+  <!-- Pulse rings -->
+  <div class="pulse-ring" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s;"></div>
+  <div class="pulse-ring" style="width:300px;height:300px;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1.5s;"></div>
+
+  <!-- Hero content -->
+  <div class="relative z-10 text-center px-6 max-w-6xl mx-auto">
+    <div class="hero-sub mb-8 gsap-fade-in" id="hero-sub">Muhammad Shayan presents • June 27, 2025</div>
+
+    <h1 class="hero-tagline gsap-fade-up" id="hero-line1">
+      DIFFERENT<br/>
+      <span class="accent">BLOOD.</span><br/>
+      SAME
+    </h1>
+
+    <h1 class="hero-tagline gsap-fade-up" id="hero-line2" style="margin-top:-0.05em;">
+      <span class="accent">ENERGY.</span>
+    </h1>
+
+    <div style="height:20px;"></div>
+
+    <h1 class="hero-tagline" id="hero-line3" style="font-size:clamp(1.5rem,4vw,4.5rem);letter-spacing:0.06em;opacity:0;">
+      RIDE OR DIE
+    </h1>
+
+    <div style="height:40px;"></div>
+
+    <div class="hero-name gsap-fade-in" id="hero-name">
+      Happy Birthday to the Realest Bro
+    </div>
+
+    <div style="height:16px;"></div>
+
+    <div class="hero-tagline gsap-fade-up" id="hero-uname" style="font-size:clamp(2.5rem,8vw,8rem);color:var(--mint);">
+      USAMA MALIK
+    </div>
+
+    <div style="height:16px;"></div>
+
+    <div class="hero-sub gsap-fade-in" id="hero-from">
+      From your day-one • Muhammad Shayan
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="scroll-cue">
+    <div class="mono" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(132,169,140,0.5);text-transform:uppercase;">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 2: SOUNDTRACK ══ -->
+<section id="soundtrack" class="section-pad">
+  <div class="ambient-glow glow-mint" style="width:500px;height:500px;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.4;"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 02 — The Soundtrack Engine</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:60px;">
+      LATE NIGHT<br/><span style="color:var(--mint);">CAR VIBES</span>
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <!-- Glassmorphic vibe card -->
+      <div class="glass-strong p-8 gsap-slide-left">
+        <div class="mono mb-4" style="font-size:0.65rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Usama's Anthem</div>
+        <h3 class="serif-display gsap-fade-up" style="font-size:1.8rem;color:#fff;margin-bottom:16px;">"Regrets"</h3>
+        <p class="text-sage" style="font-size:0.85rem;letter-spacing:0.02em;line-height:1.9;margin-bottom:20px;">
+          Talha Anjum & Jevin Gill. You know the one.
+        </p>
+        <div class="mint-divider" style="margin:20px 0;opacity:0.4;"></div>
+        <p style="color:rgba(232,245,233,0.75);font-size:0.9rem;line-height:1.9;">
+          There's a specific time this track hits different — 2 AM, highway, city lights blurring past the window. The bass sitting low, both of you silent, just letting the music do the talking. No cap, this is the sound of real ones who understand each other without saying a word.
+        </p>
+        <div class="mint-divider" style="margin:20px 0;opacity:0.4;"></div>
+        <p style="color:rgba(132,169,140,0.7);font-size:0.8rem;line-height:1.8;">
+          This track lives in the glove compartment of every late-night drive. It's the unofficial anthem of Usama's headspace — layered, honest, unfiltered.
+        </p>
+      </div>
+      <!-- Spotify embed card -->
+      <div class="gsap-slide-right">
+        <div class="glass p-4" style="border-radius:20px;">
+          <div class="mono mb-3" style="font-size:0.6rem;letter-spacing:0.2em;color:rgba(132,169,140,0.6);text-transform:uppercase;padding:0 4px;">Now Streaming</div>
+          <iframe style="border-radius:12px"
+            src="https://open.spotify.com/embed/track/6OUPWxtBj1KaAV7Ku3xgmr?utm_source=generator&si=46d77ed6caba4522"
+            width="100%" height="352" frameBorder="0" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy">
+          </iframe>
+          <div class="mt-4 p-3" style="background:rgba(0,255,136,0.04);border-radius:10px;border:1px solid rgba(0,255,136,0.08);">
+            <p class="mono" style="font-size:0.6rem;letter-spacing:0.15em;color:rgba(132,169,140,0.6);text-transform:uppercase;">
+              ↑ Tap play. Let it ride. This one's for you, bhai.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 3: MANIFESTO ══ -->
+<section id="manifesto" class="section-pad" style="background:var(--obsidian);">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="section-label gsap-fade-up mb-6">Section 03 — The Bro's Manifesto</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:60px;">
+      THE REAL<br/><span style="color:var(--mint);">TALK</span>
+    </h2>
+
+    <div class="glass-strong p-10 gsap-fade-up" style="border-radius:24px;">
+      <div class="mono mb-8" style="font-size:0.65rem;letter-spacing:0.25em;color:var(--mint);text-transform:uppercase;">A letter from Muhammad Shayan to Usama Malik</div>
+
+      <p class="manifesto-quote gsap-fade-up" style="margin-bottom:32px;">
+        "Bhai, this one's for you — no filter, no performance, just the real thing."
+      </p>
+
+      <div style="color:rgba(232,245,233,0.85);font-size:1.05rem;line-height:2;margin-bottom:32px;" class="gsap-fade-up">
+        There are certain people in your life you don't have to explain yourself to. You don't have to clean up your thoughts before saying them out loud. You don't have to soften the edges of who you are. Usama — you have always been that person for me. And trust, that is the rarest thing in the world.
+      </div>
+
+      <div class="mint-divider" style="margin:32px 0;opacity:0.3;"></div>
+
+      <blockquote style="border-left:3px solid var(--mint);padding-left:28px;margin-bottom:32px;" class="gsap-fade-up">
+        <p style="font-family:'Playfair Display',serif;font-size:1.4rem;font-style:italic;color:#fff;line-height:1.8;margin-bottom:12px;">
+          "You've been the silent engine behind some of my biggest moves. The one who knew before I said it, who showed up before I asked."
+        </p>
+        <cite style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:var(--mint);text-transform:uppercase;font-style:normal;">— Shayan</cite>
+      </blockquote>
+
+      <div style="color:rgba(232,245,233,0.85);font-size:1.05rem;line-height:2;margin-bottom:32px;" class="gsap-fade-up">
+        The way you think — the logic, the long game, the quiet confidence — that is something I respect more than I can put in words. You are not just my brother, you are my blueprint check. The person I run every big idea past. The one who'll tell me when something is fire and when something is trash. And I need that.
+      </div>
+
+      <div class="glass p-6 gsap-fade-up" style="border-radius:14px;margin-bottom:32px;">
+        <p style="color:var(--mint-soft);font-size:1rem;line-height:1.9;font-style:italic;">
+          What we're building together is bigger than either of us. The empire we talk about at 3 AM — it's not a dream anymore. It's a plan. And you are the cornerstone of that plan.
+        </p>
+      </div>
+
+      <div style="color:rgba(232,245,233,0.85);font-size:1.05rem;line-height:2;" class="gsap-fade-up">
+        So on your birthday, June 27 — I just want you to know. Everything you've put in, every quiet sacrifice, every time you held it down without making noise about it — it's seen. It's appreciated. And we're just getting started, bhai. The best chapter has not been written yet.
+      </div>
+
+      <div class="mint-divider" style="margin:36px 0;opacity:0.3;"></div>
+
+      <div class="flex items-center justify-between gsap-fade-up">
+        <div>
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;">Muhammad Shayan</div>
+          <div class="mono" style="font-size:0.65rem;letter-spacing:0.15em;color:var(--mint);text-transform:uppercase;margin-top:4px;">Your Day-One. Always.</div>
+        </div>
+        <div class="text-center">
+          <div class="display" style="font-size:3rem;color:var(--mint);line-height:1;">27</div>
+          <div class="mono" style="font-size:0.6rem;letter-spacing:0.2em;color:rgba(132,169,140,0.6);text-transform:uppercase;">June</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 4: TIMELINE ══ -->
+<section id="timeline" class="section-pad">
+  <div class="ambient-glow glow-emerald" style="width:600px;height:600px;left:-200px;top:50%;transform:translateY(-50%);opacity:0.5;"></div>
+  <div class="ambient-glow glow-mint" style="width:400px;height:400px;right:-100px;top:30%;opacity:0.3;"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 04 — The Day-One Timeline</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:80px;">
+      THE LORE<br/><span style="color:var(--mint);">DOCUMENTED</span>
+    </h2>
+
+    <!-- Timeline -->
+    <div class="relative" id="timeline-container">
+      <div class="timeline-line hidden md:block"></div>
+
+      <!-- Items -->
+      <div class="space-y-16">
+
+        <!-- Item 1 -->
+        <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:text-right glass p-6" style="border-radius:16px;">
+            <div class="mono mb-2" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Chapter 01</div>
+            <h3 class="serif-display text-white text-xl font-bold mb-3">The Very Beginning</h3>
+            <p style="color:rgba(132,169,140,0.85);font-size:0.88rem;line-height:1.8;">
+              Before the big talks and the late nights — there was just two guys figuring things out. The foundation was built here, even before we knew it was a foundation.
+            </p>
+          </div>
+          <div class="flex md:justify-start justify-center items-center gap-6">
+            <div class="timeline-dot"></div>
+            <div class="display" style="font-size:5rem;color:rgba(0,255,136,0.08);line-height:1;">01</div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
+          <div class="flex md:justify-end justify-center items-center gap-6 md:order-1">
+            <div class="display" style="font-size:5rem;color:rgba(0,255,136,0.08);line-height:1;">02</div>
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="glass p-6 md:order-2" style="border-radius:16px;">
+            <div class="mono mb-2" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Chapter 02</div>
+            <h3 class="serif-display text-white text-xl font-bold mb-3">First Business Moves</h3>
+            <p style="color:rgba(132,169,140,0.85);font-size:0.88rem;line-height:1.8;">
+              When the hustle became real. We started talking numbers, strategy, and vision. Two minds locking in on what it actually takes to build something from zero.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:text-right glass p-6" style="border-radius:16px;background:rgba(0,255,136,0.04);border-color:rgba(0,255,136,0.18);">
+            <div class="mono mb-2" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Chapter 03</div>
+            <h3 class="serif-display text-white text-xl font-bold mb-3">The 2 AM Drives</h3>
+            <p style="color:rgba(132,169,140,0.85);font-size:0.88rem;line-height:1.8;">
+              Highway, Talha Anjum on full blast, talking about everything and nothing simultaneously. These weren't just drives — these were our strategy sessions disguised as vibes.
+            </p>
+          </div>
+          <div class="flex md:justify-start justify-center items-center gap-6">
+            <div class="timeline-dot"></div>
+            <div class="display" style="font-size:5rem;color:rgba(0,255,136,0.08);line-height:1;">03</div>
+          </div>
+        </div>
+
+        <!-- Item 4 -->
+        <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
+          <div class="flex md:justify-end justify-center items-center gap-6 md:order-1">
+            <div class="display" style="font-size:5rem;color:rgba(0,255,136,0.08);line-height:1;">04</div>
+            <div class="timeline-dot"></div>
+          </div>
+          <div class="glass p-6 md:order-2" style="border-radius:16px;">
+            <div class="mono mb-2" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Chapter 04</div>
+            <h3 class="serif-display text-white text-xl font-bold mb-3">The Hard Season</h3>
+            <p style="color:rgba(132,169,140,0.85);font-size:0.88rem;line-height:1.8;">
+              Not every chapter was smooth. But this is where we proved what we're made of — holding each other down when things got heavy without making it a big thing.
+            </p>
+          </div>
+        </div>
+
+        <!-- Item 5 -->
+        <div class="timeline-item grid md:grid-cols-2 gap-8 items-center">
+          <div class="md:text-right glass-strong p-6" style="border-radius:16px;">
+            <div class="mono mb-2" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Chapter 05 — Present</div>
+            <h3 class="serif-display text-white text-xl font-bold mb-3">Building the Empire</h3>
+            <p style="color:rgba(132,169,140,0.85);font-size:0.88rem;line-height:1.8;">
+              This is where we are right now — locked in, heads down, building. The ambitions are bigger, the execution is sharper. Everything we talked about is becoming real.
+            </p>
+          </div>
+          <div class="flex md:justify-start justify-center items-center gap-6">
+            <div class="timeline-dot" style="background:#fff;box-shadow:0 0 30px var(--mint),0 0 60px rgba(0,255,136,0.5);"></div>
+            <div class="display" style="font-size:5rem;color:rgba(0,255,136,0.15);line-height:1;">05</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 5: CHARACTERS ══ -->
+<section id="characters" class="section-pad">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="section-label gsap-fade-up mb-6">Section 05 — Character Select Screen</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:16px;">
+      PLAYER<br/><span style="color:var(--mint);">PROFILES</span>
+    </h2>
+    <p class="text-sage gsap-fade-up" style="font-size:0.9rem;letter-spacing:0.05em;margin-bottom:60px;">Choose your fighter — but let's be honest, it's always been a team.</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <!-- Usama Card -->
+      <div class="char-card p-8 gsap-slide-left" id="char-usama">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Player 01</div>
+            <div class="display" style="font-size:3rem;color:#fff;line-height:1;">USAMA MALIK</div>
+            <div class="mono mt-1" style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(132,169,140,0.6);">The Mastermind // The Architect</div>
+          </div>
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(0,255,136,0.2),rgba(6,78,59,0.4));border:2px solid rgba(0,255,136,0.3);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--mint);">UM</span>
+          </div>
+        </div>
+
+        <div class="space-y-5" id="usama-stats">
+          <div class="stat-row" data-val="100">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Aura</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">100</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+          <div class="stat-row" data-val="99">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Drive</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">99</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+          <div class="stat-row" data-val="97">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Music Taste</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">Elite</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+          <div class="stat-row" data-val="96">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Logic</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">Mastermind</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+          <div class="stat-row" data-val="98">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Patience</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">98</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+          <div class="stat-row" data-val="100">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Loyalty</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint);">∞</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill"></div></div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4" style="background:rgba(0,255,136,0.06);border-radius:10px;border:1px solid rgba(0,255,136,0.1);">
+          <p class="mono" style="font-size:0.68rem;letter-spacing:0.1em;color:rgba(132,169,140,0.8);text-transform:uppercase;line-height:1.7;">
+            Special Ability: "Silent Execution" — Gets things done before anyone realises it started.
+          </p>
+        </div>
+      </div>
+
+      <!-- Shayan Card -->
+      <div class="char-card p-8 gsap-slide-right" id="char-shayan" style="background:linear-gradient(135deg,rgba(0,255,136,0.02),rgba(46,204,113,0.05));">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint-soft);text-transform:uppercase;">Player 02</div>
+            <div class="display" style="font-size:3rem;color:#fff;line-height:1;">M. SHAYAN</div>
+            <div class="mono mt-1" style="font-size:0.7rem;letter-spacing:0.1em;color:rgba(132,169,140,0.6);">The Creator // The Day-One</div>
+          </div>
+          <div style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,rgba(127,255,196,0.15),rgba(0,255,136,0.3));border:2px solid rgba(127,255,196,0.3);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--mint-soft);">MS</span>
+          </div>
+        </div>
+
+        <div class="space-y-5" id="shayan-stats">
+          <div class="stat-row" data-val="100">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Creativity</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">100</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+          <div class="stat-row" data-val="95">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Chaos Energy</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">95</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+          <div class="stat-row" data-val="98">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Execution</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">Flawless</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+          <div class="stat-row" data-val="93">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Vision</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">93</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+          <div class="stat-row" data-val="97">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Rizz</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">97</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+          <div class="stat-row" data-val="100">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;color:rgba(232,245,233,0.7);text-transform:uppercase;">Day-One Loyalty</span>
+              <span style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--mint-soft);">∞</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" style="background:linear-gradient(90deg,#2ECC71,var(--mint-soft));"></div></div>
+          </div>
+        </div>
+
+        <div class="mt-6 p-4" style="background:rgba(127,255,196,0.05);border-radius:10px;border:1px solid rgba(127,255,196,0.1);">
+          <p class="mono" style="font-size:0.68rem;letter-spacing:0.1em;color:rgba(132,169,140,0.8);text-transform:uppercase;line-height:1.7;">
+            Special Ability: "Manifesto Mode" — Turns visions into plans before breakfast.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- VS tag -->
+    <div class="text-center mt-8 gsap-fade-in">
+      <div class="inline-block glass px-8 py-4">
+        <span class="display" style="font-size:2rem;color:rgba(132,169,140,0.4);">Together:</span>
+        <span class="display" style="font-size:2rem;color:var(--mint);margin-left:12px;">UNSTOPPABLE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 6: GALLERY ══ -->
+<section id="gallery" class="section-pad">
+  <div class="ambient-glow glow-mint" style="width:400px;height:400px;top:50%;right:-100px;transform:translateY(-50%);opacity:0.25;"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 06 — The Photographic Vault</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:16px;">
+      ELITE<br/><span style="color:var(--mint);">ARCHIVES</span>
+    </h2>
+    <p class="text-sage gsap-fade-up mono" style="font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:50px;">
+      Click any frame to open in full view
+    </p>
+
+    <!-- Asymmetric grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-auto grid-flow-dense" id="gallery-grid">
+
+  <div class="gallery-item md:col-span-2 md:row-span-1 gsap-fade-up" 
+       style="min-height:260px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/596624030_4175614856100386_1265192429494683546_n.jpg?stp=dst-jpg_tt6&cstp=mx1384x1395&ctp=s1384x1395&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=gWAcU69MjOMQ7kNvwHGK6XB&_nc_oc=Adpv6jyQyYa8D35RuFR8bob2FSkV0ubqOQrR33KOHWYmdvLLY__L5HhHKzdORVOfB9U&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=zpjQi2MsXuWz3oFec37zLg&_nc_ss=7b289&oh=00_Af8n_Ba_BUitn7XJZdKy86ch1HkAuS1_e-YVV9IZovXe_g&oe=6A442A6D"
+       data-caption="The Ride — Late Night Chronicles">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/596624030_4175614856100386_1265192429494683546_n.jpg?stp=dst-jpg_tt6&cstp=mx1384x1395&ctp=s1384x1395&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=gWAcU69MjOMQ7kNvwHGK6XB&_nc_oc=Adpv6jyQyYa8D35RuFR8bob2FSkV0ubqOQrR33KOHWYmdvLLY__L5HhHKzdORVOfB9U&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=zpjQi2MsXuWz3oFec37zLg&_nc_ss=7b289&oh=00_Af8n_Ba_BUitn7XJZdKy86ch1HkAuS1_e-YVV9IZovXe_g&oe=6A442A6D" 
+         alt="The Ride" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">The Ride ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:260px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/533115314_4056164064712133_2730237222981669352_n.jpg?stp=dst-jpg_tt6&cstp=mx1247x1237&ctp=s1247x1237&_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=lLpZhuYvKDUQ7kNvwF3E6w0&_nc_oc=Adr9mn33x6j4CmLPnE03sXcSanUQnBBCLiWo-tfGtotBlR5NfJ6rtWZ9ZQ2saNjgyL4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=OF5wtG9jSzUB5HL7-wAqTw&_nc_ss=7b289&oh=00_Af9znda0incNchlrfsOVgSBuGEl_qEMH94WBodVSpGANrg&oe=6A44360F"
+       data-caption="Midnight Headspace">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/533115314_4056164064712133_2730237222981669352_n.jpg?stp=dst-jpg_tt6&cstp=mx1247x1237&ctp=s1247x1237&_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=lLpZhuYvKDUQ7kNvwF3E6w0&_nc_oc=Adr9mn33x6j4CmLPnE03sXcSanUQnBBCLiWo-tfGtotBlR5NfJ6rtWZ9ZQ2saNjgyL4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=OF5wtG9jSzUB5HL7-wAqTw&_nc_ss=7b289&oh=00_Af9znda0incNchlrfsOVgSBuGEl_qEMH94WBodVSpGANrg&oe=6A44360F" 
+         alt="Midnight" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">Midnight ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:220px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/573898596_4131241773871028_5345890006198270365_n.jpg?stp=dst-jpg_tt6&cstp=mx720x1280&ctp=s720x1280&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Ck5V2uWg2akQ7kNvwH9aEqv&_nc_oc=AdoUKcQr7krFTvysjojByfLlA_PXprIv5-NdF913m2QoeHIpG-voC0p80vjN4i5AOkQ&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=Snt6-XpBLXPXwDENdKiWqQ&_nc_ss=7b289&oh=00_Af-WuCEowRW5nXpYnsuS__SUXWStuyh9AvoNgszmpy4hLA&oe=6A441776"
+       data-caption="Golden Hour — The Vision">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/573898596_4131241773871028_5345890006198270365_n.jpg?stp=dst-jpg_tt6&cstp=mx720x1280&ctp=s720x1280&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Ck5V2uWg2akQ7kNvwH9aEqv&_nc_oc=AdoUKcQr7krFTvysjojByfLlA_PXprIv5-NdF913m2QoeHIpG-voC0p80vjN4i5AOkQ&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=Snt6-XpBLXPXwDENdKiWqQ&_nc_ss=7b289&oh=00_Af-WuCEowRW5nXpYnsuS__SUXWStuyh9AvoNgszmpy4hLA&oe=6A441776" 
+         alt="Golden Hour" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">The Vision ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:220px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/503027360_3983573828637824_430835506816255654_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x853&ctp=s1280x853&_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=JvE1NTA-gCoQ7kNvwFuEMT1&_nc_oc=Adq3sOKwjZZYQPboJnMQhKh_QQHG_kg_pE_YTuSBjTL2hwNowJMGSICC9tSKd5hO0-s&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=WZz2Snz74edNs_IGWAAJVA&_nc_ss=7b289&oh=00_Af9bVvB6IIcKBZ2d-gZfxS71kf1F575q0mXPiHQwFvpDhA&oe=6A444086"
+       data-caption="Highway Nights">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/503027360_3983573828637824_430835506816255654_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x853&ctp=s1280x853&_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=JvE1NTA-gCoQ7kNvwFuEMT1&_nc_oc=Adq3sOKwjZZYQPboJnMQhKh_QQHG_kg_pE_YTuSBjTL2hwNowJMGSICC9tSKd5hO0-s&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=WZz2Snz74edNs_IGWAAJVA&_nc_ss=7b289&oh=00_Af9bVvB6IIcKBZ2d-gZfxS71kf1F575q0mXPiHQwFvpDhA&oe=6A444086" 
+         alt="Highway" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">Highway Nights ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item md:col-span-2 gsap-fade-up" 
+       style="min-height:220px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/662764218_4284195388575665_269602737789276985_n.jpg?stp=dst-jpg_tt6&cstp=mx1996x2048&ctp=s1996x2048&_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=eIqkkgn75iwQ7kNvwGMblP5&_nc_oc=Ado_r8mIzX6ff2hq5-dNg_ElmkaG2tVSZLZh40Q2H8H5g7P1Cv9ogghU8dt8DKfiu08&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=6Pl7bhedA2_FDKVlckTQ-Q&_nc_ss=7b289&oh=00_Af9PVc4aM-Nf9s27PmozSKHisPDMMBl5xBZuhoNnjtxksA&oe=6A443600"
+       data-caption="The Blueprint Session">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/662764218_4284195388575665_269602737789276985_n.jpg?stp=dst-jpg_tt6&cstp=mx1996x2048&ctp=s1996x2048&_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=eIqkkgn75iwQ7kNvwGMblP5&_nc_oc=Ado_r8mIzX6ff2hq5-dNg_ElmkaG2tVSZLZh40Q2H8H5g7P1Cv9ogghU8dt8DKfiu08&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=6Pl7bhedA2_FDKVlckTQ-Q&_nc_ss=7b289&oh=00_Af9PVc4aM-Nf9s27PmozSKHisPDMMBl5xBZuhoNnjtxksA&oe=6A443600" 
+         alt="Blueprint" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">Blueprint Sessions ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:200px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/638170021_4238862006442337_7130182886045602876_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2045&ctp=s2048x2045&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=ExEdOe2aiq0Q7kNvwEqropN&_nc_oc=AdogXd9o_3ufA5xQ4xitgza9BaDv2fNZVw1Flo5LpcsRk1Stt_dR--VOXfNzdM7ghO4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=j1aUSxSWHIdTlfH3F7LpUQ&_nc_ss=7b289&oh=00_Af8-Mcti2BTM8SpZlueqhib5qjGwpCnKPfOerwZrYroA6A&oe=6A441DA4"
+       data-caption="Hustle Hours">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/638170021_4238862006442337_7130182886045602876_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2045&ctp=s2048x2045&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=ExEdOe2aiq0Q7kNvwEqropN&_nc_oc=AdogXd9o_3ufA5xQ4xitgza9BaDv2fNZVw1Flo5LpcsRk1Stt_dR--VOXfNzdM7ghO4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=j1aUSxSWHIdTlfH3F7LpUQ&_nc_ss=7b289&oh=00_Af8-Mcti2BTM8SpZlueqhib5qjGwpCnKPfOerwZrYroA6A&oe=6A441DA4" 
+         alt="Hustle" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">Hustle Hours ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:200px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/649540988_4256858644642673_3969379439712991334_n.jpg?stp=dst-jpg_tt6&cstp=mx1498x1490&ctp=s1498x1490&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8v_ttAWRDv8Q7kNvwEfoVxZ&_nc_oc=Adqj9OJ6inXcc2vlkrxVXxY94kalqMefp6li2B8V5_HkaeC-JoNZO6oYaZJF0gV_9IU&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=-2qxAZ0Ys3ldKoa5In3LMA&_nc_ss=7b289&oh=00_Af-Tv1MYDmABuAef-oLQGvz5v5rTjwQQPh0S5EzXfla8jw&oe=6A44119D"
+       data-caption="City Lights">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/649540988_4256858644642673_3969379439712991334_n.jpg?stp=dst-jpg_tt6&cstp=mx1498x1490&ctp=s1498x1490&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8v_ttAWRDv8Q7kNvwEfoVxZ&_nc_oc=Adqj9OJ6inXcc2vlkrxVXxY94kalqMefp6li2B8V5_HkaeC-JoNZO6oYaZJF0gV_9IU&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=-2qxAZ0Ys3ldKoa5In3LMA&_nc_ss=7b289&oh=00_Af-Tv1MYDmABuAef-oLQGvz5v5rTjwQQPh0S5EzXfla8jw&oe=6A44119D" 
+         alt="City" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">City Lights ↗</span>
+    </div>
+  </div>
+
+  <div class="gallery-item gsap-fade-up" 
+       style="min-height:200px;"
+       onclick="openModal(this)"
+       data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/660501802_4280696952258842_4004401516356104547_n.jpg?stp=dst-jpg_tt6&cstp=mx2039x2048&ctp=s2039x2048&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=suzIxTRAVrgQ7kNvwG6EMQs&_nc_oc=AdqDRORIGFpn_tBSUYJCqUcY9SL8zngZlDVqh2mZTiDC0KYYuxDJctFEi_EqcLIVaYY&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=twT6qVJlC53ZnG_3zYiBUA&_nc_ss=7b289&oh=00_Af9JmxZ46h2kNMeQpwUUglSzb1pxFX__CK2JNrd0_ZWFFQ&oe=6A4443B9"
+       data-caption="The Empire — June 27">
+    <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/660501802_4280696952258842_4004401516356104547_n.jpg?stp=dst-jpg_tt6&cstp=mx2039x2048&ctp=s2039x2048&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=suzIxTRAVrgQ7kNvwG6EMQs&_nc_oc=AdqDRORIGFpn_tBSUYJCqUcY9SL8zngZlDVqh2mZTiDC0KYYuxDJctFEi_EqcLIVaYY&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=twT6qVJlC53ZnG_3zYiBUA&_nc_ss=7b289&oh=00_Af9JmxZ46h2kNMeQpwUUglSzb1pxFX__CK2JNrd0_ZWFFQ&oe=6A4443B9" 
+         alt="Empire" loading="lazy"/>
+    <div class="gallery-overlay">
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.12em;color:rgba(232,245,233,0.8);text-transform:uppercase;">The Empire ↗</span>
+    </div>
+  </div>
+
+</div>
+
+    <div class="text-center mt-8 gsap-fade-in">
+      <p class="mono" style="font-size:0.65rem;letter-spacing:0.2em;color:rgba(132,169,140,0.45);text-transform:uppercase;">
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 7: LYRICS ══ -->
+<section id="lyrics" class="section-pad">
+  <div class="ambient-glow glow-emerald" style="width:700px;height:700px;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0.5;"></div>
+
+  <div class="max-w-4xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 07 — Talha Anjum Lyric Corner</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:60px;">
+      MIDNIGHT<br/><span style="color:var(--mint);">MELANCHOLY</span>
+    </h2>
+
+    <div class="gsap-fade-up mb-4">
+      <p class="mono" style="font-size:0.65rem;letter-spacing:0.2em;color:rgba(132,169,140,0.5);text-transform:uppercase;margin-bottom:48px;">
+        Lyrics from Talha Anjum — for the ones who feel it differently at 2 AM
+      </p>
+    </div>
+
+    <div id="lyrics-container">
+
+      <div class="lyric-line gsap-fade-up">
+        Dard mein bhi style hai mera — yahaan tak aayi zindagi
+      </div>
+
+      <div class="lyric-line gsap-fade-up">
+        Khud ko jaanta hoon main — baki duniya kya jaane
+      </div>
+
+      <div class="lyric-line gsap-fade-up">
+        Waqt lagta hai apna banana — lekin jab ban jao, fir tootna nahi
+      </div>
+
+      <div class="lyric-line gsap-fade-up">
+        Tanhaiyaan bhi meri apni hain — yeh banda akela nahi tootega
+      </div>
+
+      <div class="lyric-line gsap-fade-up">
+        Gham mein bhi woh iqrar hai — jo sukoon ko suroor deta hai
+      </div>
+
+      <div class="lyric-line gsap-fade-up">
+        Safar lambi hai, manzil door — lekin qadam rukenge nahi
+      </div>
+
+    </div>
+
+    <div class="glass p-6 mt-12 gsap-fade-up" style="border-radius:16px;max-width:520px;">
+      <div class="mono mb-3" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;">Why Talha Anjum</div>
+      <p style="color:rgba(232,245,233,0.75);font-size:0.9rem;line-height:1.9;">
+        He doesn't romanticize the grind — he documents it. Every lyric is a mirror. Usama, this corner is yours. You feel this music on a frequency most people don't even know exists.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 8: BRO LORE ══ -->
+<section id="brolore" class="section-pad">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="section-label gsap-fade-up mb-6">Section 08 — Inside Jokes & Bro Lore</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:16px;">
+      THE VAULT<br/><span style="color:var(--mint);">OF CHAOS</span>
+    </h2>
+    <p class="text-sage gsap-fade-up" style="font-size:0.88rem;margin-bottom:50px;">
+      Classified intel. Expand at your own risk.
+    </p>
+
+    <div class="space-y-3" id="accordion-container">
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #01</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The Fit Debate That Never Ended</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            It started with one innocent question about who was dressed better that day. Four hours, seventeen fit comparison pics, and a drawn match that's still in appeals. Neither of you will admit it, but everyone else in the room already knew the answer. The debate rages on to this day, every. single. time.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #02</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The Business Idea at 4 AM That Was "Definitely" Going to Work</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            We were going to be millionaires by Tuesday. The pitch was immaculate. The market research was non-existent. The confidence was at an all-time high. By Thursday, we had quietly moved on to the next idea. No one speaks of it now. But we both know. And somewhere, a PowerPoint presentation sits unfinished in a Google Drive folder.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #03</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The "We'll Leave in 5 Minutes" Incident (×47)</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            Five minutes. Forty-five minutes. Two more songs on the playlist. One more track. "Okay last one bhai." Scientists are studying this phenomenon. Time operates differently around us. What others experience as a single hour, we experience as a full expedition. It's a feature, not a bug.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #04</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The Spotify Aux Cord Power Struggle</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            Whoever controls the aux controls the vibe. There's a whole unspoken negotiation that happens in the two seconds before the car starts. Glances are exchanged. Phone positions shift. The outcome matters more than it should. Usama's taste is undeniably elite. Shayan's taste is undeniably elite. The tension is the best part.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #05</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The Catchphrase That Evolved Into a Philosophy</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            It started as something small — a line thrown out casually. Now it's practically a life motto. The way it's said, the timing of it, the look that follows. Anyone who's been there gets it immediately. That's real culture. That's what years of understanding each other actually sounds like.
+          </p>
+        </div>
+      </div>
+
+      <div class="accordion-item gsap-fade-up">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div>
+            <div class="mono mb-1" style="font-size:0.6rem;letter-spacing:0.12em;color:var(--mint);text-transform:uppercase;">Lore #06</div>
+            <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;color:#fff;font-weight:600;">The Legendary Terrible Decision (That Was Actually Kind of Worth It)</div>
+          </div>
+          <div class="accordion-icon">+</div>
+        </button>
+        <div class="accordion-body">
+          <p style="color:rgba(132,169,140,0.85);font-size:0.9rem;line-height:1.9;padding-top:4px;">
+            On paper, it made zero sense. Common sense was clearly absent. The logical thing would have been to simply not do it. But it became a memory. That's the whole point. Some of the best stories start with "so we probably shouldn't have, but…" — and this one earns a permanent spot in the Vault.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 9: PILLARS ══ -->
+<section id="pillars" class="section-pad">
+  <div class="ambient-glow glow-mint" style="width:600px;height:600px;left:-200px;bottom:-100px;opacity:0.3;"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 09 — The Pillar Archive</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:16px;">
+      THE SILENT<br/><span style="color:var(--mint);">SUPPORT</span>
+    </h2>
+
+    <p class="gsap-fade-up" style="color:rgba(232,245,233,0.7);font-size:1rem;line-height:1.9;max-width:640px;margin-bottom:60px;">
+      Not every pillar announces itself. The strongest ones just stand there — holding everything up, no noise required.
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-5 mb-12">
+
+      <div class="pillar-card gsap-fade-up">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--mint);">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/>
+          </svg>
+        </div>
+        <h3 class="serif-display text-white text-lg font-bold mb-3">The Unspoken Understanding</h3>
+        <p style="color:rgba(132,169,140,0.8);font-size:0.85rem;line-height:1.9;">
+          There are levels of understanding that don't require explanation. No context needed. No backstory. A glance carries an entire paragraph. This is what years of real brotherhood actually builds.
+        </p>
+      </div>
+
+      <div class="pillar-card gsap-fade-up" style="border-color:rgba(0,255,136,0.18);background:linear-gradient(135deg,rgba(0,255,136,0.05),rgba(6,78,59,0.1));">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(0,255,136,0.12);border:1px solid rgba(0,255,136,0.25);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--mint);">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"/>
+          </svg>
+        </div>
+        <h3 class="serif-display text-white text-lg font-bold mb-3">Guarding Each Other's Goals</h3>
+        <p style="color:rgba(132,169,140,0.8);font-size:0.85rem;line-height:1.9;">
+          Real ones protect each other's dreams even when doubt creeps in. Reminding each other of the bigger picture when the day-to-day gets loud. That's not support — that's armor.
+        </p>
+      </div>
+
+      <div class="pillar-card gsap-fade-up">
+        <div style="width:44px;height:44px;border-radius:50%;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="color:var(--mint);">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/>
+          </svg>
+        </div>
+        <h3 class="serif-display text-white text-lg font-bold mb-3">Building the Empire Together</h3>
+        <p style="color:rgba(132,169,140,0.8);font-size:0.85rem;line-height:1.9;">
+          Two creative minds. One shared frequency. The empire doesn't get built by people who don't trust each other. This is the foundation — and it's stronger than any architecture money can buy.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Extended paragraph -->
+    <div class="glass-strong p-10 gsap-fade-up" style="border-radius:24px;max-width:740px;margin:0 auto;">
+      <p class="manifesto-quote" style="font-size:clamp(1.1rem,2vw,1.6rem);margin-bottom:24px;">
+        "Brotherhood is not a title. It's a track record."
+      </p>
+      <p style="color:rgba(232,245,233,0.75);font-size:0.95rem;line-height:2;">
+        The quiet moments tell the whole story. When someone shows up without being called. When they hold information sacred. When they push back with love and not ego. Usama — this archive is the acknowledgment that all of that is seen, logged, and returned in full.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 10: STATEMENT ══ -->
+<section id="statement">
+  <div class="ambient-glow glow-mint" style="width:800px;height:800px;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0.04;"></div>
+  <div class="ambient-glow glow-emerald" style="width:500px;height:500px;left:-150px;top:20%;opacity:0.4;"></div>
+  <div class="ambient-glow glow-emerald" style="width:400px;height:400px;right:-100px;bottom:20%;opacity:0.35;"></div>
+
+  <div class="relative z-10 text-center px-6 max-w-7xl mx-auto py-40">
+    <div class="section-label gsap-fade-in mb-12 justify-center" style="justify-content:center;display:flex;">Section 10 — The June 27 Statement</div>
+
+    <div id="statement-text">
+      <div class="statement-big gsap-fade-up">
+        <span class="dim">JUNE</span>
+      </div>
+      <div class="statement-big gsap-fade-up" style="color:var(--mint);">
+        27
+      </div>
+      <div class="statement-big gsap-fade-up" style="font-size:clamp(2rem,7vw,9rem);">
+        THE
+      </div>
+      <div class="statement-big gsap-fade-up bright" style="font-size:clamp(2.5rem,10vw,12rem);">
+        VISION
+      </div>
+    </div>
+
+    <div class="mt-16 gsap-fade-up">
+      <p class="serif-display" style="font-size:clamp(1rem,2vw,1.5rem);color:rgba(132,169,140,0.7);font-style:italic;max-width:600px;margin:0 auto;line-height:1.8;">
+        "The date is written in the stars. Everything we're building — it was always leading here. Happy Birthday, Usama."
+      </p>
+    </div>
+
+    <div class="mt-16 flex items-center justify-center gap-6 gsap-fade-in">
+      <div class="mint-divider" style="width:80px;"></div>
+      <span class="mono" style="font-size:0.65rem;letter-spacing:0.3em;color:var(--mint);text-transform:uppercase;">The Empire Rises</span>
+      <div class="mint-divider" style="width:80px;"></div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 11: NEXT CHAPTER ══ -->
+<section id="nextchapter" class="section-pad">
+  <div class="ambient-glow glow-mint" style="width:400px;height:400px;right:-100px;top:30%;opacity:0.3;"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative z-10">
+    <div class="section-label gsap-fade-up mb-6">Section 11 — The Next Chapter</div>
+
+    <h2 class="display gsap-fade-up" style="font-size:clamp(2.5rem,7vw,7rem);color:#fff;line-height:0.9;margin-bottom:16px;">
+      LOCKED<br/><span style="color:var(--mint);">IN</span>
+    </h2>
+    <p class="text-sage gsap-fade-up" style="font-size:0.88rem;margin-bottom:50px;max-width:480px;line-height:1.8;">
+      Shayan's manifestations, prayers, and the plans locked in for Usama's year ahead. Written with full belief and zero doubt.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-4 mb-12">
+
+      <div class="goal-card gsap-fade-up">
+        <div class="goal-num">01</div>
+        <div>
+          <h4 style="color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:8px;">The Business Empire — Phase Two</h4>
+          <p style="color:rgba(132,169,140,0.8);font-size:0.83rem;line-height:1.8;">Everything we planned at 3 AM becomes a signed document this year. The venture gets structured, the clients get serious, and the money starts reflecting the work ethic that's been there all along.</p>
+        </div>
+      </div>
+
+      <div class="goal-card gsap-fade-up">
+        <div class="goal-num">02</div>
+        <div>
+          <h4 style="color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:8px;">Financial Sovereignty</h4>
+          <p style="color:rgba(132,169,140,0.8);font-size:0.83rem;line-height:1.8;">This year Usama breaks through into a new income bracket. Not the beginner level — the level where the money works for him. Every dua is sent that this becomes reality before June 27 next year.</p>
+        </div>
+      </div>
+
+      <div class="goal-card gsap-fade-up">
+        <div class="goal-num">03</div>
+        <div>
+          <h4 style="color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:8px;">Health, Peace & Mental Clarity</h4>
+          <p style="color:rgba(132,169,140,0.8);font-size:0.83rem;line-height:1.8;">Beyond the hustle — this year is also about protecting the mind. Staying grounded, staying healthy, and never letting the grind erode what makes Usama, Usama.</p>
+        </div>
+      </div>
+
+      <div class="goal-card gsap-fade-up">
+        <div class="goal-num">04</div>
+        <div>
+          <h4 style="color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:8px;">The Creative Portfolio — Unleashed</h4>
+          <p style="color:rgba(132,169,140,0.8);font-size:0.83rem;line-height:1.8;">All those ideas that lived in voice memos and notes apps — this year they become real projects, shipped work, documented proof of the caliber that's always been there.</p>
+        </div>
+      </div>
+
+      <div class="goal-card gsap-fade-up">
+        <div class="goal-num">05</div>
+        <div>
+          <h4 style="color:#fff;font-weight:600;font-size:0.95rem;margin-bottom:8px;">The Circle Stays Tight</h4>
+          <p style="color:rgba(132,169,140,0.8);font-size:0.83rem;line-height:1.8;">Real ones staying real. The relationships that matter deepening, the noise that doesn't serve us fading. Quality over everything — in people, in work, in every room Usama walks into.</p>
+        </div>
+      </div>
+
+      <div class="goal-card gsap-fade-up" style="border-color:rgba(0,255,136,0.25);background:rgba(0,255,136,0.05);">
+        <div class="goal-num">Dua</div>
+        <div>
+          <h4 style="color:var(--mint);font-weight:600;font-size:0.95rem;margin-bottom:8px;">Shayan's Prayer for Usama</h4>
+          <p style="color:rgba(232,245,233,0.8);font-size:0.83rem;line-height:1.9;font-style:italic;">
+            "Allah aapko har woh cheez de jo aap deserve karte ho. Aur usse bhi zyada. Barakah, success, love, peace — sab kuch complete hojaye. From your Day-One, with full sincerity."
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Closing line -->
+    <div class="text-center gsap-fade-up">
+      <div class="inline-block glass-strong px-10 py-6" style="border-radius:20px;">
+        <div class="display" style="font-size:clamp(1.5rem,4vw,4rem);color:#fff;line-height:1;">
+          YEAR <span style="color:var(--mint);">27</span> —<br/>THE BEST ONE YET
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mint-divider"></div>
+
+<!-- ═══════════════════════════════════════════ SECTION 12: FOOTER ══ -->
+<footer id="footer">
+  <div class="ambient-glow" style="width:800px;height:400px;left:50%;top:-100px;transform:translateX(-50%);background:radial-gradient(ellipse,rgba(0,255,136,0.04),transparent 70%);"></div>
+  <div class="ambient-glow" style="width:400px;height:400px;left:-100px;bottom:-50px;background:radial-gradient(ellipse,rgba(6,78,59,0.15),transparent 70%);"></div>
+  <div class="ambient-glow" style="width:400px;height:400px;right:-100px;bottom:-50px;background:radial-gradient(ellipse,rgba(6,78,59,0.15),transparent 70%);"></div>
+
+  <!-- Navigation -->
+  <div class="relative z-10 border-b" style="border-color:rgba(0,255,136,0.08);padding:60px 0;">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+
+        <div>
+          <div class="mono mb-4" style="font-size:0.65rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;margin-bottom:20px;">The Soundtrack</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#soundtrack" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Regrets — Talha Anjum</a></li>
+            <li><a href="#lyrics" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Lyric Corner</a></li>
+            <li><a href="#soundtrack" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Late Night Car Vibes</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono mb-4" style="font-size:0.65rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;margin-bottom:20px;">The Archives</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#gallery" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Elite Vault</a></li>
+            <li><a href="#timeline" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">The Lore Timeline</a></li>
+            <li><a href="#brolore" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Vault of Chaos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono mb-4" style="font-size:0.65rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;margin-bottom:20px;">The Experience</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            <li><a href="#manifesto" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">The Real Talk</a></li>
+            <li><a href="#characters" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Character Profiles</a></li>
+            <li><a href="#nextchapter" style="font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">Locked In</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="mono mb-4" style="font-size:0.65rem;letter-spacing:0.2em;color:var(--mint);text-transform:uppercase;margin-bottom:20px;">Back to Top</div>
+          <a href="#hero" style="display:inline-flex;align-items:center;gap:10px;font-size:0.85rem;color:rgba(132,169,140,0.7);text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(132,169,140,0.7)'">
+            <span>↑ The Beginning</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Main footer statement -->
+  <div class="relative z-10 py-20 px-6">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="footer-name gsap-fade-up mb-4">
+        USAMA
+      </div>
+      <div class="footer-name gsap-fade-up" style="font-size:clamp(1.5rem,5vw,6rem);">
+        MALIK
+      </div>
+      <div class="footer-name gsap-fade-up" style="font-size:clamp(1.2rem,3vw,4rem);color:rgba(132,169,140,0.3);margin-top:8px;">
+        MAN OF THE HOUR
+      </div>
+
+      <div class="mint-divider" style="margin:40px 0;"></div>
+
+      <!-- Tagline row -->
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 gsap-fade-up">
+        <div>
+          <p style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:rgba(232,245,233,0.6);line-height:1.7;">
+            "Different blood. Same energy. Always."
+          </p>
+        </div>
+        <div class="text-right">
+          <div class="display" style="font-size:4rem;color:var(--mint);line-height:1;">27.06</div>
+          <div class="mono" style="font-size:0.6rem;letter-spacing:0.2em;color:rgba(132,169,140,0.4);text-transform:uppercase;">June Twenty-Seven</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Copyright row -->
+  <div class="relative z-10 border-t" style="border-color:rgba(0,255,136,0.06);">
+    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="mono" style="font-size:0.65rem;letter-spacing:0.15em;color:rgba(132,169,140,0.4);text-transform:uppercase;">
+        © 2026 Crafted by Shayan.
+      </div>
+      <div class="flex items-center gap-4">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);animation:loaderPulse 2s infinite;"></div>
+        <div class="mono" style="font-size:0.6rem;letter-spacing:0.15em;color:rgba(132,169,140,0.4);text-transform:uppercase;">
+          A tribute website. Built for Usama Malik.
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════ JAVASCRIPT ═══════ -->
+<script>
+// ─── REGISTER SCROLLTRIGGER ─────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// ─── LOADER ─────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    gsap.to('#loader', {
+      opacity: 0, duration: 0.8, ease: 'power2.inOut',
+      onComplete: () => {
+        document.getElementById('loader').style.display = 'none';
+        initAnimations();
+        // Show spotify float after a delay
+        setTimeout(() => {
+          document.getElementById('spotifyFloat').classList.add('visible');
+        }, 2000);
+      }
+    });
+  }, 1900);
+});
+
+// ─── HERO ANIMATIONS ────────────────────────────────────
+function initAnimations() {
+  // Hero sequence
+  const heroTL = gsap.timeline({ delay: 0.2 });
+
+  heroTL
+    .from('#hero-sub', { opacity: 0, y: 20, duration: 0.7, ease: 'power3.out' })
+    .from('#hero-line1', { opacity: 0, y: 60, duration: 0.9, ease: 'power4.out' }, '-=0.3')
+    .from('#hero-line2', { opacity: 0, y: 60, duration: 0.9, ease: 'power4.out' }, '-=0.6')
+    .to('#hero-line3', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.5')
+    .from('#hero-name', { opacity: 0, y: 20, duration: 0.7, ease: 'power3.out' }, '-=0.3')
+    .from('#hero-uname', { opacity: 0, y: 40, duration: 0.9, ease: 'power4.out', color: '#00FF88' }, '-=0.4')
+    .from('#hero-from', { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' }, '-=0.4');
+
+  // ─── SCROLL-TRIGGERED ANIMATIONS ──────────────────────
+  // Generic fade-up elements
+  gsap.utils.toArray('.gsap-fade-up').forEach(el => {
+    if (el.closest('#hero')) return; // skip hero (already animated)
+    gsap.fromTo(el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.8, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el, start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  gsap.utils.toArray('.gsap-fade-in').forEach(el => {
+    if (el.closest('#hero')) return;
+    gsap.fromTo(el,
+      { opacity: 0 },
+      {
+        opacity: 1,
+        duration: 1, ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el, start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  gsap.utils.toArray('.gsap-slide-left').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -50 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.9, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el, start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  gsap.utils.toArray('.gsap-slide-right').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.9, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el, start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // ─── TIMELINE ITEMS ────────────────────────────────────
+  gsap.utils.toArray('.timeline-item').forEach((item, i) => {
+    gsap.fromTo(item,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.9, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: item, start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // ─── CHARACTER STAT BARS ───────────────────────────────
+  function animateStats(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top 80%',
+      onEnter: () => {
+        const rows = container.querySelectorAll('.stat-row');
+        rows.forEach((row, i) => {
+          const val = parseInt(row.dataset.val) || 80;
+          const bar = row.querySelector('.stat-bar-fill');
+          if (bar) {
+            setTimeout(() => {
+              bar.style.width = val + '%';
+            }, i * 120);
+          }
+        });
+      }
+    });
+  }
+
+  animateStats('usama-stats');
+  animateStats('shayan-stats');
+
+  // ─── STATEMENT SECTION PARALLAX ───────────────────────
+  gsap.to('#statement .ambient-glow', {
+    scrollTrigger: {
+      trigger: '#statement',
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 2
+    },
+    scale: 1.4,
+    opacity: 0.08
+  });
+
+  // ─── GALLERY STAGGER ──────────────────────────────────
+  gsap.utils.toArray('#gallery-grid .gallery-item').forEach((item, i) => {
+    gsap.fromTo(item,
+      { opacity: 0, y: 30, scale: 0.96 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.7, ease: 'power3.out',
+        delay: (i % 3) * 0.1,
+        scrollTrigger: {
+          trigger: item, start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // ─── LYRIC LINES STAGGER ──────────────────────────────
+  gsap.utils.toArray('.lyric-line').forEach((line, i) => {
+    gsap.fromTo(line,
+      { opacity: 0, x: -30 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.8, ease: 'power3.out',
+        delay: i * 0.08,
+        scrollTrigger: {
+          trigger: line, start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+
+  // ─── FOOTER NAME SPLIT ANIMATION ─────────────────────
+  gsap.utils.toArray('.footer-name').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 50, skewY: 2 },
+      {
+        opacity: 1, y: 0, skewY: 0,
+        duration: 1, ease: 'power4.out',
+        delay: i * 0.15,
+        scrollTrigger: {
+          trigger: el, start: 'top 90%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+  });
+}
+
+// ─── MODAL SYSTEM ───────────────────────────────────────
+function openModal(el) {
+  const src = el.dataset.src;
+  const caption = el.dataset.caption || 'The Elite Archives';
+
+  if (!src) return;
+
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  const modalCaption = document.getElementById('modal-caption');
+
+  modalImg.src = src;
+  modalCaption.textContent = caption + ' — Shayan × Usama';
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('modal');
+  modal.classList.remove('active');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    document.getElementById('modal-img').src = '';
+  }, 300);
+}
+
+// Close modal on backdrop click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// Close on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ─── ACCORDION ──────────────────────────────────────────
+function toggleAccordion(btn) {
+  const item = btn.closest('.accordion-item');
+  const wasOpen = item.classList.contains('open');
+
+  // Close all
+  document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+
+  // Open clicked if it was closed
+  if (!wasOpen) item.classList.add('open');
+}
+
+// ─── SPOTIFY FLOAT TOGGLE ───────────────────────────────
+let spotifyMinimized = false;
+
+function toggleSpotify() {
+  const player = document.querySelector('.spotify-float iframe');
+  const toggle = document.querySelector('.spotify-float-toggle');
+
+  spotifyMinimized = !spotifyMinimized;
+
+  if (spotifyMinimized) {
+    player.style.display = 'none';
+    toggle.textContent = '♫ Show Player';
+  } else {
+    player.style.display = 'block';
+    toggle.textContent = '♫ Now Playing';
+  }
+}
+
+// ─── SCROLL-BASED SPOTIFY FLOAT ─────────────────────────
+window.addEventListener('scroll', () => {
+  const floatEl = document.getElementById('spotifyFloat');
+  if (!floatEl) return;
+  if (window.scrollY > 400) {
+    floatEl.classList.add('visible');
+  }
+});
+
+// ─── SMOOTH INTERSECTION ANIMATION FALLBACK ─────────────
+// For any remaining hidden elements
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      if (!el.dataset.animated) {
+        el.dataset.animated = 'true';
+      }
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.timeline-item, .pillar-card, .goal-card').forEach(el => {
+  io.observe(el);
+});
+</script>
+
+</body>
+</html>

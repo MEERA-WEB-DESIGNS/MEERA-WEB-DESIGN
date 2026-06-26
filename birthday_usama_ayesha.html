@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>USAMA & AYESHA — JUNE 27 — A Double Celebration</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --obsidian: #0A0E0B;
+    --forest-black: #040A06;
+    --ink: #010402;
+    --emerald: #1A7A4A;
+    --emerald-bright: #2ECC71;
+    --sage: #7CB898;
+    --mint: #A8DFBB;
+    --mint-pale: #D4F0E0;
+    --cream: #F5F2E8;
+    --glass-bg: rgba(26, 122, 74, 0.06);
+    --glass-border: rgba(168, 223, 187, 0.15);
+    --glow: 0 0 60px rgba(46, 204, 113, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--obsidian);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--mint);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    mix-blend-mode: exclusion;
+  }
+  .cursor-follower {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(168, 223, 187, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 2px; }
+  ::-webkit-scrollbar-track { background: var(--obsidian); }
+  ::-webkit-scrollbar-thumb { background: var(--emerald); border-radius: 1px; }
+
+  /* TYPOGRAPHY */
+  .font-serif { font-family: 'Cormorant Garamond', serif; }
+  .font-mono { font-family: 'Space Mono', monospace; }
+
+  /* GLASS CARD */
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* AMBIENT GLOW */
+  .ambient-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal-up {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  /* HORIZONTAL RULE MINT */
+  .divider-mint {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--mint), transparent);
+    opacity: 0.25;
+  }
+
+  /* HERO SECTION */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(168, 223, 187, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(168, 223, 187, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.6rem, 1.2vw, 0.85rem);
+    letter-spacing: 0.3em;
+    color: var(--sage);
+    text-transform: uppercase;
+  }
+
+  .hero-main {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 10vw, 9rem);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+  }
+
+  .hero-main .accent { color: var(--mint); }
+
+  .hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+    color: rgba(245, 242, 232, 0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION EYEBROW */
+  .eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--sage);
+  }
+
+  /* SECTION HEADING */
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--cream);
+  }
+
+  /* TIMELINE */
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--emerald), transparent);
+    transform: translateX(-50%);
+    opacity: 0.4;
+  }
+
+  .timeline-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--obsidian);
+    border: 2px solid var(--mint);
+    box-shadow: 0 0 16px rgba(168, 223, 187, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .timeline-dot:hover {
+    background: var(--mint);
+    box-shadow: 0 0 30px rgba(168, 223, 187, 0.8);
+    transform: scale(1.4);
+  }
+
+  /* STAT BAR */
+  .stat-bar-track {
+    height: 3px;
+    background: rgba(168, 223, 187, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .stat-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--emerald), var(--mint));
+    width: 0%;
+    transition: width 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  /* GALLERY */
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid var(--glass-border);
+  }
+
+  .gallery-item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    display: block;
+  }
+
+  .gallery-item:hover img { transform: scale(1.08); }
+
+  .gallery-item .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(4, 10, 6, 0.7), transparent);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+  }
+
+  .gallery-item:hover .overlay { opacity: 1; }
+
+  /* MODAL */
+  #modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    background: rgba(1, 4, 2, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  #modal.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  #modal img {
+    max-width: 90vw;
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 4px;
+    border: 1px solid var(--glass-border);
+  }
+  #modal-close {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    color: var(--sage);
+    background: none;
+    border: 1px solid var(--glass-border);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  #modal-close:hover {
+    background: var(--glass-bg);
+    color: var(--mint);
+  }
+
+  /* LYRIC CAROUSEL */
+  .lyric-card {
+    min-width: 100%;
+    padding: 3rem;
+    transition: opacity 0.5s ease;
+  }
+
+  /* ACCORDION */
+  .accordion-item .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  .accordion-item.open .accordion-content {
+    max-height: 400px;
+  }
+  .accordion-item .accordion-icon {
+    transition: transform 0.4s ease;
+  }
+  .accordion-item.open .accordion-icon {
+    transform: rotate(45deg);
+  }
+
+  /* PINNED TEXT SECTION */
+  #pinned-section {
+    position: relative;
+  }
+
+  /* FUTURE BOARD */
+  .prayer-card {
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .prayer-card:hover {
+    border-color: rgba(168, 223, 187, 0.4) !important;
+    box-shadow: 0 0 30px rgba(46, 204, 113, 0.08);
+    transform: translateY(-2px);
+  }
+
+  /* FOOTER */
+  #footer {
+    background: linear-gradient(to bottom, var(--forest-black), var(--ink));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-mega {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 9vw, 10rem);
+    font-weight: 300;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    color: rgba(168, 223, 187, 0.08);
+  }
+
+  /* SPOTIFY CONTAINER */
+  .spotify-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glow);
+  }
+
+  /* BLOCKQUOTE */
+  .manifesto-quote {
+    border-left: 2px solid var(--sage);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  /* PROTECTOR SECTION */
+  .protector-ring {
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(168, 223, 187, 0.2);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .protector-ring:nth-child(2) { width: 280px; height: 280px; animation-delay: 0.5s; opacity: 0.5; }
+  .protector-ring:nth-child(3) { width: 360px; height: 360px; animation-delay: 1s; opacity: 0.25; }
+
+  @keyframes pulse-ring {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: var(--op, 1); }
+    50% { transform: translate(-50%, -50%) scale(1.05); }
+  }
+
+  /* BADGE */
+  .badge-row {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: rgba(124, 184, 152, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    body { cursor: auto; }
+    .cursor, .cursor-follower { display: none; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursor-follower"></div>
+
+<!-- MODAL -->
+<div id="modal">
+  <button id="modal-close" onclick="closeModal()">CLOSE ✕</button>
+  <img id="modal-img" src="" alt="Memory">
+  <div class="absolute bottom-6" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(168,223,187,0.4)" id="modal-caption"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 1 — CINEMATIC HERO
+══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-grid"></div>
+
+  <!-- Ambient glows -->
+  <div class="ambient-glow" style="width:600px;height:600px;background:radial-gradient(circle,rgba(26,122,74,0.18),transparent 70%);top:-200px;right:-200px;"></div>
+  <div class="ambient-glow" style="width:400px;height:400px;background:radial-gradient(circle,rgba(46,204,113,0.08),transparent 70%);bottom:-100px;left:-100px;"></div>
+
+  <div class="relative z-10 text-center px-6" style="max-width:1100px;margin:0 auto;">
+    <div class="hero-tagline mb-8 reveal-up" id="hero-tag">JUNE 27 · THE SAME ORBIT · THE SAME BLOOD</div>
+
+    <div class="mb-2 reveal-up" id="hero-line1">
+      <span class="hero-main">SAME&nbsp;DAY.</span>
+    </div>
+    <div class="mb-2 reveal-up" id="hero-line2">
+      <span class="hero-main">SAME&nbsp;</span><span class="hero-main accent">PARENTS.</span>
+    </div>
+    <div class="mb-8 reveal-up" id="hero-line3">
+      <span class="hero-main">SAME&nbsp;</span><span class="hero-main" style="color:var(--sage)">BOND.</span>
+    </div>
+
+    <div class="divider-mint mx-auto mb-8 reveal-up" style="max-width:200px;" id="hero-div"></div>
+
+    <p class="reveal-up mb-4" id="hero-name" style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,2rem);font-weight:300;color:var(--mint);letter-spacing:0.08em;">
+      Happy Birthday, <em>Usama Malik</em> — &amp; Me.
+    </p>
+
+    <p class="hero-sub reveal-up" id="hero-sub">A double celebration · Designed by Ayesha · June 27</p>
+
+    <div class="mt-14 reveal-up" id="hero-scroll">
+      <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.4em;color:rgba(168,223,187,0.35);text-transform:uppercase;">Scroll to explore</div>
+      <div class="mx-auto mt-3" style="width:1px;height:50px;background:linear-gradient(to bottom,rgba(168,223,187,0.3),transparent);"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 2 — SOUNDTRACK ENGINE
+══════════════════════════════════════════════════ -->
+<section id="soundtrack" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:500px;height:500px;background:radial-gradient(circle,rgba(26,122,74,0.12),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div class="relative z-10 px-6" style="max-width:900px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 02 — The Soundtrack</div>
+    <h2 class="section-heading mb-6 reveal-up">The track that<br><em>defines the drives.</em></h2>
+    <div class="divider-mint mb-12 reveal-up" style="max-width:80px;"></div>
+
+    <div class="glass rounded-xl p-2 reveal-up spotify-wrap mb-10">
+      <iframe
+        style="border-radius:10px"
+        src="https://open.spotify.com/embed/track/6OUPWxtBj1KaAV7Ku3xgmr?utm_source=generator&si=46d77ed6caba4522"
+        width="100%"
+        height="152"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="glass rounded-2xl p-8 reveal-up" style="border-color:rgba(168,223,187,0.2);box-shadow:0 0 40px rgba(46,204,113,0.06);">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:300;color:var(--mint);margin-bottom:1rem;">"Regrets"</div>
+      <div class="eyebrow mb-4" style="color:var(--sage);">Talha Anjum × Jevin Gill</div>
+      <p style="font-size:0.95rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+        Late nights. The city blurring past the window. No words needed — just this track on repeat. "Regrets" isn't just music to Usama; it's the soundtrack to every quiet, honest moment he's navigated with grace. Melancholy dressed up beautifully. Exactly like him.
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 3 — SISTER'S MANIFESTO
+══════════════════════════════════════════════════ -->
+<section id="manifesto" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:700px;height:400px;background:radial-gradient(ellipse,rgba(46,204,113,0.05),transparent 70%);bottom:0;right:-200px;"></div>
+
+  <div class="relative z-10 px-6" style="max-width:800px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 03 — The Sister's Manifesto</div>
+    <h2 class="section-heading mb-12 reveal-up">A letter<br><em>you didn't ask for.</em></h2>
+
+    <div class="reveal-up" style="font-size:1rem;line-height:2;color:rgba(245,242,232,0.75);">
+      <p class="mb-6">
+        Bhai — of all the people I could have been born after, I am extraordinarily lucky it was you. You are the first person who ever made me feel like my thoughts mattered, even when I was small enough to be ignored.
+      </p>
+
+      <div class="manifesto-quote reveal-up">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--mint);line-height:1.5;">
+          "You taught me that silence can be the loudest form of strength — and that protecting someone doesn't always look like a shield. Sometimes it looks like just being there."
+        </p>
+      </div>
+
+      <p class="mb-6 mt-6">
+        You never had to be loud about it. You never made a show of being the older one. You just quietly showed up — in the right rooms, at the right times, with the right calm. I have been watching you do that my whole life, and I think I forgot to tell you: I see it. I always saw it.
+      </p>
+
+      <div class="manifesto-quote reveal-up">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;color:var(--sage);line-height:1.5;">
+          "The funniest part of our story is that we share a birthday — and yet you managed to make every single June 27 feel like it was entirely mine. That is the most generous thing a person can do."
+        </p>
+      </div>
+
+      <p class="mb-6 mt-6">
+        On this birthday — our birthday — I want you to know that every lesson you ever gave me (half of them probably not intentional) is something I carry. I carry your patience, your quiet confidence, your terrible early taste in music before Talha Anjum fixed it, and your absolute inability to lose an argument gracefully.
+      </p>
+
+      <p class="mb-6">
+        You are 365 days of year I'm grateful to have an older brother, and today — June 27 — I get to say it out loud: <strong style="color:var(--mint);">Happy Birthday, Usama Malik. And happy birthday to us.</strong>
+      </p>
+
+      <p style="color:rgba(168,223,187,0.5);font-family:'Space Mono',monospace;font-size:0.75rem;letter-spacing:0.2em;">— Ayesha ♡</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 4 — TWIN TIMELINE
+══════════════════════════════════════════════════ -->
+<section id="timeline" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:400px;height:600px;background:radial-gradient(circle,rgba(26,122,74,0.1),transparent 70%);left:-150px;top:50%;transform:translateY(-50%);"></div>
+
+  <div class="relative z-10 px-6" style="max-width:900px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 04 — The Twin Timeline</div>
+    <h2 class="section-heading mb-4 reveal-up">Shared milestones,<br><em>same calendar day.</em></h2>
+    <p class="reveal-up mb-16" style="font-size:0.9rem;color:rgba(245,242,232,0.45);max-width:450px;">Every year, June 27 holds two stories. Here's how they look side by side.</p>
+
+    <div class="relative">
+      <div class="timeline-line"></div>
+
+      <!-- Timeline Items -->
+      <div id="timeline-items">
+
+        <div class="timeline-row reveal-up" style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;margin-bottom:4rem;align-items:center;">
+          <div class="glass rounded-xl p-6 text-right">
+            <div class="eyebrow mb-2" style="color:var(--sage);">Usama · The Beginning</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">First breath. First cry. The house got louder — and then quieter, somehow, because he arrived with this calm that the whole family felt.</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--sage);margin-top:0.5rem;white-space:nowrap;">YEAR 1</div>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Shared · The Setup</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">The universe filed the paperwork. June 27 was officially claimed.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row reveal-up" style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;margin-bottom:4rem;align-items:center;">
+          <div class="glass rounded-xl p-6 text-right">
+            <div class="eyebrow mb-2" style="color:var(--sage);">Usama · The Protector</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">Old enough to know there would be a younger sibling. Started preparing — probably not consciously, but the groundwork was already there.</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--sage);margin-top:0.5rem;white-space:nowrap;">CHILDHOOD</div>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Ayesha · The Arrival</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">She arrived. Same day. The family immediately understood this was not a coincidence — it was the universe having the last word.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row reveal-up" style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;margin-bottom:4rem;align-items:center;">
+          <div class="glass rounded-xl p-6 text-right">
+            <div class="eyebrow mb-2" style="color:var(--sage);">Usama · Finding His Sound</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">Discovered Talha Anjum. Late nights changed. The headphones went in — the world went out. Music became language.</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--sage);margin-top:0.5rem;white-space:nowrap;">GROWING UP</div>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Ayesha · Finding Her Voice</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">Started noticing things. Started writing. Started asking questions he'd actually answer. Their conversations got real.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row reveal-up" style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;margin-bottom:4rem;align-items:center;">
+          <div class="glass rounded-xl p-6 text-right">
+            <div class="eyebrow mb-2" style="color:var(--sage);">Usama · The Anchor</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">Became the person everyone called when things went sideways. Held things together — quietly, no acknowledgement needed.</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--sage);margin-top:0.5rem;white-space:nowrap;">TODAY</div>
+          </div>
+          <div class="glass rounded-xl p-6">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Ayesha · The Observer</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--cream);">Spent years watching, learning, quietly taking notes. Built a website about it. Evidence: this entire page.</p>
+          </div>
+        </div>
+
+        <div class="timeline-row reveal-up" style="display:grid;grid-template-columns:1fr 60px 1fr;gap:1rem;align-items:center;">
+          <div class="glass rounded-xl p-6 text-right" style="border-color:rgba(168,223,187,0.3);box-shadow:0 0 30px rgba(46,204,113,0.06);">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Usama · June 27, 2026</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--mint);">A new year begins. The best chapters don't have titles yet.</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="timeline-dot" style="background:var(--mint);box-shadow:0 0 30px rgba(168,223,187,0.9);"></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.15em;color:var(--mint);margin-top:0.5rem;white-space:nowrap;">NOW →</div>
+          </div>
+          <div class="glass rounded-xl p-6" style="border-color:rgba(168,223,187,0.3);box-shadow:0 0 30px rgba(46,204,113,0.06);">
+            <div class="eyebrow mb-2" style="color:var(--mint);">Ayesha · June 27, 2026</div>
+            <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--mint);">Surprised him with a website. Proof she's been paying attention all along.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 5 — CHARACTER PROFILES
+══════════════════════════════════════════════════ -->
+<section id="profiles" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:500px;height:500px;background:radial-gradient(circle,rgba(46,204,113,0.07),transparent 70%);right:-100px;top:50%;transform:translateY(-50%);"></div>
+
+  <div class="relative z-10 px-6" style="max-width:1100px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 05 — Character Profiles</div>
+    <h2 class="section-heading mb-4 reveal-up">The stats don't<br><em>lie.</em></h2>
+    <p class="reveal-up mb-16" style="font-size:0.9rem;color:rgba(245,242,232,0.45);">A highly scientific and completely objective assessment.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;" class="reveal-up">
+
+      <!-- USAMA CARD -->
+      <div class="glass rounded-2xl p-8" style="border-color:rgba(124,184,152,0.25);">
+        <div class="eyebrow mb-4" style="color:var(--sage);">Character A</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--cream);margin-bottom:0.25rem;">Usama</div>
+        <div style="font-size:0.75rem;color:rgba(245,242,232,0.35);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:0.15em;">THE OLDER BROTHER · BORN FIRST · STILL DOESN'T KNOW WHY</div>
+
+        <div class="space-y-5">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Wisdom</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">100%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="100"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Protector Mode</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">99%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="99"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Music Taste</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">Elite</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="97"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Calm Under Pressure</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">96%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="96"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Saying "I told you so"</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">88%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="88"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Cooking Capability</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--sage);">?%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="42"></div></div>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 rounded-lg" style="background:rgba(26,122,74,0.1);border:1px solid rgba(124,184,152,0.1);">
+          <div class="eyebrow mb-1" style="font-size:0.55rem;color:var(--sage);">Special Trait</div>
+          <p style="font-size:0.85rem;color:rgba(245,242,232,0.7);">Can end an argument with a single look. Has been using this ability irresponsibly since childhood.</p>
+        </div>
+      </div>
+
+      <!-- AYESHA CARD -->
+      <div class="glass rounded-2xl p-8" style="border-color:rgba(168,223,187,0.2);">
+        <div class="eyebrow mb-4" style="color:var(--mint);">Character B</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:2.5rem;font-weight:300;color:var(--cream);margin-bottom:0.25rem;">Ayesha</div>
+        <div style="font-size:0.75rem;color:rgba(245,242,232,0.35);margin-bottom:2rem;font-family:'Space Mono',monospace;letter-spacing:0.15em;">THE YOUNGER SISTER · BORN WISER · OBVIOUSLY</div>
+
+        <div class="space-y-5">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Creativity</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">100%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="100" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Organized Chaos</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">95%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="95" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Masterplanning</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">Genius</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="98" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Emotional Intelligence</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">93%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="93" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Last Word in Arguments</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">91%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="91" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;">
+              <span style="font-size:0.8rem;color:rgba(245,242,232,0.6);">Sleeping Schedule</span>
+              <span class="font-mono" style="font-size:0.7rem;color:var(--mint);">12%</span>
+            </div>
+            <div class="stat-bar-track"><div class="stat-bar-fill" data-width="12" style="background:linear-gradient(90deg,#1A7A4A,#A8DFBB);"></div></div>
+          </div>
+        </div>
+
+        <div class="mt-8 p-4 rounded-lg" style="background:rgba(168,223,187,0.04);border:1px solid rgba(168,223,187,0.08);">
+          <div class="eyebrow mb-1" style="font-size:0.55rem;color:var(--mint);">Special Trait</div>
+          <p style="font-size:0.85rem;color:rgba(245,242,232,0.7);">Built this entire website as a birthday surprise. At 2am. Without telling anyone. The chaos was intentional.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 6 — THE PHOTOGRAPHIC VAULT
+══════════════════════════════════════════════════ -->
+<section id="vault" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:600px;height:400px;background:radial-gradient(ellipse,rgba(26,122,74,0.09),transparent 70%);bottom:0;left:-100px;"></div>
+
+  <div class="relative z-10 px-6" style="max-width:1100px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 06 — The Vault</div>
+    <h2 class="section-heading mb-4 reveal-up">Moments that<br><em>refused to stay private.</em></h2>
+    <p class="reveal-up mb-12" style="font-size:0.9rem;color:rgba(245,242,232,0.45);">Click any frame to step inside. Each memory is a portal.</p>
+
+    <!-- ASYMMETRIC GALLERY GRID -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:280px 200px 280px;gap:1rem;" class="reveal-up">
+
+      <div class="gallery-item" style="grid-row:span 2;" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/596624030_4175614856100386_1265192429494683546_n.jpg?stp=dst-jpg_tt6&cstp=mx1384x1395&ctp=s1384x1395&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=gWAcU69MjOMQ7kNvwHGK6XB&_nc_oc=Adpv6jyQyYa8D35RuFR8bob2FSkV0ubqOQrR33KOHWYmdvLLY__L5HhHKzdORVOfB9U&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=zpjQi2MsXuWz3oFec37zLg&_nc_ss=7b289&oh=00_Af8n_Ba_BUitn7XJZdKy86ch1HkAuS1_e-YVV9IZovXe_g&oe=6A442A6D">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/596624030_4175614856100386_1265192429494683546_n.jpg?stp=dst-jpg_tt6&cstp=mx1384x1395&ctp=s1384x1395&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=gWAcU69MjOMQ7kNvwHGK6XB&_nc_oc=Adpv6jyQyYa8D35RuFR8bob2FSkV0ubqOQrR33KOHWYmdvLLY__L5HhHKzdORVOfB9U&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=zpjQi2MsXuWz3oFec37zLg&_nc_ss=7b289&oh=00_Af8n_Ba_BUitn7XJZdKy86ch1HkAuS1_e-YVV9IZovXe_g&oe=6A442A6D" alt="Memory 1">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">SUMMER DRIVES ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/533115314_4056164064712133_2730237222981669352_n.jpg?stp=dst-jpg_tt6&cstp=mx1247x1237&ctp=s1247x1237&_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=lLpZhuYvKDUQ7kNvwF3E6w0&_nc_oc=Adr9mn33x6j4CmLPnE03sXcSanUQnBBCLiWo-tfGtotBlR5NfJ6rtWZ9ZQ2saNjgyL4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=OF5wtG9jSzUB5HL7-wAqTw&_nc_ss=7b289&oh=00_Af9znda0incNchlrfsOVgSBuGEl_qEMH94WBodVSpGANrg&oe=6A44360F">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/533115314_4056164064712133_2730237222981669352_n.jpg?stp=dst-jpg_tt6&cstp=mx1247x1237&ctp=s1247x1237&_nc_cat=111&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=lLpZhuYvKDUQ7kNvwF3E6w0&_nc_oc=Adr9mn33x6j4CmLPnE03sXcSanUQnBBCLiWo-tfGtotBlR5NfJ6rtWZ9ZQ2saNjgyL4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=OF5wtG9jSzUB5HL7-wAqTw&_nc_ss=7b289&oh=00_Af9znda0incNchlrfsOVgSBuGEl_qEMH94WBodVSpGANrg&oe=6A44360F" alt="Memory 2">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">SHARED TABLE ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/573898596_4131241773871028_5345890006198270365_n.jpg?stp=dst-jpg_tt6&cstp=mx720x1280&ctp=s720x1280&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Ck5V2uWg2akQ7kNvwH9aEqv&_nc_oc=AdoUKcQr7krFTvysjojByfLlA_PXprIv5-NdF913m2QoeHIpG-voC0p80vjN4i5AOkQ&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=Snt6-XpBLXPXwDENdKiWqQ&_nc_ss=7b289&oh=00_Af-WuCEowRW5nXpYnsuS__SUXWStuyh9AvoNgszmpy4hLA&oe=6A441776">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/573898596_4131241773871028_5345890006198270365_n.jpg?stp=dst-jpg_tt6&cstp=mx720x1280&ctp=s720x1280&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Ck5V2uWg2akQ7kNvwH9aEqv&_nc_oc=AdoUKcQr7krFTvysjojByfLlA_PXprIv5-NdF913m2QoeHIpG-voC0p80vjN4i5AOkQ&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=Snt6-XpBLXPXwDENdKiWqQ&_nc_ss=7b289&oh=00_Af-WuCEowRW5nXpYnsuS__SUXWStuyh9AvoNgszmpy4hLA&oe=6A441776" alt="Memory 3">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">LATE NIGHT TALKS ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/503027360_3983573828637824_430835506816255654_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x853&ctp=s1280x853&_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=JvE1NTA-gCoQ7kNvwFuEMT1&_nc_oc=Adq3sOKwjZZYQPboJnMQhKh_QQHG_kg_pE_YTuSBjTL2hwNowJMGSICC9tSKd5hO0-s&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=WZz2Snz74edNs_IGWAAJVA&_nc_ss=7b289&oh=00_Af9bVvB6IIcKBZ2d-gZfxS71kf1F575q0mXPiHQwFvpDhA&oe=6A444086">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/503027360_3983573828637824_430835506816255654_n.jpg?stp=dst-jpg_tt6&cstp=mx1280x853&ctp=s1280x853&_nc_cat=100&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=JvE1NTA-gCoQ7kNvwFuEMT1&_nc_oc=Adq3sOKwjZZYQPboJnMQhKh_QQHG_kg_pE_YTuSBjTL2hwNowJMGSICC9tSKd5hO0-s&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=WZz2Snz74edNs_IGWAAJVA&_nc_ss=7b289&oh=00_Af9bVvB6IIcKBZ2d-gZfxS71kf1F575q0mXPiHQwFvpDhA&oe=6A444086" alt="Memory 4">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">THE PLAYLIST ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" style="grid-row:span 2;" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/662764218_4284195388575665_269602737789276985_n.jpg?stp=dst-jpg_tt6&cstp=mx1996x2048&ctp=s1996x2048&_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=eIqkkgn75iwQ7kNvwGMblP5&_nc_oc=Ado_r8mIzX6ff2hq5-dNg_ElmkaG2tVSZLZh40Q2H8H5g7P1Cv9ogghU8dt8DKfiu08&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=6Pl7bhedA2_FDKVlckTQ-Q&_nc_ss=7b289&oh=00_Af9PVc4aM-Nf9s27PmozSKHisPDMMBl5xBZuhoNnjtxksA&oe=6A443600">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/662764218_4284195388575665_269602737789276985_n.jpg?stp=dst-jpg_tt6&cstp=mx1996x2048&ctp=s1996x2048&_nc_cat=110&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=eIqkkgn75iwQ7kNvwGMblP5&_nc_oc=Ado_r8mIzX6ff2hq5-dNg_ElmkaG2tVSZLZh40Q2H8H5g7P1Cv9ogghU8dt8DKfiu08&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=6Pl7bhedA2_FDKVlckTQ-Q&_nc_ss=7b289&oh=00_Af9PVc4aM-Nf9s27PmozSKHisPDMMBl5xBZuhoNnjtxksA&oe=6A443600" alt="Memory 5">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">THE ROAD HOME ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/638170021_4238862006442337_7130182886045602876_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2045&ctp=s2048x2045&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=ExEdOe2aiq0Q7kNvwEqropN&_nc_oc=AdogXd9o_3ufA5xQ4xitgza9BaDv2fNZVw1Flo5LpcsRk1Stt_dR--VOXfNzdM7ghO4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=j1aUSxSWHIdTlfH3F7LpUQ&_nc_ss=7b289&oh=00_Af8-Mcti2BTM8SpZlueqhib5qjGwpCnKPfOerwZrYroA6A&oe=6A441DA4">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/638170021_4238862006442337_7130182886045602876_n.jpg?stp=dst-jpg_tt6&cstp=mx2048x2045&ctp=s2048x2045&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=ExEdOe2aiq0Q7kNvwEqropN&_nc_oc=AdogXd9o_3ufA5xQ4xitgza9BaDv2fNZVw1Flo5LpcsRk1Stt_dR--VOXfNzdM7ghO4&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=j1aUSxSWHIdTlfH3F7LpUQ&_nc_ss=7b289&oh=00_Af8-Mcti2BTM8SpZlueqhib5qjGwpCnKPfOerwZrYroA6A&oe=6A441DA4" alt="Memory 6">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">JUNE 27 ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/649540988_4256858644642673_3969379439712991334_n.jpg?stp=dst-jpg_tt6&cstp=mx1498x1490&ctp=s1498x1490&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8v_ttAWRDv8Q7kNvwEfoVxZ&_nc_oc=Adqj9OJ6inXcc2vlkrxVXxY94kalqMefp6li2B8V5_HkaeC-JoNZO6oYaZJF0gV_9IU&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=-2qxAZ0Ys3ldKoa5In3LMA&_nc_ss=7b289&oh=00_Af-Tv1MYDmABuAef-oLQGvz5v5rTjwQQPh0S5EzXfla8jw&oe=6A44119D">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/649540988_4256858644642673_3969379439712991334_n.jpg?stp=dst-jpg_tt6&cstp=mx1498x1490&ctp=s1498x1490&_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=8v_ttAWRDv8Q7kNvwEfoVxZ&_nc_oc=Adqj9OJ6inXcc2vlkrxVXxY94kalqMefp6li2B8V5_HkaeC-JoNZO6oYaZJF0gV_9IU&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=-2qxAZ0Ys3ldKoa5In3LMA&_nc_ss=7b289&oh=00_Af-Tv1MYDmABuAef-oLQGvz5v5rTjwQQPh0S5EzXfla8jw&oe=6A44119D" alt="Memory 7">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">HIM ↗</span>
+        </div>
+      </div>
+
+      <div class="gallery-item" onclick="openModal(this)" data-src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/660501802_4280696952258842_4004401516356104547_n.jpg?stp=dst-jpg_tt6&cstp=mx2039x2048&ctp=s2039x2048&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=suzIxTRAVrgQ7kNvwG6EMQs&_nc_oc=AdqDRORIGFpn_tBSUYJCqUcY9SL8zngZlDVqh2mZTiDC0KYYuxDJctFEi_EqcLIVaYY&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=twT6qVJlC53ZnG_3zYiBUA&_nc_ss=7b289&oh=00_Af9JmxZ46h2kNMeQpwUUglSzb1pxFX__CK2JNrd0_ZWFFQ&oe=6A4443B9">
+        <img src="https://scontent.fmux2-1.fna.fbcdn.net/v/t39.30808-6/660501802_4280696952258842_4004401516356104547_n.jpg?stp=dst-jpg_tt6&cstp=mx2039x2048&ctp=s2039x2048&_nc_cat=101&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=suzIxTRAVrgQ7kNvwG6EMQs&_nc_oc=AdqDRORIGFpn_tBSUYJCqUcY9SL8zngZlDVqh2mZTiDC0KYYuxDJctFEi_EqcLIVaYY&_nc_zt=23&_nc_ht=scontent.fmux2-1.fna&_nc_gid=twT6qVJlC53ZnG_3zYiBUA&_nc_ss=7b289&oh=00_Af9JmxZ46h2kNMeQpwUUglSzb1pxFX__CK2JNrd0_ZWFFQ&oe=6A4443B9" alt="Memory 8">
+        <div class="overlay">
+          <span style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:var(--mint);">BEFORE SLEEP ↗</span>
+        </div>
+      </div>
+
+</div>
+    <p class="mt-6 text-center reveal-up" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;color:rgba(124,184,152,0.35);">
+      REPLACE THESE WITH YOUR ACTUAL PHOTOS — THE CAPTIONS STAY
+    </p>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 7 — TALHA ANJUM LYRIC CORNER
+══════════════════════════════════════════════════ -->
+<section id="lyrics" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:500px;height:500px;background:radial-gradient(circle,rgba(168,223,187,0.05),transparent 70%);right:-100px;top:0;"></div>
+
+  <div class="relative z-10 px-6" style="max-width:900px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 07 — The Lyric Corner</div>
+    <h2 class="section-heading mb-4 reveal-up">Words Usama<br><em>actually listens to.</em></h2>
+    <p class="reveal-up mb-12" style="font-size:0.9rem;color:rgba(245,242,232,0.45);">Talha Anjum built a language for people who feel everything deeply and say nothing about it.</p>
+
+    <!-- CAROUSEL -->
+    <div class="reveal-up" style="position:relative;overflow:hidden;">
+      <div id="lyric-track" style="display:flex;transition:transform 0.6s cubic-bezier(0.23,1,0.32,1);">
+
+        <div class="lyric-card glass rounded-2xl" style="flex-shrink:0;width:100%;">
+          <div class="eyebrow mb-6" style="color:var(--sage);">Track — Regrets</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;line-height:1.4;color:var(--cream);margin-bottom:2rem;">
+            <em>"Dil mein rakhta hoon wohi jo zyada taqleef deta hai,<br>
+            Aur bhool jaata hoon wohi jo mujhe chain deta hai."</em>
+          </p>
+          <p style="font-size:0.8rem;color:rgba(245,242,232,0.4);font-style:italic;">
+            "I keep inside me what causes the most pain, and I forget what gives me peace." — The late-night philosophy Usama lives by.
+          </p>
+        </div>
+
+        <div class="lyric-card glass rounded-2xl" style="flex-shrink:0;width:100%;">
+          <div class="eyebrow mb-6" style="color:var(--sage);">Track — Talha Anjum</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;line-height:1.4;color:var(--cream);margin-bottom:2rem;">
+            <em>"Mujhe yaad hain wohi lamhein jab sab kuch theek tha,<br>
+            Ab bas khwaishein hain aur waqt ka hisaab baaki hai."</em>
+          </p>
+          <p style="font-size:0.8rem;color:rgba(245,242,232,0.4);font-style:italic;">
+            "I remember moments when everything was fine — now only wishes remain, and time's debt is still owed."
+          </p>
+        </div>
+
+        <div class="lyric-card glass rounded-2xl" style="flex-shrink:0;width:100%;">
+          <div class="eyebrow mb-6" style="color:var(--sage);">Track — Jab Se Tu Nahi</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;line-height:1.4;color:var(--cream);margin-bottom:2rem;">
+            <em>"Raat ko neend aati hai par aankhein band nahi hoti,<br>
+            Zindagi chalti hai par manzil milti nahi kabhi."</em>
+          </p>
+          <p style="font-size:0.8rem;color:rgba(245,242,232,0.4);font-style:italic;">
+            "Sleep comes at night but eyes won't close — life moves forward but the destination never arrives."
+          </p>
+        </div>
+
+        <div class="lyric-card glass rounded-2xl" style="flex-shrink:0;width:100%;">
+          <div class="eyebrow mb-6" style="color:var(--sage);">Track — Kya Hua</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,3vw,2.2rem);font-weight:300;line-height:1.4;color:var(--cream);margin-bottom:2rem;">
+            <em>"Waqt ke saath sab kuch badal gaya,<br>
+            Sirf dard ka andaz badla, dard nahi badla."</em>
+          </p>
+          <p style="font-size:0.8rem;color:rgba(245,242,232,0.4);font-style:italic;">
+            "With time, everything changed — only the style of the pain changed, not the pain itself." — For Usama, who carries things quietly.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CAROUSEL CONTROLS -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:2rem;">
+        <button onclick="prevLyric()" style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--sage);background:none;border:1px solid var(--glass-border);padding:0.75rem 1.5rem;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='rgba(168,223,187,0.4)';this.style.color='var(--mint)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.color='var(--sage)'">← PREV</button>
+        <div id="lyric-dots" style="display:flex;gap:0.5rem;">
+          <div class="lyric-dot active" style="width:6px;height:6px;border-radius:50%;background:var(--mint);transition:all 0.3s;cursor:pointer;" onclick="goToLyric(0)"></div>
+          <div class="lyric-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(168,223,187,0.2);transition:all 0.3s;cursor:pointer;" onclick="goToLyric(1)"></div>
+          <div class="lyric-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(168,223,187,0.2);transition:all 0.3s;cursor:pointer;" onclick="goToLyric(2)"></div>
+          <div class="lyric-dot" style="width:6px;height:6px;border-radius:50%;background:rgba(168,223,187,0.2);transition:all 0.3s;cursor:pointer;" onclick="goToLyric(3)"></div>
+        </div>
+        <button onclick="nextLyric()" style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.2em;color:var(--sage);background:none;border:1px solid var(--glass-border);padding:0.75rem 1.5rem;cursor:pointer;transition:all 0.3s ease;" onmouseover="this.style.borderColor='rgba(168,223,187,0.4)';this.style.color='var(--mint)'" onmouseout="this.style.borderColor='var(--glass-border)';this.style.color='var(--sage)'">NEXT →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 8 — INSIDE JOKES & SIBLING LORE
+══════════════════════════════════════════════════ -->
+<section id="lore" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:400px;height:400px;background:radial-gradient(circle,rgba(26,122,74,0.1),transparent 70%);left:-100px;bottom:0;"></div>
+
+  <div class="relative z-10 px-6" style="max-width:900px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 08 — Sibling Lore</div>
+    <h2 class="section-heading mb-4 reveal-up">Things that<br><em>cannot be explained to outsiders.</em></h2>
+    <p class="reveal-up mb-12" style="font-size:0.9rem;color:rgba(245,242,232,0.45);">A curated archive of the most consequential moments in shared history.</p>
+
+    <div class="accordion reveal-up">
+
+      <div class="accordion-item glass rounded-xl mb-3 overflow-hidden" style="border-color:rgba(168,223,187,0.12);">
+        <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;cursor:pointer;">
+          <div>
+            <div class="eyebrow mb-1" style="color:var(--sage);font-size:0.55rem;">ARGUMENT #001</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);">The Bigger Cake Slice Incident</div>
+          </div>
+          <div class="accordion-icon" style="color:var(--mint);font-size:1.2rem;line-height:1;">+</div>
+        </div>
+        <div class="accordion-content">
+          <div style="padding:0 1.5rem 1.5rem;">
+            <div class="divider-mint mb-4"></div>
+            <p style="font-size:0.9rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+              Every year. Every single June 27. The moment the birthday cake arrived on the table, the negotiations began. Usama always said he should get more because he was older. Ayesha always said she should get more because she was younger and therefore in need of more calories. This argument has never been resolved and never will be. The real winner is whoever cuts the cake — which is now a privilege neither of them will delegate to the other.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item glass rounded-xl mb-3 overflow-hidden" style="border-color:rgba(168,223,187,0.12);">
+        <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;cursor:pointer;">
+          <div>
+            <div class="eyebrow mb-1" style="color:var(--sage);font-size:0.55rem;">PHRASE #002</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);">"Pehle tumhara bhi tha."</div>
+          </div>
+          <div class="accordion-icon" style="color:var(--mint);font-size:1.2rem;line-height:1;">+</div>
+        </div>
+        <div class="accordion-content">
+          <div style="padding:0 1.5rem 1.5rem;">
+            <div class="divider-mint mb-4"></div>
+            <p style="font-size:0.9rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+              The phrase that has been deployed approximately 847 times to claim ownership of: the TV remote, the better seat in the car, the last samosa, the comfortable chair, the blanket, and once — memorably — a parking space that neither of them was even driving to. "It was mine first" is a worldview, not just an argument. This phrase is Usama's founding philosophy. Ayesha has learned to use it back.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item glass rounded-xl mb-3 overflow-hidden" style="border-color:rgba(168,223,187,0.12);">
+        <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;cursor:pointer;">
+          <div>
+            <div class="eyebrow mb-1" style="color:var(--sage);font-size:0.55rem;">RITUAL #003</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);">The Shared Midnight Countdown</div>
+          </div>
+          <div class="accordion-icon" style="color:var(--mint);font-size:1.2rem;line-height:1;">+</div>
+        </div>
+        <div class="accordion-content">
+          <div style="padding:0 1.5rem 1.5rem;">
+            <div class="divider-mint mb-4"></div>
+            <p style="font-size:0.9rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+              Neither of them talks about this much. But every June 26 at 11:59pm, there's a shared awareness — a moment before the clock turns — that belongs to only them. No announcements, no posts, no performances. Just the quiet understanding that in exactly one minute, both of them will be a year older at the exact same second. That moment is the real birthday. Everything else is cake.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item glass rounded-xl mb-3 overflow-hidden" style="border-color:rgba(168,223,187,0.12);">
+        <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;cursor:pointer;">
+          <div>
+            <div class="eyebrow mb-1" style="color:var(--sage);font-size:0.55rem;">MEMORY #004</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);">When He Let Her Win</div>
+          </div>
+          <div class="accordion-icon" style="color:var(--mint);font-size:1.2rem;line-height:1;">+</div>
+        </div>
+        <div class="accordion-content">
+          <div style="padding:0 1.5rem 1.5rem;">
+            <div class="divider-mint mb-4"></div>
+            <p style="font-size:0.9rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+              There have been exactly three arguments Usama clearly won but conceded gracefully. Ayesha noticed every single time. She never said anything. He probably doesn't know she noticed. This memory is being documented here as official record: she knows. She has always known. And it is one of the things she will carry quietly for the rest of her life — the small evidence of how much he cared, dressed up as losing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item glass rounded-xl overflow-hidden" style="border-color:rgba(168,223,187,0.12);">
+        <div class="accordion-header" onclick="toggleAccordion(this)" style="display:flex;justify-content:space-between;align-items:center;padding:1.5rem;cursor:pointer;">
+          <div>
+            <div class="eyebrow mb-1" style="color:var(--sage);font-size:0.55rem;">TRADITION #005</div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:var(--cream);">The "Whose Birthday Is It Really" Annual Debate</div>
+          </div>
+          <div class="accordion-icon" style="color:var(--mint);font-size:1.2rem;line-height:1;">+</div>
+        </div>
+        <div class="accordion-content">
+          <div style="padding:0 1.5rem 1.5rem;">
+            <div class="divider-mint mb-4"></div>
+            <p style="font-size:0.9rem;line-height:1.8;color:rgba(245,242,232,0.65);">
+              Held annually. Judged by no one. Winner declared by both simultaneously. The official position, now in its final form after years of litigation: it is both of their birthdays, the universe didn't ask for opinions when it scheduled this, and whoever makes breakfast first gets to say it's primarily theirs. This year's winner: whoever reads this first. (It's a tie. It's always a tie.)
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 9 — THE PROTECTOR ARCHIVE
+══════════════════════════════════════════════════ -->
+<section id="protector" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:700px;height:700px;background:radial-gradient(circle,rgba(46,204,113,0.06),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div class="relative z-10 px-6" style="max-width:1000px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 09 — The Protector Archive</div>
+    <h2 class="section-heading mb-16 reveal-up">He never called<br><em>it that. But it was.</em></h2>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;" class="reveal-up">
+
+      <!-- RING VISUAL -->
+      <div style="position:relative;height:400px;display:flex;align-items:center;justify-content:center;">
+        <div class="protector-ring"></div>
+        <div class="protector-ring"></div>
+        <div class="protector-ring"></div>
+        <div style="position:relative;z-index:2;text-align:center;">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:4rem;font-weight:300;color:var(--mint);line-height:1;">U</div>
+          <div class="eyebrow mt-2" style="color:var(--sage);">The Anchor</div>
+        </div>
+      </div>
+
+      <!-- TEXT -->
+      <div>
+        <div class="mb-8">
+          <div class="eyebrow mb-3" style="color:var(--mint);">What protection looks like</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);line-height:1.6;">
+            Not always armour. Sometimes it's a phone call at 11pm when he somehow knows something's off. A quiet "how are you actually" that has a different weight than everyone else's version.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <div class="eyebrow mb-3" style="color:var(--mint);">The presence without announcement</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);line-height:1.6;">
+            He doesn't announce that he's there. He's just always already there — in the advice he gives without making you feel like you needed it, in the way he handles things quietly so others don't have to.
+          </p>
+        </div>
+
+        <div class="mb-8">
+          <div class="eyebrow mb-3" style="color:var(--mint);">What Ayesha carries from this</div>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:300;color:var(--cream);line-height:1.6;">
+            A belief that safety doesn't have to be loud. That someone can hold space for you without holding you back. That the best version of being looked after feels exactly like freedom.
+          </p>
+        </div>
+
+        <div class="glass rounded-xl p-6" style="border-color:rgba(168,223,187,0.2);">
+          <p style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;color:var(--mint);line-height:1.6;">
+            "Having an older brother like you is like having a pilot light — always on, almost invisible, but the reason the whole house stays warm."
+          </p>
+          <p class="mt-3" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(168,223,187,0.4);">— Ayesha, June 27</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 10 — VISUAL ARCHITECTURE / PINNED TEXT
+══════════════════════════════════════════════════ -->
+<section id="architecture" class="relative overflow-hidden" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+  <div class="ambient-glow" style="width:800px;height:800px;background:radial-gradient(circle,rgba(26,122,74,0.1),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+
+  <div class="relative z-10 text-center px-6" style="max-width:1200px;">
+    <div class="eyebrow mb-8 reveal-up" style="display:block;">§ 10 — Visual Architecture</div>
+
+    <div id="pin-text" class="reveal-up">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,8vw,8rem);font-weight:300;line-height:0.9;letter-spacing:-0.02em;color:rgba(245,242,232,0.08);">
+        JUNE&nbsp;27
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,5rem);font-weight:300;line-height:1.1;color:var(--mint);margin:-0.5rem 0;">
+        OUR UNIVERSE.
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,8vw,8rem);font-weight:300;line-height:0.9;letter-spacing:-0.02em;color:rgba(245,242,232,0.04);">
+        FOREVER.
+      </div>
+    </div>
+
+    <div class="mt-12 reveal-up" style="display:flex;justify-content:center;gap:4rem;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--cream);">∞</div>
+        <div class="eyebrow mt-1" style="color:var(--sage);">Shared Days</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--mint);">1</div>
+        <div class="eyebrow mt-1" style="color:var(--sage);">Bond</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--cream);">27</div>
+        <div class="eyebrow mt-1" style="color:var(--sage);">The Date</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--sage);">2</div>
+        <div class="eyebrow mt-1" style="color:var(--sage);">Stories</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 11 — THE FUTURE LOCKED IN
+══════════════════════════════════════════════════ -->
+<section id="future" class="relative py-32 overflow-hidden">
+  <div class="ambient-glow" style="width:500px;height:500px;background:radial-gradient(circle,rgba(46,204,113,0.08),transparent 70%);right:-150px;top:0;"></div>
+  <div class="ambient-glow" style="width:400px;height:400px;background:radial-gradient(circle,rgba(26,122,74,0.06),transparent 70%);left:-100px;bottom:0;"></div>
+
+  <div class="relative z-10 px-6" style="max-width:1100px;margin:0 auto;">
+    <div class="eyebrow mb-4 reveal-up">§ 11 — The Future Board</div>
+    <h2 class="section-heading mb-4 reveal-up">Prayers. Manifestations.<br><em>Non-negotiables.</em></h2>
+    <p class="reveal-up mb-16" style="font-size:0.9rem;color:rgba(245,242,232,0.45);">Written by Ayesha. Locked in for the year ahead. The universe has been briefed.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="reveal-up">
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">🌱</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Growth</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">That every door he's been standing in front of this year — opens. Not eventually. Now.</p>
+      </div>
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">🎵</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Sound</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">May he always find the exact right track at the exact right moment. The playlist gods remain in his favour.</p>
+      </div>
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">🛡️</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Protection</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">That everything he's been quietly carrying gets lighter. That the weight distributes in his favour this year.</p>
+      </div>
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">✨</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Clarity</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">That the decisions which have felt unclear become obvious. That the right path announces itself loudly.</p>
+      </div>
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">🌙</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Rest</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">That he rests. Genuinely rests — not just sleeps. That his mind gets a break it has very much earned.</p>
+      </div>
+
+      <div class="prayer-card glass rounded-2xl p-7" style="border-color:rgba(168,223,187,0.1);">
+        <div style="font-size:1.5rem;margin-bottom:1rem;">🤝</div>
+        <div class="eyebrow mb-3" style="color:var(--sage);">Us</div>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:300;line-height:1.6;color:var(--cream);">That we get another year of birthdays, arguments, long drives, and terrible decisions made together. Locked in.</p>
+      </div>
+
+    </div>
+
+    <div class="glass rounded-2xl p-8 mt-8 reveal-up" style="border-color:rgba(168,223,187,0.2);text-align:center;box-shadow:0 0 60px rgba(46,204,113,0.05);">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,2.5vw,1.8rem);font-weight:300;color:var(--mint);line-height:1.5;">
+        "Usama Malik — your best year is not behind you.<br>I have placed a formal order with the universe. Confirmed."
+      </p>
+      <p class="mt-4" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.25em;color:rgba(168,223,187,0.35);">— AYESHA · JUNE 27, 2026</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider-mint" style="max-width:600px;margin:0 auto;"></div>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 12 — CO-AUTHORS BADGE
+══════════════════════════════════════════════════ -->
+<section id="badge" class="relative py-16 overflow-hidden">
+  <div class="relative z-10 px-6 text-center">
+    <div class="inline-flex items-center gap-6 glass rounded-full px-8 py-4 reveal-up" style="border-color:rgba(168,223,187,0.12);">
+      <span class="badge-row">Designed with love by Ayesha</span>
+      <div style="width:1px;height:16px;background:rgba(168,223,187,0.2);"></div>
+      <span class="badge-row">Built autonomous by Claude</span>
+      <div style="width:1px;height:16px;background:rgba(168,223,187,0.2);"></div>
+      <span class="badge-row">June 27 · 2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     SECTION 13 — THE MINT GREENO FOOTER
+══════════════════════════════════════════════════ -->
+<footer id="footer">
+  <!-- Ambient elements -->
+  <div class="ambient-glow" style="width:800px;height:800px;background:radial-gradient(circle,rgba(46,204,113,0.07),transparent 70%);left:-300px;bottom:-300px;"></div>
+  <div class="ambient-glow" style="width:600px;height:600px;background:radial-gradient(circle,rgba(26,122,74,0.05),transparent 70%);right:-200px;top:-100px;"></div>
+
+  <div class="relative z-10">
+    <!-- TOP NAV BAR -->
+    <div class="divider-mint opacity-20"></div>
+    <div class="px-8 py-6" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:rgba(124,184,152,0.4);">USAMA & AYESHA</div>
+      <div style="display:flex;gap:3rem;flex-wrap:wrap;">
+        <a href="#soundtrack" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(124,184,152,0.35);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--mint)'" onmouseout="this.style.color='rgba(124,184,152,0.35)'">THE SOUNDTRACK</a>
+        <a href="#vault" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(124,184,152,0.35);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--mint)'" onmouseout="this.style.color='rgba(124,184,152,0.35)'">THE VAULT</a>
+        <a href="#manifesto" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(124,184,152,0.35);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--mint)'" onmouseout="this.style.color='rgba(124,184,152,0.35)'">THE LETTER</a>
+        <a href="#future" style="font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(124,184,152,0.35);text-decoration:none;transition:color 0.3s;" onmouseover="this.style.color='var(--mint)'" onmouseout="this.style.color='rgba(124,184,152,0.35)'">THE FUTURE</a>
+      </div>
+    </div>
+    <div class="divider-mint opacity-10"></div>
+
+    <!-- MEGA TYPOGRAPHY -->
+    <div class="px-6 py-20 overflow-hidden" style="text-align:center;">
+      <div class="footer-mega">USAMA</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,4vw,3rem);font-weight:300;color:rgba(168,223,187,0.35);line-height:1.2;margin:0.5rem 0;">&amp;</div>
+      <div class="footer-mega">AYESHA</div>
+      <div class="mt-6" style="font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,5rem);font-weight:300;color:rgba(168,223,187,0.15);letter-spacing:0.1em;">
+        JUNE 27
+      </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="divider-mint opacity-10"></div>
+
+    <!-- BOTTOM BAR -->
+    <div class="px-8 py-8" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+      <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;color:rgba(124,184,152,0.25);">
+        © 2026 CRAFTED BY AYESHA. ENGINEERED BY CLAUDE.
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-style:italic;color:rgba(168,223,187,0.2);">
+        Happy Birthday, Bhai. ♡
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.2em;color:rgba(124,184,152,0.2);">
+        ONE DAY. TWO SOULS. ∞ BOND.
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════ -->
+<script>
+  // ─────────────────────────────────────────
+  // GSAP SETUP
+  // ─────────────────────────────────────────
+  gsap.registerPlugin(ScrollTrigger);
+
+  // HERO ANIMATIONS
+  window.addEventListener('load', () => {
+    const heroEls = ['#hero-tag','#hero-line1','#hero-line2','#hero-line3','#hero-div','#hero-name','#hero-sub','#hero-scroll'];
+    gsap.fromTo(heroEls, {
+      opacity: 0,
+      y: 30
+    }, {
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
+      ease: 'power3.out',
+      stagger: 0.12,
+      delay: 0.3
+    });
+
+    // SCROLL REVEAL — all .reveal-up elements
+    gsap.utils.toArray('.reveal-up').forEach(el => {
+      // Skip hero elements already animated
+      if (el.closest('#hero')) return;
+      gsap.fromTo(el, {
+        opacity: 0,
+        y: 40
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // TIMELINE ROWS
+    gsap.utils.toArray('.timeline-row').forEach((row, i) => {
+      gsap.fromTo(row, {
+        opacity: 0,
+        x: i % 2 === 0 ? -30 : 30
+      }, {
+        opacity: 1,
+        x: 0,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: row,
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // STAT BARS — animate when in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.stat-bar-fill').forEach(bar => {
+            const w = bar.getAttribute('data-width') || 0;
+            setTimeout(() => { bar.style.width = w + '%'; }, 200);
+          });
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const profileSection = document.getElementById('profiles');
+    if (profileSection) observer.observe(profileSection);
+
+    // PINNED TEXT scroll effect
+    gsap.fromTo('#pin-text', {
+      opacity: 0,
+      scale: 0.95
+    }, {
+      opacity: 1,
+      scale: 1,
+      duration: 1.5,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '#architecture',
+        start: 'top center',
+        toggleActions: 'play none none none'
+      }
+    });
+  });
+
+  // ─────────────────────────────────────────
+  // CUSTOM CURSOR
+  // ─────────────────────────────────────────
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('cursor-follower');
+  let mouseX = 0, mouseY = 0;
+  let followerX = 0, followerY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursor.style.left = mouseX + 'px';
+    cursor.style.top = mouseY + 'px';
+  });
+
+  function animateFollower() {
+    followerX += (mouseX - followerX) * 0.12;
+    followerY += (mouseY - followerY) * 0.12;
+    follower.style.left = followerX + 'px';
+    follower.style.top = followerY + 'px';
+    requestAnimationFrame(animateFollower);
+  }
+  animateFollower();
+
+  // CURSOR HOVER EFFECTS
+  document.querySelectorAll('a, button, .gallery-item, .accordion-header, .timeline-dot, .lyric-dot, .prayer-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      follower.style.transform = 'translate(-50%,-50%) scale(0.6)';
+      follower.style.borderColor = 'rgba(168,223,187,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      follower.style.transform = 'translate(-50%,-50%) scale(1)';
+      follower.style.borderColor = 'rgba(168,223,187,0.4)';
+    });
+  });
+
+  // ─────────────────────────────────────────
+  // GALLERY MODAL
+  // ─────────────────────────────────────────
+  const modal = document.getElementById('modal');
+  const modalImg = document.getElementById('modal-img');
+  const modalCaption = document.getElementById('modal-caption');
+
+  function openModal(el) {
+    const img = el.querySelector('img');
+    const captionEl = el.querySelector('.overlay span');
+    modalImg.src = img.src;
+    modalImg.alt = img.alt;
+    modalCaption.textContent = captionEl ? captionEl.textContent.trim() : '';
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    gsap.fromTo(modalImg, { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'power3.out' });
+  }
+
+  function closeModal() {
+    gsap.to(modalImg, {
+      scale: 0.92, opacity: 0, duration: 0.35, ease: 'power3.in',
+      onComplete: () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        modalImg.src = '';
+      }
+    });
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ─────────────────────────────────────────
+  // LYRIC CAROUSEL
+  // ─────────────────────────────────────────
+  let currentLyric = 0;
+  const totalLyrics = 4;
+
+  function updateCarousel() {
+    const track = document.getElementById('lyric-track');
+    track.style.transform = `translateX(-${currentLyric * 100}%)`;
+    document.querySelectorAll('.lyric-dot').forEach((dot, i) => {
+      dot.style.background = i === currentLyric ? 'var(--mint)' : 'rgba(168,223,187,0.2)';
+      dot.style.width = i === currentLyric ? '18px' : '6px';
+      dot.style.borderRadius = '3px';
+    });
+  }
+
+  function nextLyric() {
+    currentLyric = (currentLyric + 1) % totalLyrics;
+    updateCarousel();
+  }
+
+  function prevLyric() {
+    currentLyric = (currentLyric - 1 + totalLyrics) % totalLyrics;
+    updateCarousel();
+  }
+
+  function goToLyric(index) {
+    currentLyric = index;
+    updateCarousel();
+  }
+
+  // Auto-advance carousel
+  setInterval(nextLyric, 5000);
+
+  // ─────────────────────────────────────────
+  // ACCORDION
+  // ─────────────────────────────────────────
+  function toggleAccordion(header) {
+    const item = header.closest('.accordion-item');
+    const isOpen = item.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.accordion-item.open').forEach(el => el.classList.remove('open'));
+
+    if (!isOpen) {
+      item.classList.add('open');
+    }
+  }
+
+  // ─────────────────────────────────────────
+  // SMOOTH SCROLL PROGRESS INDICATOR
+  // ─────────────────────────────────────────
+  const progressBar = document.createElement('div');
+  progressBar.style.cssText = `
+    position:fixed;top:0;left:0;height:2px;
+    background:linear-gradient(90deg,var(--emerald),var(--mint));
+    z-index:9990;width:0%;transition:width 0.1s ease;
+    pointer-events:none;
+  `;
+  document.body.appendChild(progressBar);
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    progressBar.style.width = progress + '%';
+  });
+
+  // ─────────────────────────────────────────
+  // TILT EFFECT on gallery items
+  // ─────────────────────────────────────────
+  document.querySelectorAll('.gallery-item').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = (y - centerY) / centerY * -5;
+      const rotateY = (x - centerX) / centerX * 5;
+      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+    });
+  });
+
+</script>
+
+</body>
+</html>
