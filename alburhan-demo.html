@@ -1,0 +1,2221 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Al-Burhan — علم کا وہ سفر جو زندگی بدل دے</title>
+
+<!-- Fonts: Modern, Clean, Minimalist & Arabic/Urdu Support -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Three.js for 3D Graphics -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.180.0/three.tsl.js"></script>
+
+<style>
+  /* ==========================================================================
+     CSS VARIABLES (White & Blue Palette with Light/Dark Mode)
+     ========================================================================== */
+  :root {
+    --bg-color: #ffffff;
+    --surface-color: #f8fafc;
+    --surface-hover: #f1f5f9;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --blue-primary: #1e3a8a; 
+    --blue-accent: #3b82f6;  
+    --blue-light: #eff6ff;
+    --border-color: #e2e8f0;
+    --nav-bg: rgba(255, 255, 255, 0.6);
+    --nav-shadow: 0 10px 40px -10px rgba(30, 58, 138, 0.1);
+    --card-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.05);
+    --footer-bg: #0f172a;
+    --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    --transition-fast: all 0.3s ease;
+  }
+
+  body.dark-mode {
+    --bg-color: #020617;
+    --surface-color: #0f172a;
+    --surface-hover: #1e293b;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --blue-primary: #60a5fa; 
+    --blue-accent: #3b82f6;
+    --blue-light: #1e3a8a;
+    --border-color: #334155;
+    --nav-bg: rgba(2, 6, 23, 0.6);
+    --nav-shadow: 0 10px 40px -10px rgba(0,0,0,0.5);
+    --card-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+    --footer-bg: #010409;
+  }
+
+  /* ==========================================================================
+     LANGUAGE & RTL SUPPORT
+     ========================================================================== */
+  [lang="en"] .ur-text { display: none !important; }
+  [lang="ur"] .en-text { display: none !important; }
+
+  html[lang="ur"] body {
+    font-family: 'Noto Nastaliq Urdu', 'Amiri', serif;
+    font-size: 1.1em;
+  }
+  html[lang="ur"] h1, html[lang="ur"] h2, html[lang="ur"] h3, html[lang="ur"] .serif-text {
+    font-family: 'Amiri', serif;
+    line-height: 1.4;
+  }
+  html[lang="ur"] .nav-links a {
+    font-size: 14px;
+    letter-spacing: 0px;
+  }
+  html[dir="rtl"] .scroll-indicator {
+    transform: rotate(90deg) translateX(150px);
+    transform-origin: right center;
+  }
+  html[dir="rtl"] .hero-tag {
+    letter-spacing: 1px;
+  }
+  html[dir="rtl"] .btn-primary, html[dir="rtl"] .btn-secondary {
+    letter-spacing: 1px;
+    font-size: 15px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  h1, h2, h3, h4, .serif-text {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .arabic-text { font-family: 'Amiri', serif; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ==========================================================================
+     CUSTOM SCROLLBAR
+     ========================================================================== */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg-color); }
+  ::-webkit-scrollbar-thumb { background: var(--blue-primary); border-radius: 10px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--blue-accent); }
+
+  /* ==========================================================================
+     PRELOADER
+     ========================================================================== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex; /* Keeps the container active */
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.preloader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Forces the logo and text to center */
+  justify-content: center;
+  width: 100%;
+}
+
+.preloader-content img {
+  width: 200px;     /* Set a fixed size */
+  height: auto;     /* Maintains aspect ratio */
+  display: block;   /* Removes extra bottom spacing */
+  margin-bottom: 20px;
+}
+
+.loader-wrapper {
+  width: 200px;     /* Matches the logo width for perfect alignment */
+  text-align: center;
+}
+
+.loader-line {
+  width: 100%;
+  height: 3px;
+  background: #f2f2f2; /* Light grey track line */
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-bottom: 12px;
+}
+
+.loader-line::after {
+  content: '';
+  position: absolute;
+  left: -50%;
+  top: 0;
+  height: 100%;
+  width: 40%;
+  background: #c99a3c; /* Golden/Accent brand color */
+  border-radius: 2px;
+  animation: loadingBar 1.6s infinite ease-in-out;
+}
+
+.loader-text {
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #666666;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  animation: textPulse 1.6s infinite ease-in-out;
+}
+
+/* --- Animations --- */
+
+@keyframes loadingBar {
+  0% { 
+    left: -40%; 
+  }
+  50% { 
+    width: 60%; /* Stretches the bar slightly in the middle for a dynamic effect */
+  }
+  100% { 
+    left: 100%; 
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% { 
+    opacity: 0.5; 
+  }
+  50% { 
+    opacity: 1; 
+  }
+}
+  /* ==========================================================================
+     MASHROOB STYLE NAVBAR
+     ========================================================================== */
+  nav {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    height: 70px;
+    background: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    z-index: 9000;
+    transition: width 0.6s cubic-bezier(0.8, 0, 0.2, 1), 
+                padding 0.6s cubic-bezier(0.8, 0, 0.2, 1),
+                border-radius 0.6s ease,
+                background 0.4s ease,
+                border-color 0.4s ease;
+    box-shadow: var(--nav-shadow);
+  }
+
+  nav.minimized {
+    width: 70px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 35px;
+    cursor: pointer;
+  }
+
+  nav.minimized:hover {
+    box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.4);
+    transform: translateX(-50%) scale(1.05);
+  }
+
+  nav.minimized .nav-links,
+  nav.minimized .nav-actions {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+  }
+
+  .nav-logo {
+    height: 35px;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  nav.minimized .nav-logo {
+    height: 30px;
+  }
+
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-main);
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--blue-accent);
+    transition: width 0.3s ease;
+  }
+
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover { color: var(--blue-accent); }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+
+  .action-btn {
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    height: 44px;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-main);
+    transition: var(--transition-fast);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .action-btn:hover {
+    background: var(--blue-light); 
+    color: var(--blue-primary); 
+    border-color: var(--blue-primary);
+  }
+
+  .theme-toggle {
+    width: 44px;
+    border-radius: 50%;
+  }
+
+  .theme-toggle:hover { transform: rotate(15deg); }
+  .theme-toggle svg { width: 18px; height: 18px; fill: currentColor; }
+
+  .lang-toggle {
+    padding: 0 16px;
+  }
+
+  /* ==========================================================================
+     3D CANVAS & CALLIGRAPHY MOTION GRAPHICS
+     ========================================================================== */
+  #canvas-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  #calligraphy-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  .floating-arabic {
+    position: absolute;
+    font-family: 'Amiri', serif;
+    color: var(--blue-primary);
+    opacity: 0;
+    animation: floatUp linear forwards;
+    white-space: nowrap;
+    user-select: none;
+    text-shadow: 0 10px 30px rgba(30, 58, 138, 0.1);
+  }
+
+  body.dark-mode .floating-arabic { color: var(--blue-accent); }
+
+  @keyframes floatUp {
+    0% { transform: translateY(110vh) rotate(-10deg) scale(0.8); opacity: 0; }
+    15% { opacity: 0.05; }
+    85% { opacity: 0.05; }
+    100% { transform: translateY(-20vh) rotate(20deg) scale(1.5); opacity: 0; }
+  }
+
+  /* ==========================================================================
+     HERO SECTION
+     ========================================================================== */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 5% 0;
+    z-index: 5;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr 1.5fr;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .hero-left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    position: relative;
+  }
+
+  .scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transform: rotate(-90deg) translateX(-150px);
+    transform-origin: left center;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    width: 80px; height: 1px;
+    background: var(--text-muted);
+    animation: stretch 2s infinite alternate;
+  }
+
+  @keyframes stretch {
+    0% { width: 40px; }
+    100% { width: 120px; }
+  }
+
+  .hero-center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .hero-tag {
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    font-weight: 700;
+    background: var(--blue-light);
+    padding: 8px 24px;
+    border-radius: 30px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue-accent);
+    border-radius: 50%;
+    display: block;
+    box-shadow: 0 0 10px var(--blue-accent);
+  }
+
+  .hero-title {
+    font-size: clamp(52px, 6vw, 96px);
+    line-height: 1.05;
+    color: var(--text-main);
+    letter-spacing: -1px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--blue-primary);
+    position: relative;
+    display: inline-block;
+  }
+
+  .hero-title em::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: var(--blue-light);
+    z-index: -1;
+    opacity: 0.5;
+    transform: skewX(-15deg);
+  }
+
+  body.dark-mode .hero-title em::after { background: rgba(59,130,246,0.2); }
+
+  .hero-desc {
+    font-size: 18px;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.8;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 48px;
+    background: var(--blue-primary);
+    color: #ffffff !important;
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary:hover::before { left: 100%; }
+
+  .btn-primary:hover {
+    background: var(--blue-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 48px;
+    background: transparent;
+    color: var(--text-main);
+    border-radius: 40px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--blue-primary);
+    color: var(--blue-primary);
+    background: var(--surface-color);
+  }
+
+  /* 3D Quran Construction */
+  .hero-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+    height: 100%;
+  }
+
+  .quran-wrapper {
+    position: relative;
+    width: 240px;
+    height: 340px;
+    transform-style: preserve-3d;
+    animation: bookFloat 8s ease-in-out infinite;
+    filter: drop-shadow(0 30px 40px rgba(30, 58, 138, 0.2));
+  }
+
+  body.dark-mode .quran-wrapper { filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.8)); }
+
+  .quran-book {
+    width: 100%; height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    transform: rotateY(-35deg) rotateX(15deg) rotateZ(-5deg);
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .quran-wrapper:hover .quran-book { transform: rotateY(-15deg) rotateX(5deg) rotateZ(0deg); }
+
+  .quran-cover {
+    position: absolute;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, var(--blue-primary), #0a1128);
+    border-radius: 4px 18px 18px 4px;
+    border: 3px solid #d4af37;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 8px 0 20px rgba(0,0,0,0.6);
+    backface-visibility: hidden;
+  }
+
+  .quran-pages {
+    position: absolute;
+    width: 94%; height: 96%;
+    top: 2%; left: 6%;
+    background: repeating-linear-gradient(to bottom, #fdfbf7, #fdfbf7 2px, #f4ecd8 3px);
+    border-radius: 0 14px 14px 0;
+    transform: translateZ(-25px);
+    border-right: 5px solid #d4af37;
+    box-shadow: inset -5px 0 10px rgba(0,0,0,0.1);
+  }
+
+  .quran-spine {
+    position: absolute;
+    width: 25px; height: 100%;
+    background: linear-gradient(to right, #0a1128, var(--blue-primary));
+    transform: rotateY(-90deg) translateZ(12.5px) translateX(-12.5px);
+    border-top: 3px solid #d4af37;
+    border-bottom: 3px solid #d4af37;
+    border-left: 3px solid #d4af37;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .spine-rib {
+    width: 100%; height: 4px;
+    background: #d4af37;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  .quran-ornament {
+    width: 75%; height: 85%;
+    border: 2px solid rgba(212, 175, 55, 0.8);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+    background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
+  }
+
+  .quran-ornament::before, .quran-ornament::after {
+    content: '';
+    position: absolute;
+    width: 30px; height: 30px;
+    border: 2px solid #d4af37;
+    transform: rotate(45deg);
+  }
+  .quran-ornament::before { top: -15px; background: var(--blue-primary); }
+  .quran-ornament::after { bottom: -15px; background: var(--blue-primary); }
+
+  .quran-arabic-title {
+    font-family: 'Amiri', serif;
+    color: #d4af37;
+    font-size: 48px;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.6);
+    text-align: center;
+    line-height: 1.2;
+    transform: translateZ(5px);
+  }
+
+  @keyframes bookFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(2deg); }
+  }
+
+  /* ==========================================================================
+     GLOBAL SECTIONS
+     ========================================================================== */
+  section {
+    padding: 140px 5%;
+    position: relative;
+    z-index: 5;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 90px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--blue-accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+    font-weight: 700;
+  }
+
+  .section-title {
+    font-size: clamp(36px, 4vw, 56px);
+    color: var(--text-main);
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  
+  .section-title em {
+    font-style: italic;
+    color: var(--blue-primary);
+  }
+
+  .section-subtitle {
+    font-size: 18px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ==========================================================================
+     ABOUT & FOUNDATION
+     ========================================================================== */
+  .about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .about-text p {
+    font-size: 18px;
+    color: var(--text-muted);
+    margin-bottom: 30px;
+    line-height: 1.9;
+  }
+
+  .about-text p strong {
+    color: var(--text-main);
+    font-weight: 600;
+  }
+
+  .about-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 50px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .stat-item h4 {
+    font-size: 48px;
+    color: var(--blue-primary);
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 5px;
+    line-height: 1;
+  }
+
+  .stat-item p {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  /* Pillars Grid */
+  .pillars-wrapper {
+    position: relative;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .pillar {
+    background: var(--surface-color);
+    padding: 40px;
+    border-radius: 24px;
+    border: 1px solid var(--border-color);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(59,130,246,0.05), transparent);
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  .pillar:hover {
+    transform: translateY(-10px);
+    border-color: var(--blue-primary);
+    box-shadow: var(--card-shadow);
+  }
+
+  .pillar:hover::before { opacity: 1; }
+
+  .pillar-icon {
+    font-size: 40px;
+    color: var(--blue-accent);
+    margin-bottom: 24px;
+    font-family: 'Amiri', serif;
+    background: var(--bg-color);
+    width: 80px; height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+
+  .pillar h4 { 
+    font-size: 24px; 
+    margin-bottom: 15px; 
+    color: var(--text-main);
+  }
+  
+  .pillar p { 
+    font-size: 15px; 
+    color: var(--text-muted); 
+    line-height: 1.7;
+  }
+
+  /* ==========================================================================
+     PROGRAMS & DIVISIONS
+     ========================================================================== */
+  .programs-section {
+    background: var(--surface-color);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .program-card {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 50px;
+    border-radius: 24px;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .program-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+  }
+  
+  html[dir="rtl"] .program-card::after {
+    right: auto; left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .program-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--card-shadow);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+
+  .program-card-icon {
+    font-family: 'Amiri', serif;
+    font-size: 48px;
+    color: var(--blue-primary);
+    margin-bottom: 20px;
+    opacity: 0.2;
+    transition: var(--transition);
+  }
+
+  .program-card:hover .program-card-icon { opacity: 0.8; transform: scale(1.1) rotate(5deg); }
+
+  .program-card h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: var(--text-main);
+  }
+
+  .program-card p {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    flex-grow: 1;
+  }
+
+  .program-list {
+    list-style: none;
+    margin-bottom: 30px;
+  }
+
+  .program-list li {
+    font-size: 14px;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .program-list li::before {
+    content: '→';
+    color: var(--blue-accent);
+    font-weight: bold;
+  }
+  
+  html[dir="rtl"] .program-list li::before {
+    content: '←';
+  }
+
+  .program-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: auto;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 8px 16px;
+    background: var(--surface-color);
+    color: var(--blue-primary);
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid var(--border-color);
+  }
+
+  /* ==========================================================================
+     FOUNDER SECTION
+     ========================================================================== */
+  .founder-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+    background: var(--surface-color);
+    padding: 80px;
+    border-radius: 30px;
+    border: 1px solid var(--border-color);
+  }
+
+  .founder-image-wrap {
+    position: relative;
+    border-radius: 500px 500px 20px 20px;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    border: 10px solid var(--bg-color);
+    box-shadow: var(--card-shadow);
+  }
+
+  .founder-image-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--blue-primary), transparent);
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  .founder-placeholder {
+    width: 100%; height: 100%;
+    background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYV7NYx9t_1PKzxil0uECF8MGIumiVvfSwBsOVaXEyMsEcpOq_x-IrJF-X&s=10') center/cover;
+    filter: grayscale(100%);
+    transition: filter 0.5s;
+  }
+
+  .founder-grid:hover .founder-placeholder { filter: grayscale(0%); }
+
+  .founder-name {
+    position: absolute;
+    bottom: 30px; left: 0; right: 0;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    font-family: 'Amiri', serif;
+    font-size: 32px;
+  }
+
+  .founder-content h3 {
+    font-size: 40px;
+    color: var(--text-main);
+    margin-bottom: 10px;
+  }
+
+  .founder-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--blue-accent);
+    font-weight: 700;
+    margin-bottom: 30px;
+    display: block;
+  }
+
+  .founder-content p {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+
+  .credentials {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border-color);
+  }
+
+  .cred-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cred-item span {
+    font-size: 12px;
+    color: var(--blue-accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .cred-item strong {
+    font-size: 16px;
+    color: var(--text-main);
+    font-weight: 500;
+  }
+
+  /* ==========================================================================
+     GALLERY & INTERNAL PICTURE VIEWER
+     ========================================================================== */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .gallery-item {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: zoom-in;
+    aspect-ratio: 4/3;
+    background: var(--surface-color);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+
+  .gallery-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), filter 0.8s;
+    filter: grayscale(40%) contrast(1.1);
+  }
+
+  .gallery-item:hover .gallery-img {
+    transform: scale(1.1) rotate(2deg);
+    filter: grayscale(0%) contrast(1);
+  }
+
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  
+  .gallery-overlay h4 { 
+    color: #ffffff; 
+    font-size: 24px; 
+    margin-bottom: 5px;
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  
+  .gallery-overlay p {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.1s;
+  }
+
+  .gallery-item:hover .gallery-overlay h4,
+  .gallery-item:hover .gallery-overlay p {
+    transform: translateY(0);
+  }
+
+  /* Lightbox */
+  #lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    z-index: 100000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  #lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  #lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  #lightbox-img {
+    max-width: 100%;
+    max-height: 90vh;
+    border-radius: 16px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    transform: scale(0.95);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    object-fit: contain;
+  }
+
+  #lightbox.active #lightbox-img { transform: scale(1); }
+
+  .lightbox-close {
+    position: absolute;
+    top: -50px; right: 0;
+    background: none; border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.3s, color 0.3s;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  html[dir="rtl"] .lightbox-close {
+    right: auto; left: 0;
+  }
+
+  .lightbox-close:hover { transform: scale(1.1); color: var(--blue-accent); }
+  .lightbox-close svg { width: 24px; height: 24px; fill: currentColor; }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: -50px; left: 0;
+    color: white;
+    font-size: 18px;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  html[dir="rtl"] .lightbox-caption {
+    left: auto; right: 0;
+    font-family: 'Amiri', serif;
+  }
+
+  /* ==========================================================================
+     GREENO STYLE FOOTER (Massive, Bold, Beautiful)
+     ========================================================================== */
+  footer {
+    background: var(--footer-bg);
+    color: #ffffff;
+    padding: 140px 5% 40px;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 80px;
+    max-width: 1600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* FIXED FOOTER LOGO */
+  .footer-logo {
+    max-width: 180px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 30px;
+    filter: brightness(0) invert(1); /* Ensures pure white display regardless of original color */
+  }
+
+  .footer-brand p {
+    color: rgba(255,255,255,0.6);
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 400px;
+    margin-bottom: 30px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+  }
+
+  .social-links a {
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .social-links a:hover {
+    background: var(--blue-primary);
+    transform: translateY(-5px);
+    border-color: var(--blue-accent);
+  }
+
+  .social-links svg { width: 20px; height: 20px; fill: #fff; }
+
+  .footer-links h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--blue-accent);
+    margin-bottom: 30px;
+    font-weight: 700;
+  }
+  
+  html[dir="rtl"] .footer-links h4 {
+    letter-spacing: 0px;
+    font-size: 15px;
+  }
+
+  .footer-links ul { list-style: none; }
+  .footer-links li { margin-bottom: 15px; }
+
+  .footer-links a {
+    color: rgba(255,255,255,0.7);
+    font-size: 15px;
+    transition: var(--transition);
+    position: relative;
+    display: inline-block;
+  }
+
+  .footer-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1px;
+    background: var(--blue-accent);
+    transition: width 0.3s ease;
+  }
+  
+  html[dir="rtl"] .footer-links a::after {
+    left: auto; right: 0;
+  }
+
+  .footer-links a:hover { color: #fff; }
+  .footer-links a:hover::after { width: 100%; }
+
+  .footer-massive-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(80px, 15vw, 250px);
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.03);
+    text-align: center;
+    line-height: 0.8;
+    margin-top: 80px;
+    white-space: nowrap;
+    user-select: none;
+    letter-spacing: -5px;
+    z-index: 1;
+    position: relative;
+  }
+  
+  html[dir="rtl"] .footer-massive-text {
+    font-family: 'Amiri', serif;
+    letter-spacing: 0px;
+  }
+
+  .footer-bottom {
+    max-width: 1600px;
+    margin: 40px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-bottom p {
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  /* ==========================================================================
+     MEDIA QUERIES
+     ========================================================================== */
+  @media (max-width: 1200px) {
+    .hero-grid { grid-template-columns: 1fr; text-align: center; gap: 60px; }
+    .hero-left { display: none; }
+    .hero-center { align-items: center; }
+    .hero-right { height: 400px; }
+    .about-grid, .founder-grid { grid-template-columns: 1fr; gap: 50px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; width: 95%; }
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .about-stats { flex-direction: column; gap: 20px; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .btn-primary, .btn-secondary { padding: 15px 30px; }
+    .hero-actions { flex-direction: column; width: 100%; max-width: 300px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="preloader">
+  <div class="preloader-content">
+    <!-- Using a direct width/height helps the browser reserve space -->
+    <img src="https://alburhan.org/wp-content/uploads/2025/10/AL-BURHAN-LOGO-1-scaled.png" 
+         alt="Al-Burhan Logo" 
+         width="200" 
+         fetchpriority="high">
+    <div class="loader-wrapper">
+      <div class="loader-line"></div>
+      <div class="loader-text">Initializing Institute</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3D BACKGROUND CANVAS -->
+<div id="canvas-container"></div>
+
+<!-- FLOATING CALLIGRAPHY LAYER -->
+<div id="calligraphy-layer"></div>
+
+<!-- MASHROOB STYLE NAVBAR -->
+<nav id="navbar">
+  <a href="#" class="nav-logo-link">
+    <img src="https://alburhan.org/wp-content/uploads/2025/10/AL-BURHAN-LOGO-1-scaled.png" alt="Logo" class="nav-logo">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about"><span class="en-text">Philosophy</span><span class="ur-text">فلسفہ</span></a></li>
+    <li><a href="#programs"><span class="en-text">Programs</span><span class="ur-text">پروگرامز</span></a></li>
+    <li><a href="#founder"><span class="en-text">Founder</span><span class="ur-text">بانی</span></a></li>
+    <li><a href="#campuses"><span class="en-text">Campuses</span><span class="ur-text">کیمپسز</span></a></li>
+    <li><a href="#gallery"><span class="en-text">Gallery</span><span class="ur-text">گیلری</span></a></li>
+  </ul>
+  <div class="nav-actions">
+    <!-- Language Toggle Button -->
+    <button class="action-btn lang-toggle" id="lang-btn" aria-label="Toggle Language">
+      <span class="en-text">اردو</span>
+      <span class="ur-text">EN</span>
+    </button>
+    <!-- Theme Toggle Button -->
+    <button class="action-btn theme-toggle" id="theme-btn" aria-label="Toggle Dark Mode">
+      <svg viewBox="0 0 24 24">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section id="hero">
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="scroll-indicator">
+        <span class="en-text">Scroll to Explore</span>
+        <span class="ur-text">مزید جاننے کے لیے اسکرول کریں</span>
+      </div>
+    </div>
+    
+    <div class="hero-center">
+      <div class="hero-tag">
+        <span class="en-text">Est. 2016</span>
+        <span class="ur-text">قیام 2016</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="en-text">Bridging the Gap Between <em>Tradition</em> & Modernity</span>
+        <span class="ur-text"><em>روایت</em> اور جدیدیت کے درمیان ہم آہنگی</span>
+      </h1>
+      <p class="hero-desc">
+        <span class="en-text">Al-Burhan serves as a prominent center for learning, spiritual development, and community service, authenticating Islamic knowledge for the contemporary world.</span>
+        <span class="ur-text">البرہان جدید دنیا کے تقاضوں کے مطابق اسلامی تعلیمات، روحانی ترقی اور معاشرتی فلاح کا ایک نمایاں اور مستند مرکز ہے۔</span>
+      </p>
+      <div class="hero-actions">
+        <a href="#programs" class="btn-primary">
+          <span class="en-text">Explore Programs</span>
+          <span class="ur-text">پروگرامز دیکھیں</span>
+        </a>
+        <a href="#about" class="btn-secondary">
+          <span class="en-text">Discover Our Mission</span>
+          <span class="ur-text">ہمارا مشن جانیں</span>
+        </a>
+      </div>
+    </div>
+    
+    <div class="hero-right">
+      <!-- 3D CSS Quran Representation -->
+      <div class="quran-wrapper">
+        <div class="quran-book">
+          <div class="quran-spine">
+            <div class="spine-rib"></div>
+            <div class="spine-rib"></div>
+            <div class="spine-rib"></div>
+            <div class="spine-rib"></div>
+          </div>
+          <div class="quran-pages"></div>
+          <div class="quran-cover">
+            <div class="quran-ornament">
+              <div class="quran-arabic-title">القرآن<br>الكريم</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT & PHILOSOPHY -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-label">
+      <span class="en-text">Overview & Foundation</span>
+      <span class="ur-text">جائزہ اور بنیاد</span>
+    </span>
+    <h2 class="section-title">
+      <span class="en-text">A Vision for <em>Holistic</em> Scholarship</span>
+      <span class="ur-text"><em>جامع</em> تعلیم کا وژن</span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="en-text">Fostering a generation grounded in faith, equipped with reason, and dedicated to humanity.</span>
+      <span class="ur-text">ایک ایسی نسل کی پرورش جو ایمان پر استوار اور انسانیت کی خدمت کے لیے تیار ہو۔</span>
+    </p>
+  </div>
+  
+  <div class="about-container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          <span class="en-text">Al-Burhan is a prominent Islamic educational and welfare organization based in Pakistan. Founded officially on <strong>November 26, 2016</strong>, it aims to seamlessly bridge the historical gap between traditional Islamic scholarship and contemporary modern education.</span>
+          <span class="ur-text">البرہان پاکستان میں قائم ایک معروف اسلامی تعلیمی اور فلاحی ادارہ ہے۔ <strong>26 نومبر 2016</strong> کو قائم ہونے والا یہ ادارہ روایتی اسلامی علوم اور جدید تعلیم کے درمیان موجود تاریخی خلیج کو پاٹنے کا عزم رکھتا ہے۔</span>
+        </p>
+        <p>
+          <span class="en-text">Catering to students, professionals, and the general public—both locally in Pakistan and internationally through advanced digital platforms—the institute represents a beacon of spiritual refinement and academic rigor.</span>
+          <span class="ur-text">یہ ادارہ طلباء، پیشہ ور افراد اور عوام الناس کی روحانی اور تعلیمی ضروریات کو مقامی اور عالمی سطح پر جدید ڈیجیٹل پلیٹ فارمز کے ذریعے پورا کر رہا ہے۔</span>
+        </p>
+        
+        <div class="about-stats">
+          <div class="stat-item">
+            <h4>2016</h4>
+            <p>
+              <span class="en-text">Year Established</span>
+              <span class="ur-text">سالِ قیام</span>
+            </p>
+          </div>
+          <div class="stat-item">
+            <h4>
+              <span class="en-text">Global</span>
+              <span class="ur-text">عالمی</span>
+            </h4>
+            <p>
+              <span class="en-text">Digital Reach</span>
+              <span class="ur-text">ڈیجیٹل رسائی</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="pillars-wrapper">
+        <div class="pillars-grid">
+          <div class="pillar">
+            <div class="pillar-icon">تعلم</div>
+            <h4>
+              <span class="en-text">Education</span>
+              <span class="ur-text">تعلیم</span>
+            </h4>
+            <p>
+              <span class="en-text">Providing access to authentic Islamic knowledge alongside modern academic disciplines.</span>
+              <span class="ur-text">جدید عصری علوم کے ساتھ مستند اسلامی تعلیمات کی فراہمی۔</span>
+            </p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">تزكية</div>
+            <h4>
+              <span class="en-text">Personal Growth</span>
+              <span class="ur-text">تزکیہ نفس</span>
+            </h4>
+            <p>
+              <span class="en-text">Emphasizing character building and spiritual purification in light of the Quran and Sunnah.</span>
+              <span class="ur-text">قرآن و سنت کی روشنی میں کردار سازی اور روحانی پاکیزگی۔</span>
+            </p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">دعوة</div>
+            <h4>
+              <span class="en-text">Spiritual Awakening</span>
+              <span class="ur-text">دعوت و ارشاد</span>
+            </h4>
+            <p>
+              <span class="en-text">Propagating the message of Islam and inspiring individuals to lead ethically grounded lives.</span>
+              <span class="ur-text">اسلام کا پیغام پھیلانا اور اخلاقی زندگی گزارنے کی ترغیب دینا۔</span>
+            </p>
+          </div>
+          <div class="pillar">
+            <div class="pillar-icon">خدمة</div>
+            <h4>
+              <span class="en-text">Service to Humanity</span>
+              <span class="ur-text">خدمتِ خلق</span>
+            </h4>
+            <p>
+              <span class="en-text">Fostering a sense of community through welfare projects and meaningful acts of service.</span>
+              <span class="ur-text">فلاحی منصوبوں اور بامقصد خدمات کے ذریعے معاشرے کی خدمت۔</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATIONAL PROGRAMS -->
+<section id="programs" class="programs-section">
+  <div class="section-header">
+    <span class="section-label">
+      <span class="en-text">Divisions of Study</span>
+      <span class="ur-text">شعبہ جات</span>
+    </span>
+    <h2 class="section-title">
+      <span class="en-text">Comprehensive <em>Curricula</em></span>
+      <span class="ur-text">جامع <em>نصاب</em></span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="en-text">Tailored departments catering to diverse demographics, from traditional foundational courses to modern tech skills.</span>
+      <span class="ur-text">ہر طبقے کے لیے مخصوص تعلیمی پروگرامز، بنیادی روایتی کورسز سے لے کر جدید ٹیکنالوجی تک۔</span>
+    </p>
+  </div>
+
+  <div class="programs-grid">
+    <!-- Core Islamic Studies -->
+    <div class="program-card">
+      <div class="program-card-icon">أصول</div>
+      <h3>
+        <span class="en-text">Core Islamic Studies</span>
+        <span class="ur-text">بنیادی اسلامی علوم</span>
+      </h3>
+      <p>
+        <span class="en-text">Intensive on-campus foundational programs designed for deep immersion into traditional religious sciences. The institute charges no tuition fees, ensuring knowledge remains accessible.</span>
+        <span class="ur-text">کیمپس میں روایتی دینی علوم کے گہرائی سے مطالعے کے لیے خصوصی پروگرامز۔ ادارہ کوئی فیس وصول نہیں کرتا تاکہ تعلیم سب کے لیے عام ہو۔</span>
+      </p>
+      <ul class="program-list">
+        <li>
+          <span class="en-text">Basic Ilm-e-Deen Course (10 months)</span>
+          <span class="ur-text">بنیادی علمِ دین کورس (10 ماہ)</span>
+        </li>
+        <li>
+          <span class="en-text">Level-1 Fundamentals (6 months)</span>
+          <span class="ur-text">لیول 1 فنڈامینٹلز (6 ماہ)</span>
+        </li>
+        <li>
+          <span class="en-text">Level-2 Advanced (4 months)</span>
+          <span class="ur-text">لیول 2 ایڈوانسڈ (4 ماہ)</span>
+        </li>
+        <li>
+          <span class="en-text">Seerat Circles (Life of the Prophet ﷺ)</span>
+          <span class="ur-text">سیرت سرکلز (سیرت النبی ﷺ)</span>
+        </li>
+      </ul>
+      <div class="program-tags">
+        <span class="tag">
+          <span class="en-text">On-Campus</span>
+          <span class="ur-text">کیمپس</span>
+        </span>
+        <span class="tag">
+          <span class="en-text">Tuition-Free</span>
+          <span class="ur-text">مفت تعلیم</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Youth & Child Development -->
+    <div class="program-card">
+      <div class="program-card-icon">شباب</div>
+      <h3>
+        <span class="en-text">Youth & Child Development</span>
+        <span class="ur-text">نوجوانوں اور بچوں کی تربیت</span>
+      </h3>
+      <p>
+        <span class="en-text">Specialized leadership and character-building environments aimed at nurturing the next generation. Focusing on early moral development and helping modern youth navigate ideological conflicts.</span>
+        <span class="ur-text">نئی نسل کی پرورش کے لیے لیڈرشپ اور کردار سازی کا خصوصی ماحول، جو جدید نوجوانوں کو نظریاتی کشمکش سے نکلنے میں مدد فراہم کرتا ہے۔</span>
+      </p>
+      <ul class="program-list">
+        <li>
+          <span class="en-text">Shabab Al-Burhan (Teenagers & Young Adults)</span>
+          <span class="ur-text">شباب البرہان (نوجوانوں کے لیے)</span>
+        </li>
+        <li>
+          <span class="en-text">Atfal Al-Burhan (Young Children)</span>
+          <span class="ur-text">اطفال البرہان (بچوں کے لیے)</span>
+        </li>
+        <li>
+          <span class="en-text">Islamic Identity Cultivation</span>
+          <span class="ur-text">اسلامی تشخص کی آبیاری</span>
+        </li>
+        <li>
+          <span class="en-text">Character-Building Activities</span>
+          <span class="ur-text">کردار سازی کی سرگرمیاں</span>
+        </li>
+      </ul>
+      <div class="program-tags">
+        <span class="tag">
+          <span class="en-text">Leadership</span>
+          <span class="ur-text">قیادت</span>
+        </span>
+        <span class="tag">
+          <span class="en-text">Mentorship</span>
+          <span class="ur-text">رہنمائی</span>
+        </span>
+      </div>
+    </div>
+
+    <!-- Al-Burhan Academy (Online) -->
+    <div class="program-card">
+      <div class="program-card-icon">عالمي</div>
+      <h3>
+        <span class="en-text">Al-Burhan Academy</span>
+        <span class="ur-text">البرہان اکیڈمی</span>
+      </h3>
+      <p>
+        <span class="en-text">A massive catalog of free and paid online courses that uniquely blend religious education with cutting-edge modern secular skill development, reaching a global audience.</span>
+        <span class="ur-text">مفت اور بامعاوضہ آن لائن کورسز کا ایک وسیع ذخیرہ جو دینی تعلیم اور جدید دنیاوی مہارتوں کا بہترین امتزاج پیش کرتا ہے۔</span>
+      </p>
+      <ul class="program-list">
+        <li>
+          <span class="en-text">Hifz-ul-Quran, Tajweed & Fiqh</span>
+          <span class="ur-text">حفظِ قرآن، تجوید اور فقہ</span>
+        </li>
+        <li>
+          <span class="en-text">Live Interactive Arabic via Saudi Graduates</span>
+          <span class="ur-text">عربی زبان کے براہ راست کورسز</span>
+        </li>
+        <li>
+          <span class="en-text">AI, Deep Learning & Python</span>
+          <span class="ur-text">آرٹیفیشل انٹیلیجنس اور پائتھون</span>
+        </li>
+        <li>
+          <span class="en-text">Data Science & 3D Modeling (Blender)</span>
+          <span class="ur-text">ڈیٹا سائنس اور تھری ڈی ماڈلنگ</span>
+        </li>
+      </ul>
+      <div class="program-tags">
+        <span class="tag">
+          <span class="en-text">Online Portal</span>
+          <span class="ur-text">آن لائن پورٹل</span>
+        </span>
+        <span class="tag">
+          <span class="en-text">Tech Skills</span>
+          <span class="ur-text">جدید ٹیکنالوجی</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER SECTION -->
+<section id="founder">
+  <div class="founder-grid">
+    <div class="founder-image-wrap">
+      <div class="founder-placeholder"></div>
+      <div class="founder-name">المفتي</div>
+    </div>
+    <div class="founder-content">
+      <span class="founder-title">
+        <span class="en-text">The Visionary Architect</span>
+        <span class="ur-text">بانی و سرپرست</span>
+      </span>
+      <h3>
+        <span class="en-text">Mufti Syed Adnan Kakakhail</span>
+        <span class="ur-text">مفتی سید عدنان کاکاخیل</span>
+      </h3>
+      <p>
+        <span class="en-text">To truly understand Al-Burhan, one must look to its founder. Mufti Syed Adnan Kakakhail is a highly respected Pakistani Islamic scholar, debater, and public speaker. He is a direct descendant of the renowned spiritual figure <em>"Shaykh e Rahamkaar Hazrat Kaka Sahib."</em></span>
+        <span class="ur-text">البرہان کو حقیقی معنوں میں سمجھنے کے لیے اس کے بانی کو جاننا ضروری ہے۔ مفتی سید عدنان کاکاخیل پاکستان کے ایک انتہائی معزز اسلامی اسکالر، مناظر اور مقرر ہیں۔ آپ معروف روحانی شخصیت <em>"شیخِ رحمکار حضرت کاکا صاحب"</em> کی اولاد میں سے ہیں۔</span>
+      </p>
+      <p>
+        <span class="en-text">He frequently appears on national television channels such as Dunya News and Samaa as a panelist, bridging the gap between traditional Islamic thought and modern socio-political discourse. He has authored over 200 articles and several key publications on Shari'a-related subjects.</span>
+        <span class="ur-text">آپ اکثر قومی ٹیلی ویژن چینلز پر پینلسٹ کے طور پر نظر آتے ہیں اور روایتی اسلامی فکر اور جدید سماجی و سیاسی گفتگو کے درمیان خلیج کو پر کرتے ہیں۔ آپ 200 سے زائد مضامین اور شریعت سے متعلق کئی اہم اشاعتوں کے مصنف ہیں۔</span>
+      </p>
+      
+      <div class="credentials">
+        <div class="cred-item">
+          <span>
+            <span class="en-text">Education</span>
+            <span class="ur-text">تعلیم</span>
+          </span>
+          <strong>
+            <span class="en-text">Shahadah al-'Aalimiyyah, MA Political Science, LLB</span>
+            <span class="ur-text">شہادۃ العالمیہ، ایم اے پولیٹیکل سائنس، ایل ایل بی</span>
+          </strong>
+        </div>
+        <div class="cred-item">
+          <span>
+            <span class="en-text">Recognition</span>
+            <span class="ur-text">اعزازات</span>
+          </span>
+          <strong>
+            <span class="en-text">Presidential Award for Best Debater</span>
+            <span class="ur-text">صدارتی ایوارڈ برائے بہترین مناظر</span>
+          </strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUSES / GALLERY SECTION -->
+<section id="gallery">
+  <div class="section-header">
+    <span class="section-label" id="campuses">
+      <span class="en-text">Physical Presence</span>
+      <span class="ur-text">فزیکل کیمپسز</span>
+    </span>
+    <h2 class="section-title">
+      <span class="en-text">Campuses & <em>Community</em></span>
+      <span class="ur-text">کیمپس اور <em>کمیونٹی</em></span>
+    </h2>
+    <p class="section-subtitle">
+      <span class="en-text">While operating extensively online, Al-Burhan boasts prominent flagship campuses in Islamabad and Sialkot, frequently hosting seminars nationwide.</span>
+      <span class="ur-text">آن لائن وسیع خدمات کے ساتھ ساتھ، البرہان اسلام آباد اور سیالکوٹ میں شاندار کیمپسز رکھتا ہے جہاں ملک بھر میں سیمینارز منعقد کیے جاتے ہیں۔</span>
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://i.ytimg.com/vi/0hIYM_wAsfc/maxresdefault.jpg" alt="Islamic Architecture" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Al-Burhan</span>
+          <span class="ur-text">البرہان</span>
+        </h4>
+        <p>
+          <span class="en-text">Islamabad</span>
+          <span class="ur-text">اسلام آباد</span>
+        </p>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://i.ytimg.com/vi/nwVjJCjy7iQ/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGFEgWyhlMA8=&rs=AOn4CLCYdqulBR0xpK0gRud3DnNdkkE6ZQ" alt="Sialkot Campus" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Al-Burhan Sialkot</span>
+          <span class="ur-text">البرہان سیالکوٹ</span>
+        </h4>
+        <p>
+          <span class="en-text">Jamia Masjid Bilal, Kashmir Road</span>
+          <span class="ur-text">جامع مسجد بلال، کشمیر روڈ</span>
+        </p>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://media.licdn.com/dms/image/v2/D4D05AQEEjfJsUowkGw/feedshare-thumbnail_720_1280/feedshare-thumbnail_720_1280/0/1730696453066?e=2147483647&v=beta&t=vdWRIrvS5NUX0gYIAzCD2kFJhFyC8Lpr-9LGD-okbOE" alt="Study Circle" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Seerat Circles</span>
+          <span class="ur-text">سیرت سرکلز</span>
+        </h4>
+        <p>
+          <span class="en-text">Knowledge & Transmission</span>
+          <span class="ur-text">علم کی منتقلی</span>
+        </p>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdwD6_L-evDBLc8qCCYN-9kn26o2xUJyAFBhTqmOke7SaBAlqJqQYfFDk&s=10" alt="Youth Program" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Shabab Al-Burhan</span>
+          <span class="ur-text">شباب البرہان</span>
+        </h4>
+        <p>
+          <span class="en-text">Youth Leadership</span>
+          <span class="ur-text">نوجوانوں کی قیادت</span>
+        </p>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://media.licdn.com/dms/image/v2/D4D22AQHQmYen2uj4Sg/feedshare-shrink_800/B4DZWpRYm6H4Ag-/0/1742301662785?e=2147483647&v=beta&t=xLopzeDvo7mbZ1NWP9_gI43OOFcSiPuOCJ8JSE27u7E" alt="Tech Skills" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Classes Of Deen</span>
+          <span class="ur-text">دین کی کلاسز</span>
+        </h4>
+        <p>
+          <span class="en-text">Prophetic Times, Madaris Style</span>
+          <span class="ur-text">نبوی دور کی طرز پر</span>
+        </p>
+      </div>
+    </div>
+    <div class="gallery-item" onclick="openLightbox(this)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZtNGzLRRS04_JNnEeEru8LVcw9ci6ObQUWCUb1t5ZvbFgYsB64DnHjnM&s=10" alt="Arabic Manuscript" class="gallery-img">
+      <div class="gallery-overlay">
+        <h4>
+          <span class="en-text">Ustadh Sayyed Adnan Kakakhail</span>
+          <span class="ur-text">استاذ مفتی سید عدنان کاکاخیل</span>
+        </h4>
+        <p>
+          <span class="en-text">Live 1:1 Bayaan</span>
+          <span class="ur-text">براہ راست بیان</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <div id="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">
+      <span class="en-text">Close</span>
+      <span class="ur-text">بند کریں</span>
+      <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <img id="lightbox-img" src="" alt="Expanded Image">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+</div>
+
+<!-- GREENO STYLE FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="https://alburhan.org/wp-content/uploads/2025/10/AL-BURHAN-LOGO-1-scaled.png" alt="Al-Burhan Logo" class="footer-logo">
+      <p>
+        <span class="en-text">A premier institute dedicated to the seamless integration of traditional Islamic scholarship and contemporary academic excellence, serving humanity globally.</span>
+        <span class="ur-text">روایتی اسلامی علوم اور عصری تعلیم کا ایک ممتاز ادارہ جو انسانیت کی خدمت کے لیے عالمی سطح پر کوشاں ہے۔</span>
+      </p>
+      <div class="social-links">
+        <a href="https://youtube.com/MuftiSyedAdnanKakakhail" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+        <a href="https://facebook.com/alburhanorg" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+        <a href="https://twitter.com/Mufti_Kakakhail" aria-label="Twitter"><svg viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+        <a href="https://instagram.com/muftiadnankakakhail" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      </div>
+    </div>
+    
+    <div class="footer-links">
+      <h4>
+        <span class="en-text">Portals</span>
+        <span class="ur-text">پورٹلز</span>
+      </h4>
+      <ul>
+        <li><a href="https://al-burhan.org">
+          <span class="en-text">Main Organization</span>
+          <span class="ur-text">مرکزی ادارہ</span>
+        </a></li>
+        <li><a href="https://alburhansialkot.org">
+          <span class="en-text">Sialkot Campus</span>
+          <span class="ur-text">سیالکوٹ کیمپس</span>
+        </a></li>
+        <li><a href="https://alburhanacademy.com">
+          <span class="en-text">Online Academy</span>
+          <span class="ur-text">آن لائن اکیڈمی</span>
+        </a></li>
+        <li><a href="https://alburhan.academy">
+          <span class="en-text">Arabic Academy</span>
+          <span class="ur-text">عربی اکیڈمی</span>
+        </a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-links">
+      <h4>
+        <span class="en-text">Contact Info</span>
+        <span class="ur-text">رابطہ</span>
+      </h4>
+      <ul>
+        <li><a href="mailto:info@al-burhan.org">info@al-burhan.org</a></li>
+        <li><a href="tel:+923497772773">HQ: +92 349 777 2773</a></li>
+        <li><a href="tel:+923228740929">Sialkot: +92 322 8740929</a></li>
+        <li><a href="#">
+          <span class="en-text">WhatsApp Broadcast</span>
+          <span class="ur-text">واٹس ایپ براڈکاسٹ</span>
+        </a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-links">
+      <h4>
+        <span class="en-text">Programs</span>
+        <span class="ur-text">پروگرامز</span>
+      </h4>
+      <ul>
+        <li><a href="#">
+          <span class="en-text">Basic Ilm-e-Deen</span>
+          <span class="ur-text">بنیادی علمِ دین</span>
+        </a></li>
+        <li><a href="#">
+          <span class="en-text">Shabab Al-Burhan</span>
+          <span class="ur-text">شباب البرہان</span>
+        </a></li>
+        <li><a href="#">
+          <span class="en-text">Tech & Data Science</span>
+          <span class="ur-text">ٹیکنالوجی اور ڈیٹا سائنس</span>
+        </a></li>
+        <li><a href="#">
+          <span class="en-text">Seerat Circles</span>
+          <span class="ur-text">سیرت سرکلز</span>
+        </a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-massive-text">
+    <span class="en-text">AL-BURHAN</span>
+    <span class="ur-text">البرہان</span>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Al-Burhan Institute. <span class="en-text">All rights reserved.</span><span class="ur-text">جملہ حقوق محفوظ ہیں۔</span></p>
+    <p>
+      <span class="en-text">Designed with excellence.</span>
+      <span class="ur-text">بہترین ڈیزائن کے ساتھ۔</span>
+    </p>
+  </div>
+</footer>
+
+<script>
+  // ==========================================================================
+  // LANGUAGE TOGGLE LOGIC
+  // ==========================================================================
+  const langBtn = document.getElementById('lang-btn');
+  const htmlEl = document.documentElement;
+
+  // Initialize Language
+  const savedLang = localStorage.getItem('siteLang') || 'en';
+  setLanguage(savedLang);
+
+  langBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const currentLang = htmlEl.getAttribute('lang');
+    const newLang = currentLang === 'en' ? 'ur' : 'en';
+    setLanguage(newLang);
+  });
+
+  function setLanguage(lang) {
+    htmlEl.setAttribute('lang', lang);
+    htmlEl.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+    localStorage.setItem('siteLang', lang);
+  }
+
+  // ==========================================================================
+  // PRELOADER
+  // ==========================================================================
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    setTimeout(() => {
+      preloader.style.opacity = '0';
+      preloader.style.visibility = 'hidden';
+    }, 1200); 
+  });
+
+  // ==========================================================================
+  // MASHROOB STYLE NAVBAR (Scroll to minimize)
+  // ==========================================================================
+  const navbar = document.getElementById('navbar');
+  let lastScrollTop = 0;
+
+  window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > 80) {
+      navbar.classList.add('minimized');
+    } else {
+      navbar.classList.remove('minimized');
+    }
+    lastScrollTop = scrollTop;
+  });
+
+  navbar.addEventListener('click', () => {
+    if(navbar.classList.contains('minimized')) {
+      navbar.classList.remove('minimized');
+      setTimeout(() => {
+        if (window.pageYOffset > 80) {
+          navbar.classList.add('minimized');
+        }
+      }, 4000);
+    }
+  });
+
+  // ==========================================================================
+  // DARK/LIGHT MODE TOGGLE
+  // ==========================================================================
+  const themeBtn = document.getElementById('theme-btn');
+  const body = document.body;
+  
+  if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    body.classList.add('dark-mode');
+    updateThemeIcon(true);
+  }
+
+  themeBtn.addEventListener('click', (e) => {
+    e.stopPropagation(); 
+    body.classList.toggle('dark-mode');
+    const isDark = body.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    updateThemeIcon(isDark);
+    
+    if(particlesMaterial) {
+      particlesMaterial.color.setHex(isDark ? 0x60a5fa : 0x1e3a8a);
+    }
+  });
+
+  function updateThemeIcon(isDark) {
+    if(isDark) {
+      themeBtn.innerHTML = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    } else {
+      themeBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+    }
+  }
+
+  // ==========================================================================
+  // LIGHTBOX LOGIC
+  // ==========================================================================
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+
+  function openLightbox(element) {
+    const img = element.querySelector('img').src;
+    // Get visible text based on current language
+    const currentLang = document.documentElement.getAttribute('lang');
+    const captionEl = element.querySelector('h4');
+    const caption = currentLang === 'en' ? captionEl.querySelector('.en-text').innerText : captionEl.querySelector('.ur-text').innerText;
+    
+    lightboxImg.src = img;
+    lightboxCaption.innerText = caption;
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+  }
+
+  lightbox.addEventListener('click', (e) => {
+    if(e.target === lightbox || e.target.id === 'lightbox-content') {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
+  // ==========================================================================
+  // FLOATING CALLIGRAPHY MOTION GRAPHICS
+  // ==========================================================================
+  const arabicWords = ['العلم', 'النور', 'البرهان', 'التزكية', 'الحكمة', 'اقرأ', 'الفهم'];
+  const calligraphyLayer = document.getElementById('calligraphy-layer');
+
+  function spawnArabic() {
+    const el = document.createElement('div');
+    el.className = 'floating-arabic';
+    el.innerText = arabicWords[Math.floor(Math.random() * arabicWords.length)];
+    
+    const size = Math.random() * 80 + 40;
+    const left = Math.random() * 100;
+    const duration = Math.random() * 15 + 15;
+    
+    el.style.fontSize = `${size}px`;
+    el.style.left = `${left}vw`;
+    el.style.animationDuration = `${duration}s`;
+    
+    calligraphyLayer.appendChild(el);
+    
+    setTimeout(() => { el.remove(); }, duration * 1000);
+  }
+
+  for(let i=0; i<5; i++) { setTimeout(spawnArabic, i * 2000); }
+  setInterval(spawnArabic, 4000);
+
+  // ==========================================================================
+  // THREE.JS PARTICLES & GRAPHICS
+  // ==========================================================================
+  const container = document.getElementById('canvas-container');
+  let scene, camera, renderer, particlesMaterial, particleSystem;
+
+  function initThreeJS() {
+    scene = new THREE.Scene();
+    
+    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000);
+    camera.position.z = 200;
+
+    renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    const particleCount = 400;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const sizes = new Float32Array(particleCount);
+
+    for (let i = 0; i < particleCount; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 800; 
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 800;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 400;
+      sizes[i] = Math.random() * 2 + 0.5;
+    }
+
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+    const isDark = document.body.classList.contains('dark-mode');
+    const pColor = isDark ? 0x60a5fa : 0x1e3a8a;
+
+    particlesMaterial = new THREE.PointsMaterial({
+      color: pColor,
+      size: 2,
+      transparent: true,
+      opacity: 0.4,
+      blending: THREE.AdditiveBlending
+    });
+
+    particleSystem = new THREE.Points(geometry, particlesMaterial);
+    scene.add(particleSystem);
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+
+    document.addEventListener('mousemove', (event) => {
+      mouseX = (event.clientX - window.innerWidth / 2) * 0.05;
+      mouseY = (event.clientY - window.innerHeight / 2) * 0.05;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      particleSystem.rotation.y += 0.001;
+      particleSystem.rotation.x += 0.0005;
+
+      targetX = mouseX * 0.5;
+      targetY = mouseY * 0.5;
+      particleSystem.position.x += (targetX - particleSystem.position.x) * 0.05;
+      particleSystem.position.y += (-targetY - particleSystem.position.y) * 0.05;
+
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  }
+
+  if(typeof THREE !== 'undefined') {
+    initThreeJS();
+  } else {
+    window.onload = initThreeJS;
+  }
+</script>
+</body>
+</html>
